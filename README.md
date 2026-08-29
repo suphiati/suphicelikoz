@@ -167,12 +167,30 @@ llama.rn (cihaz-üstü GGUF modeli), ML Kit OCR, konuşma tanıma.
 
 ## 🖨️ CV çıktısı
 
-Sağ üstteki **CV İndir** butonu tarayıcının yazdırma penceresini açar.
-Sayfa yazdırılırken özel bir stil devreye girer: menü, animasyonlar, butonlar ve telefon
-maketleri gizlenir; içerik beyaz zeminli, iki sütunlu düzgün bir CV’ye dönüşür.
+Sağ üstteki **CV İndir** butonu tarayıcının yazdırma penceresini açar. Sayfa
+yazdırılırken tamamen farklı bir stil devreye girer ve **2–3 sayfalık** derli toplu
+bir CV çıkar. (Ekranda görünen site hiç değişmez.)
 
 **PDF olarak kaydetmek için:** Yazdır penceresinde hedef olarak
-“**PDF olarak kaydet / Save as PDF**” seç.
+“**PDF olarak kaydet / Save as PDF**” seç. Düzen **Dikey** olmalı.
+
+### Çıktıya giren / girmeyen
+
+| Girer | Girmez |
+| --- | --- |
+| Ad, unvanlar, özet, iletişim | Menü, butonlar, animasyonlar |
+| İstatistikler (10+ yıl, 5 uygulama…) | Bölüm giriş paragrafları (`.section-desc`) |
+| Hakkımda — ilk iki paragraf | Kalan anlatım + alıntı bloğu |
+| Kariyer zaman çizelgesi (tam) | “Uzmanlık Alanlarım” (zaman çizelgesiyle aynı bilgi) |
+| Projeler: ad, adres, tek satır tanım, teknolojiler | Projelerin Problem/Çözüm/Ölçek detayları |
+| Yetkinlikler (3 sütun), sertifikalar, eğitim | Telefon maketleri, kariyer akış görseli |
+
+> Bağlantıların yanına tam URL basılmıyor; proje adresleri zaten kartın üstünde
+> metin olarak yazılı, tekrarı sayfalarca yer kaplıyordu.
+
+**Daha kısa/uzun istersen** `assets/css/style.css` sonundaki `@media print` bloğunda:
+gizlenecekleri `display: none !important` listesine ekle/çıkar, genel boyut için
+`body { font-size: 8.6pt }` değerini oynat.
 
 > İstersen elde ettiğin PDF’i `assets/files/suphi-celikoz-cv.pdf` olarak kaydedip
 > butonu doğrudan o dosyaya bağlayabilirsin.

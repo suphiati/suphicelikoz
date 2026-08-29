@@ -1287,6 +1287,15 @@ html[data-theme="light"] .hero__photo-frame::after {
 
 /* 15 -- Yazdirma (sayfa dogrudan CV olarak ciktilanir) ---------------------- */
 @media print {
+  /* ------------------------------------------------------------------
+     Sayfa yazdirildiginda 2-3 sayfalik derli toplu bir CV'ye donusur.
+     Yaklasim: pazarlama metinlerini (bolum aciklamalari, uzun anlatim,
+     tekrar eden bolumler) at, olgusal icerigi (deneyim, egitim,
+     yetkinlik, sertifika, proje) sikistirarak birak.
+     ------------------------------------------------------------------ */
+
+  @page { margin: 12mm 12mm 10mm; }
+
   :root {
     --bg: #fff; --surface: #fff; --surface-2: #fff; --surface-3: #fff;
     --text: #111; --text-soft: #333; --muted: #555;
@@ -1295,36 +1304,140 @@ html[data-theme="light"] .hero__photo-frame::after {
     --brand-dim: #eef3fa; --cyan-dim: #eef3fa;
     --shadow: none; --shadow-lg: none;
   }
-  body { background: #fff; color: #111; font-size: 10.5pt; line-height: 1.45; }
+
+  body { background: #fff; color: #111; font-size: 8.6pt; line-height: 1.32; }
   body::before, body::after { display: none; }
+
+  /* --- Yazdirmada hic gorunmeyecekler ------------------------------- */
   .header, .to-top, .lightbox, .filters, .hero__cta, .hero__social,
   .cta-band, .footer nav, .hero__badge, .hero__photo-glow,
-  .project__links, .app__links, .cert__btn, .skip-link, .print-hide { display: none !important; }
-  .section { padding: 14pt 0; break-inside: avoid; }
+  .project__links, .app__links, .cert__btn, .skip-link, .print-hide,
+  /* Telefon maketleri kagitta anlamsiz; bolumun tamami cikarilir */
+  #uygulamalar, #apps, .hero__status,
+  /* Bolum giris paragraflari ve dekoratif etiketler - CV'de yer kaplar */
+  .section-desc, .eyebrow,
+  /* "Uzmanlik Alanlarim": icerigi zaman cizelgesi + yetkinliklerle ayni */
+  #uzmanlik, #expertise,
+  /* Kariyer akisi gorseli ve alintili blok - anlatim, veri degil */
+  .flow, .about__quote,
+  /* Proje kartlarindaki Problem/Cozum/Olcek detaylari */
+  .project__meta,
+  /* Tek satirlik aciklama notlari */
+  .skillset__note, .cert p, .app__body, .domain p, .domain ul,
+  .tl-kind {
+    display: none !important;
+  }
+
+  /* Hakkimda: ilk iki paragraf profesyonel ozet olarak kalir,
+     geri kalan anlatim yazdirilmaz. */
+  .about__text > *:nth-child(n+3) { display: none !important; }
+
+  /* --- Sayfa akisi -------------------------------------------------- */
+  .section { padding: 7pt 0; }
   .section--alt { background: none; border: none; }
-  .hero { padding: 0 0 12pt; }
+  .section-head { margin-bottom: 7pt; max-width: none; }
+  .section-title { font-size: 12.5pt; }
+  .wrap { width: 100%; }
+
+  h2, h3 { break-after: avoid; }
+  h2 { break-before: auto; }
+  p { orphans: 2; widows: 2; }
+
+  /* --- Hero --------------------------------------------------------- */
+  .hero { padding: 0 0 7pt; }
   /* A4 dikey kagit 794px genisligindedir, yani "max-width: 900px" mobil
      sorgusu yazdirmada da eslesir. O blok fotografa "order: -1" veriyor;
      burada sifirlanmazsa fotograf genis 1fr sutununa, metin de dar 150px
-     sutununa duser ve metin kelime kelime sarar. A4 yatayda (1123px)
-     sorgu eslesmedigi icin sorun yalnizca dikeyde gorunurdu. */
-  .hero__grid { grid-template-columns: 1fr 150px; gap: 18pt; align-items: start; }
+     sutununa duser ve metin kelime kelime sarar. */
+  .hero__grid { grid-template-columns: 1fr 118px; gap: 12pt; align-items: start; }
   .hero__intro { order: 0; }
-  .hero__photo { order: 0; width: 150px; }
-  .hero__photo-frame { box-shadow: none; border: 1px solid #ccc; }
-  .hero__title { font-size: 24pt; }
-  .card, .project, .tl-card, .cert, .domain, .edu-item, .skillset, .contact-card {
+  .hero__photo { order: 0; width: 118px; }
+  .hero__photo-frame { box-shadow: none; border: 1px solid #ccc; border-radius: 6pt; }
+  .hero__title { font-size: 19pt; line-height: 1.05; }
+  .hero__roles { margin-top: 5pt; font-size: 8pt; gap: 3pt 8pt; }
+  .hero__lead { margin-top: 6pt; font-size: 9pt; max-width: none; }
+  .stats { grid-template-columns: repeat(4, 1fr); gap: 5pt; margin-top: 9pt; }
+  .stat { padding: 6pt 8pt; }
+  .stat__num { font-size: 14pt; }
+  .stat__label { margin-top: 2pt; font-size: 7.4pt; }
+
+  /* --- Kartlar ------------------------------------------------------- */
+  .card, .project, .tl-card, .cert, .edu-item, .skillset, .contact-card {
     border: 1px solid #d5dae3 !important;
     background: #fff !important;
     box-shadow: none !important;
     break-inside: avoid;
     backdrop-filter: none;
+    border-radius: 5pt;
   }
-  .projects, .certs, .skills, .domains, .contact { grid-template-columns: 1fr 1fr; gap: 8pt; }
-  .apps { display: none; }
-  .stats { grid-template-columns: repeat(4, 1fr); }
+  .tag { padding: 1pt 5pt; font-size: 7pt; border-radius: 3pt; }
+
+  /* --- Kariyer zaman cizelgesi --------------------------------------- */
+  .timeline { padding-left: 16pt; }
+  .timeline::before { left: 5pt; background: #c8d0dc; opacity: 1; }
+  .tl-item { padding-bottom: 6pt; }
+  .tl-item::before { left: -13.5pt; top: 9pt; width: 6pt; height: 6pt; box-shadow: none; }
+  .tl-card { padding: 6pt 9pt; }
+  .tl-head { margin-bottom: 2pt; gap: 4pt 8pt; }
+  .tl-year { padding: 0; background: none; font-size: 8pt; }
+  .tl-card h3 { font-size: 9.6pt; }
+  .tl-org { margin-top: 1pt; font-size: 8.4pt; }
+  .tl-card p { margin-top: 3pt; font-size: 8.2pt; }
+  .tl-tags { gap: 3pt; margin-top: 4pt; }
+
+  /* --- Projeler ------------------------------------------------------ */
+  .projects { grid-template-columns: 1fr 1fr; gap: 6pt; }
+  .project { padding: 7pt 9pt; }
+  .project__top { margin-bottom: 5pt; }
+  .project__icon { width: 22pt; height: 22pt; border-radius: 4pt; }
+  .project__icon svg { width: 12pt; height: 12pt; }
+  .project__kind { padding: 1pt 5pt; font-size: 6.6pt; }
+  .project h3 { font-size: 9.6pt; }
+  .project__url { margin-top: 1pt; font-size: 7.6pt; }
+  .project p { margin-top: 3pt; font-size: 8.2pt; }
+  .project__tags { gap: 3pt; margin-top: 5pt; }
+
+  /* --- Yetkinlikler / sertifikalar / egitim / iletisim ---------------- */
+  .skills, .certs { grid-template-columns: 1fr 1fr 1fr; gap: 6pt; }
+  .skillset { padding: 7pt 9pt; }
+  .skillset__head { gap: 6pt; margin-bottom: 5pt; }
+  .skillset__head i { width: 16pt; height: 16pt; border-radius: 4pt; }
+  .skillset__head i svg { width: 9pt; height: 9pt; }
+  .skillset h3 { font-size: 9pt; }
+  .skillset ul { gap: 3pt; }
+
+  .cert { padding: 7pt 9pt; }
+  .cert::after { display: none; }
+  .cert__seal { width: 18pt; height: 18pt; margin-bottom: 5pt; border-radius: 4pt; }
+  .cert__seal svg { width: 10pt; height: 10pt; }
+  .cert h3 { font-size: 9pt; }
+  .cert__issuer { margin-top: 1pt; font-size: 7.6pt; }
+
+  .edu { gap: 5pt; }
+  .edu-item { padding: 6pt 9pt; grid-template-columns: 90pt minmax(0, 1fr); gap: 9pt; }
+  .edu-item__years { font-size: 8.2pt; }
+  .edu-item h3 { font-size: 9.2pt; }
+  .edu-item span { margin-top: 0; font-size: 8.2pt; }
+
+  .contact { grid-template-columns: repeat(5, 1fr); gap: 5pt; }
+  .contact-card { padding: 7pt; gap: 1pt; }
+  .contact-card i { width: 16pt; height: 16pt; margin-bottom: 4pt; border-radius: 4pt; }
+  .contact-card i svg { width: 9pt; height: 9pt; }
+  .contact-card small { font-size: 6.6pt; }
+  .contact-card b { font-size: 8pt; }
+
+  /* --- Hakkimda ------------------------------------------------------ */
+  .about { grid-template-columns: 1fr; gap: 0; }
+  .about__text p { margin-bottom: 4pt; font-size: 8.6pt; }
+
+  /* --- Footer -------------------------------------------------------- */
+  .footer { padding: 8pt 0 0; background: none; }
+  .footer p { font-size: 7.6pt; }
+
+  /* --- Renk / animasyon ---------------------------------------------- */
   .reveal { opacity: 1 !important; transform: none !important; }
-  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 7.5pt; color: #555; word-break: break-all; }
   .grad-text, .stat__num { color: #14497f !important; -webkit-text-fill-color: #14497f; }
-  h2, h3 { break-after: avoid; }
+
+  /* Proje adreslerinin altinda URL zaten yazili oldugu icin baglantilarin
+     yanina ayrica URL basilmiyor - sayfalarca yer kaplıyordu. */
 }
