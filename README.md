@@ -31,20 +31,26 @@ Suphi CV/
 
 ## ✅ Yayına almadan önce yapman gerekenler
 
-### 1. Fotoğrafın  ✅ eklendi — ama çözünürlüğü düşük
+### 1. Fotoğrafın  ✅ tamam
 
 Fotoğraf `assets/img/suphifoto.png` yolunda ve sitede görünüyor.
 
-**Ancak:** dosya **215×265 px**. Hero bölümünde **378×467 px** olarak gösteriliyor,
-yani **1,76 kat büyütülüyor** — retina/yüksek DPI ekranlarda bu 3,5 kata çıkıyor ve
-fotoğraf gözle görülür şekilde yumuşak/bulanık görünüyor. Sayfanın ilk görülen öğesi
-olduğu için burası önemli.
+Dosya **215×265 px** olduğu için gösterim boyutu buna göre ayarlandı — büyütme
+oranı düşük tutuldu ki fotoğraf net görünsün:
 
-**Yapılacak:** aynı fotoğrafın yüksek çözünürlüklü orijinalini
-**en az 760×938 px** (tercihen 800×990) olacak şekilde aynı isimle kaydet:
+| Ekran | Gösterim | Büyütme |
+| --- | --- | --- |
+| Masaüstü (≥900px) | 288×356 | 1,34× |
+| Tablet / mobil | 248×307 | 1,16× |
 
-```
-assets/img/suphifoto.png
+**İleride yüksek çözünürlüklü orijinali bulursan** (en az 760×938 px), aynı isimle
+üzerine yaz ve fotoğrafı büyütmek için `assets/css/style.css` içinde iki değeri
+geri çıkar:
+
+```css
+.hero__photo { width: min(100%, 290px); }   /* → 380px */
+/* @media (max-width: 900px) içinde: */
+.hero__photo { width: min(100%, 250px); }   /* → 300px */
 ```
 
 En/boy oranı **0,81** (yaklaşık 3:3,7) olmalı — mevcut fotoğrafın oranı zaten bu,
@@ -52,10 +58,6 @@ yani orijinali olduğu gibi büyük kaydetmen yeterli, kırpmaya gerek yok.
 JPG de olur; o durumda `index.html` ve `en.html` içindeki `suphifoto.png` yazan
 4 yeri yeni uzantıyla değiştir.
 
-> **Yüksek çözünürlüklü dosya bulamazsan** alternatif: `assets/css/style.css` içinde
-> `.hero__photo { width: min(100%, 380px); }` satırındaki `380px` değerini `290px` yap.
-> Fotoğraf küçülür ama net görünür.
->
 > Fotoğraf hiç olmazsa site kırılmaz — otomatik olarak “SAÇ” baş harfli görsel gösterilir.
 
 ### 2. Sertifika görsellerini ekle  (opsiyonel ama tavsiye edilir)

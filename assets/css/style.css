@@ -542,7 +542,9 @@ html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
 }
 
 /* Fotograf */
-.hero__photo { position: relative; justify-self: center; width: min(100%, 380px); }
+/* 290px: portre 215x265 px oldugundan daha genis gosterimde yumusak duruyordu.
+   Daha yuksek cozunurluklu bir dosya konursa 380px'e geri cikarilabilir. */
+.hero__photo { position: relative; justify-self: center; width: min(100%, 290px); }
 .hero__photo-frame {
   position: relative;
   border-radius: var(--radius-lg);
@@ -641,7 +643,7 @@ html[data-theme="light"] .hero__photo-frame::after {
 
 @media (max-width: 900px) {
   .hero__grid { grid-template-columns: 1fr; }
-  .hero__photo { order: -1; width: min(100%, 300px); }
+  .hero__photo { order: -1; width: min(100%, 250px); }
   .hero__badge--tl { left: -8%; }
   .hero__badge--br { right: -8%; }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
