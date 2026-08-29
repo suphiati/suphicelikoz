@@ -1,0 +1,5 @@
+# Yerel onizleme sunucusu ve editor ayarlari - siteye dahil degil
+.claude/
+.DS_Store
+Thumbs.db
+node_modules/

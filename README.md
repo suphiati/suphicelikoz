@@ -1,0 +1,237 @@
+# Suphi Atılım ÇELİKÖZ — Kişisel Marka Sitesi
+
+Tek sayfalık, çerçevesiz (framework yok), tamamen statik kişisel tanıtım sitesi.
+Türkçe ve İngilizce sürümleri var. Hiçbir kurulum gerektirmez — `index.html` dosyasını
+çift tıklayarak da açabilirsin.
+
+---
+
+## 📁 Dosya yapısı
+
+```
+Suphi CV/
+├─ index.html              ← Türkçe ana sayfa
+├─ en.html                 ← İngilizce sürüm
+├─ robots.txt              ← Arama motoru yönergesi
+├─ sitemap.xml             ← Site haritası (alan adını değiştirmeyi unutma)
+└─ assets/
+   ├─ css/style.css        ← Tüm stiller (tema, yazdırma/CV dahil)
+   ├─ js/main.js           ← Tüm etkileşimler (bağımlılık yok)
+   ├─ files/               ← PDF CV vb. koyacaksan buraya
+   └─ img/
+      ├─ favicon.svg       ← Sekme ikonu
+      ├─ suphi.jpg         ← ⚠️ PORTRE FOTOĞRAFIN — buraya koy
+      ├─ og-cover.jpg      ← (opsiyonel) sosyal medya paylaşım görseli 1200×630
+      ├─ apps/             ← (opsiyonel) uygulama ekran görüntüleri
+      └─ certs/            ← (opsiyonel) sertifika belgeleri
+```
+
+---
+
+## ✅ Yayına almadan önce yapman gerekenler
+
+### 1. Fotoğrafın  ✅ eklendi — ama çözünürlüğü düşük
+
+Fotoğraf `assets/img/suphifoto.png` yolunda ve sitede görünüyor.
+
+**Ancak:** dosya **215×265 px**. Hero bölümünde **378×467 px** olarak gösteriliyor,
+yani **1,76 kat büyütülüyor** — retina/yüksek DPI ekranlarda bu 3,5 kata çıkıyor ve
+fotoğraf gözle görülür şekilde yumuşak/bulanık görünüyor. Sayfanın ilk görülen öğesi
+olduğu için burası önemli.
+
+**Yapılacak:** aynı fotoğrafın yüksek çözünürlüklü orijinalini
+**en az 760×938 px** (tercihen 800×990) olacak şekilde aynı isimle kaydet:
+
+```
+assets/img/suphifoto.png
+```
+
+En/boy oranı **0,81** (yaklaşık 3:3,7) olmalı — mevcut fotoğrafın oranı zaten bu,
+yani orijinali olduğu gibi büyük kaydetmen yeterli, kırpmaya gerek yok.
+JPG de olur; o durumda `index.html` ve `en.html` içindeki `suphifoto.png` yazan
+4 yeri yeni uzantıyla değiştir.
+
+> **Yüksek çözünürlüklü dosya bulamazsan** alternatif: `assets/css/style.css` içinde
+> `.hero__photo { width: min(100%, 380px); }` satırındaki `380px` değerini `290px` yap.
+> Fotoğraf küçülür ama net görünür.
+>
+> Fotoğraf hiç olmazsa site kırılmaz — otomatik olarak “SAÇ” baş harfli görsel gösterilir.
+
+### 2. Sertifika görsellerini ekle  (opsiyonel ama tavsiye edilir)
+
+Sertifika kartlarındaki **Görüntüle** butonu bir pencere açar. Belgeleri şu adlarla koyarsan
+otomatik görünürler; koymazsan pencerede “henüz eklenmedi” notu çıkar:
+
+```
+assets/img/certs/istqb.jpg
+assets/img/certs/sdet.jpg
+assets/img/certs/udemy-fullstack.jpg
+assets/img/certs/btk-testing.jpg
+```
+
+### 3. Uygulama ekran görüntüleri  (opsiyonel)
+
+**Uygulama simgeleri ✅ eklendi.** Telefon maketlerinin içinde artık gerçek Play Store
+simgelerin görünüyor. Kaynak projelerden alınıp 192×192 px'e küçültüldüler
+(2,9 MB → 237 KB):
+
+| Dosya                                    | Kaynak proje         |
+| ---------------------------------------- | -------------------- |
+| `assets/img/apps/icon-kuryevenakliyat.png` | `tasiapp`            |
+| `assets/img/apps/icon-benimkasam.png`      | `benim_kasam`        |
+| `assets/img/apps/icon-focuslife.png`       | `pomodoro-sayaci`    |
+| `assets/img/apps/icon-hafizatutucum.png`   | `Hafiza-tutucum`     |
+| `assets/img/apps/icon-marketlistem.png`    | `market-listem`      |
+
+> Simgeyi güncellersen aynı isimle üzerine yaz; 192×192 px yeterli.
+
+Simgenin altındaki ekran içeriği stilize bir ön izleme — ama artık **gerçek ekranlarına göre**
+yazıldı (Market Listem’de “Listelerim / Paylaşılan liste / Kıyasla”, Kurye ve Nakliyat’ta
+“Yeni Nakliye · Kurye · Yük / Teklifleri karşılaştır” gibi).
+
+> **Not:** `store-assets` klasörlerindeki mağaza görsellerini kullanmadım. Onlar telefon
+> çerçevesi ve başlık metni içeren **pazarlama tasarımları**; telefon maketinin içine
+> konulunca telefon-içinde-telefon görünüyorlar.
+
+Gerçek ekran görüntüsü koymak istersen, telefondan **ham ekran görüntüsü** al (çerçevesiz,
+yazısız) ve şu adlarla kaydet — telefonun tamamını kaplayarak stilize ön izlemenin yerine geçer:
+
+```
+assets/img/apps/kuryevenakliyat.png
+assets/img/apps/benimkasam.png
+assets/img/apps/focuslife.png
+assets/img/apps/hafizatutucum.png
+assets/img/apps/marketlistem.png
+```
+
+> Boyut: yaklaşık 1080×2220 px (telefon ekran görüntüsü oranı).
+
+### 4. Sosyal bağlantılar  ✅ eklendi
+
+Gerçek adresler yerine kondu (her iki dilde, hem hero hem iletişim bölümünde):
+
+| Platform     | Adres                                                              |
+| ------------ | ------------------------------------------------------------------ |
+| LinkedIn     | `https://www.linkedin.com/in/suphi-atilim-celikoz/`                  |
+| GitHub       | `https://github.com/suphiati`                                        |
+| Google Play  | `https://play.google.com/store/apps/developer?id=RiskManage+Studio`  |
+
+Aynı üç adres `schema.org` verisine `sameAs` olarak da eklendi — Google’ın bu profilleri
+seninle aynı kişi olarak eşleştirmesini sağlar.
+
+### 5. Şirket adı  ⚠️ karar senin
+
+Google Play geliştirici hesabın **RiskManage Studio** adına kayıtlı. Sitede şirketin şu an
+“Kendi Yazılım Şirketim” diye geçiyor. Eğer RiskManage Studio kurduğun şirketin adıysa,
+adıyla anmak çok daha güçlü durur. Değiştirilecek yerler:
+
+- `index.html` → kariyer zaman çizelgesinde `<span class="tl-org">Kendi Yazılım Şirketim</span>`
+- `en.html` → `<span class="tl-org">My own software company</span>`
+
+### 6. Alan adını güncelle
+
+`suphicelikoz.com` örnek olarak yazıldı. Şu dosyalarda geçiyor:
+
+- `index.html` ve `en.html` → `canonical`, `hreflang`, `og:url`, JSON-LD
+- `sitemap.xml`
+- `robots.txt`
+
+Kendi alan adınla değiştir (ya da GitHub Pages adresinle).
+
+### 7. Teknoloji etiketleri  ✅ projelerden doğrulandı
+
+Yetkinlikler bölümü, yedi proje klasörünün `package.json` dosyaları okunarak yeniden yazıldı.
+Artık listedeki her kalem gerçekten kullandığın bir teknoloji.
+
+**Kaldırılanlar** (hiçbir projede yok): Vue, Flutter, Dart, Express, MongoDB,
+Selenium, Appium, TestNG, JUnit, Cucumber, TensorFlow Lite, MediaPipe, NLP, Computer Vision.
+
+**Eklenenler** (projelerde fiilen var): TypeScript, Next.js, Tailwind CSS, Vite, Zustand,
+TanStack Query, Zod, React Hook Form, Supabase (Postgres/Auth/Realtime/Storage/Edge Functions),
+Firebase, React Native, Expo, Expo Router, Capacitor, EAS Build, Playwright, Vitest, Jest,
+Sentry, Resend, next-intl, Vercel, Anthropic Claude API, Google Gemini, OpenAI API,
+llama.rn (cihaz-üstü GGUF modeli), ML Kit OCR, konuşma tanıma.
+
+> Yeni bir teknolojiye geçtiğinde etiketi eklemek/çıkarmak tek satır:
+> `<li><span class="tag">Yeni Teknoloji</span></li>`
+
+---
+
+## 🖨️ CV çıktısı
+
+Sağ üstteki **CV İndir** butonu tarayıcının yazdırma penceresini açar.
+Sayfa yazdırılırken özel bir stil devreye girer: menü, animasyonlar, butonlar ve telefon
+maketleri gizlenir; içerik beyaz zeminli, iki sütunlu düzgün bir CV’ye dönüşür.
+
+**PDF olarak kaydetmek için:** Yazdır penceresinde hedef olarak
+“**PDF olarak kaydet / Save as PDF**” seç.
+
+> İstersen elde ettiğin PDF’i `assets/files/suphi-celikoz-cv.pdf` olarak kaydedip
+> butonu doğrudan o dosyaya bağlayabilirsin.
+
+---
+
+## 🚀 Yayına alma
+
+### Seçenek A — Netlify (en kolay)
+
+1. [app.netlify.com/drop](https://app.netlify.com/drop) adresini aç
+2. Bu klasörü olduğu gibi tarayıcıya sürükle
+3. Site birkaç saniyede yayında. Ayarlardan kendi alan adını bağlayabilirsin.
+
+### Seçenek B — GitHub Pages
+
+```bash
+git init
+git add .
+git commit -m "Kisisel site"
+git branch -M main
+git remote add origin https://github.com/KULLANICI-ADIN/KULLANICI-ADIN.github.io.git
+git push -u origin main
+```
+
+Repo → **Settings → Pages → Branch: main / root** seç. Adres:
+`https://KULLANICI-ADIN.github.io`
+
+### Seçenek C — Vercel
+
+```bash
+npx vercel
+```
+
+Build komutu yok, output dizini bu klasör. Statik site olarak otomatik algılanır.
+
+---
+
+## 🎨 Renkleri değiştirmek
+
+Tüm renk paleti `assets/css/style.css` dosyasının en üstündeki `:root` bloğunda:
+
+```css
+--brand: #2e7dff;   /* elektrik mavisi — ana vurgu */
+--cyan:  #22d3ee;   /* ikincil vurgu */
+--bg:    #060a15;   /* koyu lacivert zemin */
+```
+
+Açık tema renkleri hemen altındaki `html[data-theme="light"]` bloğunda.
+
+---
+
+## 🔧 Teknik notlar
+
+- **Bağımlılık yok.** Sadece Google Fonts dışarıdan yükleniyor; internet olmasa da site çalışır
+  (sistem yazı tipine düşer).
+- **Tema:** koyu/açık geçiş sağ üstteki butonla, tercih `localStorage`’a kaydedilir.
+  İlk açılışta işletim sistemi tercihine uyar.
+- **Erişilebilirlik:** klavyeyle tam gezinilebilir, `skip link`, `aria` etiketleri,
+  `prefers-reduced-motion` desteği var.
+- **SEO:** Open Graph, `hreflang`, `sitemap.xml` ve schema.org `Person` yapılandırılmış verisi eklendi.
+- **Spam koruması:** e-posta ve telefon HTML içinde düz metin olarak yazılmaz,
+  JavaScript ile birleştirilir. Basit botlar toplayamaz.
+- **Tarayıcı desteği:** Chrome, Edge, Firefox, Safari güncel sürümler.
+  `color-mix()` kullanıldığı için çok eski tarayıcılarda renkler sadeleşir, düzen bozulmaz.
+
+---
+
+> `.claude/` klasoru yalnizca yerel onizleme icindir (bagimliliksiz kucuk bir
+> statik sunucu). Siteyi yayina alirken gerekmez; `.gitignore` icinde haric tutuldu.

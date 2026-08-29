@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suphi Atılım ÇELİKÖZ — Mining Engineer · DGSA · Software Developer</title>
+
+<meta name="description" content="Suphi Atılım ÇELİKÖZ — Mining Engineer, Dangerous Goods Safety Adviser (ADR / IATA DGR) and software developer. I combine field experience with software to build digital solutions for logistics and dangerous goods transport.">
+<meta name="author" content="Suphi Atılım ÇELİKÖZ">
+<meta name="keywords" content="Suphi Atilim Celikoz, DGSA, Dangerous Goods Safety Adviser, ADR, IATA DGR, Mining Engineer, Software Developer, SDET, ISTQB, logistics software">
+<link rel="canonical" href="https://suphicelikoz.com/en.html">
+<link rel="alternate" hreflang="tr" href="https://suphicelikoz.com/">
+<link rel="alternate" hreflang="en" href="https://suphicelikoz.com/en.html">
+<link rel="alternate" hreflang="x-default" href="https://suphicelikoz.com/">
+
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Suphi Atılım ÇELİKÖZ — Mining Engineer · DGSA · Software Developer">
+<meta property="og:description" content="From engineering to logistics, from logistics to software. Digital solutions built by someone who knows the field.">
+<meta property="og:url" content="https://suphicelikoz.com/en.html">
+<meta property="og:image" content="https://suphicelikoz.com/assets/img/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="theme-color" content="#060a15">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem("sac-theme");
+    var theme = saved || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    document.documentElement.setAttribute("data-theme", theme);
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute("content", theme === "light" ? "#f4f7fc" : "#060a15");
+  } catch (e) {}
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Suphi Atılım ÇELİKÖZ",
+  "jobTitle": ["Dangerous Goods Safety Adviser", "Software Developer", "Mining Engineer"],
+  "email": "mailto:suphi.celikoz@gmail.com",
+  "telephone": "+90-554-794-85-90",
+  "url": "https://suphicelikoz.com/en.html",
+  "image": "https://suphicelikoz.com/assets/img/suphifoto.png",
+  "knowsLanguage": ["tr", "en"],
+  "sameAs": [
+    "https://www.linkedin.com/in/suphi-atilim-celikoz/",
+    "https://github.com/suphiati",
+    "https://play.google.com/store/apps/developer?id=RiskManage+Studio"
+  ],
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "Dokuz Eylul University" },
+    { "@type": "CollegeOrUniversity", "name": "Anadolu University" }
+  ],
+  "knowsAbout": ["ADR", "IATA DGR", "Dangerous Goods Transport", "Software Development", "Test Automation", "Logistics"]
+}
+</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ══ HEADER ═══════════════════════════════════════════════════════════ -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a class="brand" href="#top" aria-label="Home">
+      <span class="brand__mark">SAÇ</span>
+      <span>
+        <span class="brand__name">Suphi Atılım ÇELİKÖZ</span>
+        <span class="brand__role">DGSA · Developer</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Main menu">
+      <a href="#about">About</a>
+      <a href="#journey">Career</a>
+      <a href="#projects">Projects</a>
+      <a href="#apps">Apps</a>
+      <a href="#skills">Skills</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header__actions">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <a href="index.html">TR</a>
+        <a href="en.html" aria-current="true">EN</a>
+      </div>
+
+      <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="Toggle light / dark theme" title="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+
+      <button class="btn btn--primary btn--sm header__cv" id="printCv" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        <span class="header__cv-label">Download CV</span>
+      </button>
+
+      <button class="icon-btn burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- ══ HERO ═════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__intro">
+        <div class="hero__status reveal">
+          <span class="hero__dot"></span>
+          Available for new projects and collaborations
+        </div>
+
+        <h1 class="hero__title reveal" style="--d:60ms">
+          <span>Suphi Atılım</span>
+          <span class="grad-text">ÇELİKÖZ</span>
+        </h1>
+
+        <ul class="hero__roles reveal" style="--d:120ms">
+          <li>Mining Engineer</li>
+          <li>DGSA</li>
+          <li>Software Developer</li>
+          <li>SDET</li>
+          <li>Founder</li>
+        </ul>
+
+        <p class="hero__lead reveal" style="--d:180ms">
+          <strong>From engineering to logistics, from logistics to software.</strong>
+          I bring 10+ years of field experience in mining and dangerous goods transport
+          into software, building digital products that solve problems I have personally
+          run into on the job.
+        </p>
+
+        <div class="hero__cta reveal" style="--d:240ms">
+          <a class="btn btn--primary" href="#projects">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h20v13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>
+            View Projects
+          </a>
+          <a class="btn btn--ghost" href="#contact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg>
+            Get in Touch
+          </a>
+        </div>
+
+        <div class="hero__social reveal" style="--d:300ms">
+          <span>Links</span>
+          <a class="icon-btn" href="https://www.linkedin.com/in/suphi-atilim-celikoz/" target="_blank" rel="noopener" aria-label="LinkedIn profile" title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.2 8.75h3.5V21H3.2zM9.5 8.75H13v1.67h.05c.49-.88 1.68-1.81 3.45-1.81 3.7 0 4.38 2.3 4.38 5.3V21h-3.5v-5.4c0-1.29-.02-2.95-1.85-2.95-1.85 0-2.13 1.4-2.13 2.86V21H9.5z"/></svg>
+          </a>
+          <a class="icon-btn" href="https://github.com/suphiati" target="_blank" rel="noopener" aria-label="GitHub profile" title="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+          </a>
+          <a class="icon-btn" href="https://play.google.com/store/apps/developer?id=RiskManage+Studio" target="_blank" rel="noopener" aria-label="Google Play apps" title="Google Play">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.6-9.7zM14.6 10.5 5.5 1.6l9.9 5.6zM17.6 12l3.3 1.9c.7.4.7 1.4 0 1.8l-3.4 1.9-3.4-3.3zM5.5 22.4l9.1-8.9 1.8 1.8z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <figure class="hero__photo reveal" style="--d:160ms">
+        <span class="hero__photo-glow" aria-hidden="true"></span>
+        <div class="hero__photo-frame">
+          <img src="assets/img/suphifoto.png" alt="Portrait of Suphi Atılım ÇELİKÖZ" width="600" height="740"
+               onerror="this.outerHTML='&lt;div class=&quot;hero__photo-fallback&quot;&gt;SAÇ&lt;/div&gt;'">
+        </div>
+        <div class="hero__badge hero__badge--tl">
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.2 2.5 16.5a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.2a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></i>
+          <span><b>DGSA</b><small>ADR · IATA DGR</small></span>
+        </div>
+        <div class="hero__badge hero__badge--br">
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></i>
+          <span><b>ISTQB® · SDET</b><small>Software Testing</small></span>
+        </div>
+      </figure>
+    </div>
+
+    <div class="stats">
+      <div class="stat card reveal"><span class="stat__num" data-count="10" data-suffix="+">10+</span><span class="stat__label">Years of experience</span></div>
+      <div class="stat card reveal" style="--d:80ms"><span class="stat__num" data-count="5" data-suffix="">5</span><span class="stat__label">Google Play apps</span></div>
+      <div class="stat card reveal" style="--d:160ms"><span class="stat__num" data-count="3" data-suffix="+">3+</span><span class="stat__label">Web platforms / SaaS</span></div>
+      <div class="stat card reveal" style="--d:240ms"><span class="stat__num" data-count="4" data-suffix="">4</span><span class="stat__label">Professional certificates</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DOMAINS ══════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="expertise">
+  <div class="wrap">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Areas of Expertise</span>
+      <h2 class="section-title">Four disciplines, <span class="grad-text">one perspective</span></h2>
+      <p class="section-desc">
+        My career has spanned fields that look unrelated on paper. Today I build products
+        exactly where they intersect — because a developer who knows the industry does not
+        have to wait for someone else to describe the problem.
+      </p>
+    </div>
+
+    <div class="domains">
+      <article class="domain card reveal" style="--accent:var(--amber); --accent-dim:var(--amber-dim)">
+        <div class="domain__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4 4 14l6 6 10-10z"/><path d="m9 9 6 6"/><path d="M20 4 15 9"/></svg></div>
+        <h3>Mining Engineering</h3>
+        <p>Field operations management, occupational safety and permanent site supervision.
+           I learned technical processes on site, not on paper.</p>
+        <ul><li>Field operations</li><li>Safety</li><li>Site supervision</li></ul>
+      </article>
+
+      <article class="domain card reveal" style="--d:80ms; --accent:var(--brand); --accent-dim:var(--brand-dim)">
+        <div class="domain__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.2 2.5 16.5a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.2a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></div>
+        <h3>Dangerous Goods (DGSA)</h3>
+        <p>Safety advisory for air and road transport of dangerous goods, including work at
+           FedEx Express — regulation, compliance and operations.</p>
+        <ul><li>ADR</li><li>IATA DGR</li><li>Compliance</li><li>Audit</li></ul>
+      </article>
+
+      <article class="domain card reveal" style="--d:160ms; --accent:var(--cyan); --accent-dim:var(--cyan-dim)">
+        <div class="domain__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+        <h3>Software Development</h3>
+        <p>Web and mobile development, API design and software testing. I do not just write
+           the product — I test it and ship it.</p>
+        <ul><li>Web</li><li>Mobile</li><li>Backend</li><li>SDET</li></ul>
+      </article>
+
+      <article class="domain card reveal" style="--d:240ms; --accent:var(--violet); --accent-dim:var(--violet-dim)">
+        <div class="domain__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2a2.8 2.8 0 0 0-3-3z"/><path d="M12 15 9 12a11 11 0 0 1 3-7 11.5 11.5 0 0 1 8-3 11.5 11.5 0 0 1-3 8 11 11 0 0 1-5 3z"/><path d="M9 12H5s.4-2.2 1.5-3 3.5 0 3.5 0"/><path d="M12 15v4s2.2-.4 3-1.5 0-3.5 0-3.5"/></svg></div>
+        <h3>Entrepreneurship</h3>
+        <p>Since founding my software company in 2026 I build my own products, running the
+           whole cycle from idea to release on my own.</p>
+        <ul><li>Product</li><li>SaaS</li><li>Industry software</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ════════════════════════════════════════════════════════════ -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">About Me</span>
+      <h2 class="section-title">From engineering to logistics,<br><span class="grad-text">from logistics to software</span></h2>
+    </div>
+
+    <div class="about">
+      <div class="about__text reveal">
+        <p>
+          I started my professional career as a <strong>Mining Engineer and permanent site supervisor</strong>.
+          Between 2015 and 2019 I worked in field operations in the mining industry, where I learned
+          technical processes, occupational safety and what regulation actually means on the ground.
+        </p>
+        <p>
+          In 2019 I moved into <strong>Dangerous Goods Safety Advisory</strong>. I worked on air and road
+          transport of dangerous goods at several organisations, <strong>including FedEx Express</strong>,
+          applying ADR and IATA DGR regulations inside daily operations rather than only reading them.
+        </p>
+
+        <blockquote class="about__quote">
+          “Most of the problems I ran into in the field were, in fact, software problems.
+          The day I realised that, I changed direction.”
+        </blockquote>
+
+        <p>
+          Recurring operational mistakes, lost paperwork and manual checks could largely be solved
+          with software. So I started building that capability: I studied
+          <strong>Computer Programming</strong> and earned certifications in software development
+          and testing to put a proper technical foundation under the practice.
+        </p>
+        <p>
+          <strong>In 2026 I founded my own software company.</strong> I now develop products that
+          bring together dangerous goods safety, logistics, transport and software technology —
+          using both my industry experience and my engineering skills to ship my own products.
+        </p>
+      </div>
+
+      <aside class="flow card reveal" style="--d:120ms">
+        <div class="flow__title">The path of experience</div>
+        <div class="flow__list">
+          <div class="flow__item"><span class="flow__num">01</span><span class="flow__label">Mining</span></div>
+          <div class="flow__arrow" aria-hidden="true"></div>
+          <div class="flow__item"><span class="flow__num">02</span><span class="flow__label">Dangerous Goods</span></div>
+          <div class="flow__arrow" aria-hidden="true"></div>
+          <div class="flow__item"><span class="flow__num">03</span><span class="flow__label">Logistics</span></div>
+          <div class="flow__arrow" aria-hidden="true"></div>
+          <div class="flow__item"><span class="flow__num">04</span><span class="flow__label">Software</span></div>
+          <div class="flow__arrow" aria-hidden="true"></div>
+          <div class="flow__item"><span class="flow__num">05</span><span class="flow__label">Artificial Intelligence</span></div>
+          <div class="flow__arrow" aria-hidden="true"></div>
+          <div class="flow__item flow__item--final"><span class="flow__num">→</span><span class="flow__label">Digital solutions to real problems</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CAREER ═══════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="journey">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Career Journey</span>
+      <h2 class="section-title">A straight line from <span class="grad-text">field to code</span></h2>
+      <p class="section-desc">Education and work ran in parallel. I studied while working, and kept building while studying.</p>
+    </div>
+
+    <div class="timeline">
+      <article class="tl-item tl-item--edu reveal">
+        <div class="tl-card card">
+          <div class="tl-head"><span class="tl-year">2007 – 2014</span><span class="tl-kind">Education</span></div>
+          <h3>Mining Engineering</h3>
+          <span class="tl-org">Dokuz Eylül University</span>
+          <p>Where the engineering mindset and the habit of analytical problem solving were formed.</p>
+        </div>
+      </article>
+
+      <article class="tl-item reveal">
+        <div class="tl-card card">
+          <div class="tl-head"><span class="tl-year">2015 – 2019</span><span class="tl-kind">Experience</span></div>
+          <h3>Mining Engineer / Permanent Site Supervisor</h3>
+          <span class="tl-org">Mining Industry</span>
+          <p>Running field operations, supervising technical processes and ensuring regulatory
+             compliance in an environment where production and safety must be managed at the same time.</p>
+          <div class="tl-tags"><span class="tag">Field Operations</span><span class="tag">Safety</span><span class="tag">Supervision</span><span class="tag">Compliance</span></div>
+        </div>
+      </article>
+
+      <article class="tl-item tl-item--edu reveal">
+        <div class="tl-card card">
+          <div class="tl-head"><span class="tl-year">2018 – 2024</span><span class="tl-kind">Education</span></div>
+          <h3>International Trade &amp; Logistics Management</h3>
+          <span class="tl-org">Anadolu University</span>
+          <p>Connecting hands-on transport experience with trade and logistics theory.</p>
+        </div>
+      </article>
+
+      <article class="tl-item reveal">
+        <div class="tl-card card">
+          <div class="tl-head"><span class="tl-year">2019 – 2026</span><span class="tl-kind">Experience</span></div>
+          <h3>Dangerous Goods Safety Adviser (DGSA)</h3>
+          <span class="tl-org">Air &amp; Road · including FedEx Express</span>
+          <p>Safety advisory across air and road dangerous goods operations: regulatory compliance,
+             classification, packaging, labelling, documentation, training and internal audits.</p>
+          <div class="tl-tags"><span class="tag">ADR</span><span class="tag">IATA DGR</span><span class="tag">Classification</span><span class="tag">Documentation</span><span class="tag">Audit</span><span class="tag">Training</span></div>
+        </div>
+      </article>
+
+      <article class="tl-item tl-item--edu reveal">
+        <div class="tl-card card">
+          <div class="tl-head"><span class="tl-year">2024 – 2026</span><span class="tl-kind">Education</span></div>
+          <h3>Computer Programming</h3>
+          <span class="tl-org">Anadolu University</span>
+          <p>Putting an academic foundation under years of hands-on software practice.</p>
+        </div>
+      </article>
+
+      <article class="tl-item tl-item--now reveal">
+        <div class="tl-card card">
+          <div class="tl-head"><span class="tl-year">2026 – Present</span><span class="tl-kind">Founder</span></div>
+          <h3>Founder · Software Developer</h3>
+          <span class="tl-org">My own software company</span>
+          <p>Building products that combine dangerous goods safety, logistics and software.
+             Shipped web platforms including TMGD Asistanı and SafeCargo, plus transport and
+             everyday mobile applications.</p>
+          <div class="tl-tags"><span class="tag">SaaS</span><span class="tag">Web</span><span class="tag">Mobile</span><span class="tag">Product</span><span class="tag">SDET</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ═════════════════════════════════════════════════════════ -->
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Projects</span>
+      <h2 class="section-title">Software written by someone <span class="grad-text">who knows the field</span></h2>
+      <p class="section-desc">Every project started from a problem I ran into myself. All of them are live.</p>
+    </div>
+
+    <div class="filters" role="group" aria-label="Project filters">
+      <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+      <button class="filter" type="button" data-filter="tmgd" aria-pressed="false">Dangerous Goods</button>
+      <button class="filter" type="button" data-filter="lojistik" aria-pressed="false">Logistics &amp; Transport</button>
+      <button class="filter" type="button" data-filter="mobil" aria-pressed="false">Mobile</button>
+    </div>
+
+    <div class="projects" id="projectGrid">
+
+      <article class="project card reveal" data-cat="tmgd" style="--accent:var(--brand); --accent-dim:var(--brand-dim)">
+        <div class="project__top">
+          <div class="project__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.2 2.5 16.5a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.2a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></div>
+          <span class="project__kind">SaaS Platform</span>
+        </div>
+        <h3>TMGD Asistanı</h3>
+        <a class="project__url" href="https://tmgdasistani.app" target="_blank" rel="noopener">tmgdasistani.app</a>
+        <p>An end-to-end management platform for Dangerous Goods Safety Advisers and advisory firms: company–adviser assignment flow, visit calendar, document management, automated reminder emails and subscription management in one panel.</p>
+        <div class="project__meta">
+          <div class="project__row"><b>Problem</b><span>Advisory work runs on spreadsheets and paper; assignments, visit schedules and document tracking are scattered, and regulatory reminders are manual.</span></div>
+          <div class="project__row"><b>Solution</b><span>Role-based access (adviser / firm), an approval-based assignment flow, audit and training calendar, a document archive on Supabase Storage, scheduled alert emails and PDF report generation.</span></div>
+          <div class="project__row"><b>Scale</b><span>68+ database migrations, row-level security, packaged for Android and iOS with Capacitor.</span></div>
+        </div>
+        <div class="project__tags"><span class="tag">Next.js 14</span><span class="tag">TypeScript</span><span class="tag">Supabase</span><span class="tag">Tailwind CSS</span><span class="tag">Resend</span><span class="tag">Capacitor</span><span class="tag">Leaflet</span><span class="tag">Playwright</span></div>
+        <div class="project__links">
+          <a class="btn btn--sm btn--primary" href="https://tmgdasistani.app" target="_blank" rel="noopener">Visit site</a>
+        </div>
+      </article>
+
+      <article class="project card reveal" data-cat="tmgd lojistik" style="--d:80ms; --accent:var(--cyan); --accent-dim:var(--cyan-dim)">
+        <div class="project__top">
+          <div class="project__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.4 9.1 8 10 4.6-.9 8-5 8-10V6z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <span class="project__kind">Regulatory Platform</span>
+        </div>
+        <h3>SafeCargo</h3>
+        <a class="project__url" href="https://safecargo.io" target="_blank" rel="noopener">safecargo.io</a>
+        <p>A Turkish-language dangerous goods compliance platform bringing four transport modes under one roof: ADR (road), RID (rail), IMDG (sea) and IATA DGR (air).</p>
+        <div class="project__meta">
+          <div class="project__row"><b>Problem</b><span>Four separate regimes, four separate sources, nearly all of them in English. Checking a single UN number across all four modes takes hours.</span></div>
+          <div class="project__row"><b>Solution</b><span>110+ interactive pages, unified search across all four regimes, 3500+ entry Table A and DG List lookup, segregation matrix, lithium battery decision tree, 1000-point calculator, tunnel categories and checklists.</span></div>
+          <div class="project__row"><b>Quality</b><span>Unit and end-to-end test coverage, a 149-URL dynamic sitemap, CSP/HSTS security headers.</span></div>
+        </div>
+        <div class="project__tags"><span class="tag">Next.js 14</span><span class="tag">TypeScript</span><span class="tag">Tailwind CSS</span><span class="tag">Fuse.js</span><span class="tag">Playwright</span><span class="tag">Vitest</span><span class="tag">SEO / JSON-LD</span></div>
+        <div class="project__links">
+          <a class="btn btn--sm btn--primary" href="https://safecargo.io" target="_blank" rel="noopener">Visit site</a>
+        </div>
+      </article>
+
+      <article class="project card reveal" data-cat="lojistik mobil" style="--d:160ms; --accent:var(--green); --accent-dim:var(--green-dim)">
+        <div class="project__top">
+          <div class="project__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h13v13H1z"/><path d="M14 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="17.5" cy="18.5" r="2"/></svg></div>
+          <span class="project__kind">Web + Android</span>
+        </div>
+        <h3>Kurye ve Nakliyat</h3>
+        <a class="project__url" href="https://kuryevenakliyat.com" target="_blank" rel="noopener">kuryevenakliyat.com</a>
+        <p>A marketplace matching transport demand with carriers. Next.js on the web, Expo on mobile, both sharing one Supabase backend.</p>
+        <div class="project__meta">
+          <div class="project__row"><b>Problem</b><span>Small-scale courier and freight requests still run over phone calls and messaging — unrecorded, with no way to compare prices.</span></div>
+          <div class="project__row"><b>Solution</b><span>Request creation, offer collection and comparison, map-based tracking, plus 160+ city and service landing pages for organic reach.</span></div>
+          <div class="project__row"><b>Infrastructure</b><span>Web and mobile on a shared Supabase schema, Sentry for error tracking, multilingual UI.</span></div>
+        </div>
+        <div class="project__tags"><span class="tag">Next.js 16</span><span class="tag">Expo</span><span class="tag">Supabase</span><span class="tag">Sentry</span><span class="tag">next-intl</span><span class="tag">Playwright</span></div>
+        <div class="project__links">
+          <a class="btn btn--sm btn--primary" href="https://kuryevenakliyat.com" target="_blank" rel="noopener">Website</a>
+          <a class="btn btn--sm btn--ghost" href="https://play.google.com/store/apps/details?id=com.safecargo.kuryevenakliyat" target="_blank" rel="noopener">Google Play</a>
+        </div>
+      </article>
+
+      <article class="project card reveal" data-cat="mobil" style="--d:0ms; --accent:var(--amber); --accent-dim:var(--amber-dim)">
+        <div class="project__top">
+          <div class="project__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="3"/><path d="M12 2v4M9 13h.01M15 13h.01M9 17h6"/></svg></div>
+          <span class="project__kind">On-device AI</span>
+        </div>
+        <h3>Hafıza Tutucum</h3>
+        <span class="project__url">Google Play · Android</span>
+        <p>A note and reminder assistant that runs entirely on the phone. No server, no account, no cloud — data never leaves the device.</p>
+        <div class="project__meta">
+          <div class="project__row"><b>Problem</b><span>Most smart note apps push data to the cloud and depend on paid APIs for their AI features.</span></div>
+          <div class="project__row"><b>Solution</b><span>A language model running on-device via llama.rn (llama.cpp / GGUF), offline OCR with ML Kit, voice dictation and automatic reminder extraction from text — all without an internet connection.</span></div>
+          <div class="project__row"><b>Result</b><span>A fully private application: zero running cost, no API dependency.</span></div>
+        </div>
+        <div class="project__tags"><span class="tag">React Native</span><span class="tag">Expo</span><span class="tag">llama.rn (GGUF)</span><span class="tag">ML Kit OCR</span><span class="tag">Speech Recognition</span><span class="tag">Zustand</span><span class="tag">Jest</span></div>
+        <div class="project__links">
+          <a class="btn btn--sm btn--primary" href="https://play.google.com/store/apps/details?id=com.hafizatutucum.app" target="_blank" rel="noopener">Google Play</a>
+        </div>
+      </article>
+
+      <article class="project card reveal" data-cat="mobil" style="--d:80ms; --accent:var(--violet); --accent-dim:var(--violet-dim)">
+        <div class="project__top">
+          <div class="project__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+          <span class="project__kind">App Family</span>
+        </div>
+        <h3>Everyday Apps</h3>
+        <span class="project__url">Google Play · 3 applications</span>
+        <p>Benim Kasam, FocusLife and Market Listem — Android apps born out of my own daily needs, built solo from design to store release.</p>
+        <div class="project__meta">
+          <div class="project__row"><b>Why</b><span>To run the full product cycle end to end: idea, design, development, testing, store release and updates.</span></div>
+          <div class="project__row"><b>Tech</b><span>Market Listem and FocusLife on Expo / React Native; Benim Kasam built on React + Vite and packaged with Capacitor.</span></div>
+        </div>
+        <div class="project__tags"><span class="tag">React Native</span><span class="tag">Expo</span><span class="tag">Capacitor</span><span class="tag">Supabase</span><span class="tag">Firebase</span><span class="tag">TypeScript</span></div>
+        <div class="project__links">
+          <a class="btn btn--sm btn--primary" href="#apps">See the apps</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ APPS ═════════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="apps">
+  <div class="wrap">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Mobile Applications</span>
+      <h2 class="section-title">Live on <span class="grad-text">Google Play</span></h2>
+      <p class="section-desc">Android apps I took from idea to store release on my own.</p>
+    </div>
+
+    <div class="apps">
+
+      <article class="app reveal">
+        <div class="phone" style="--app-accent:#2f6bff; --app-bg:linear-gradient(170deg,#0e1d3a,#060c18)">
+          <div class="phone__screen">
+            <img src="assets/img/apps/kuryevenakliyat.png" alt="" onerror="this.remove()">
+            <div class="phone__icon phone__icon--img"><img src="assets/img/apps/icon-kuryevenakliyat.png" alt="Kurye ve Nakliyat app icon" width="192" height="192"></div>
+            <div class="phone__name">Kurye ve Nakliyat</div>
+            <div class="phone__sub">Create a request, get offers</div>
+            <div class="phone__rows">
+              <div class="phone__row">New freight · courier · load</div>
+              <div class="phone__row">Your active requests</div>
+              <div class="phone__row">Compare offers</div>
+              <div class="phone__row">Messages and history</div>
+            </div>
+          </div>
+        </div>
+        <div class="app__body">
+          <h3>Kurye ve Nakliyat</h3>
+          <p>A mobile platform for creating freight, courier and load requests in a few taps and collecting offers from carriers.</p>
+          <div class="app__links">
+            <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.safecargo.kuryevenakliyat" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.6-9.7zM14.6 10.5 5.5 1.6l9.9 5.6zM17.6 12l3.3 1.9c.7.4.7 1.4 0 1.8l-3.4 1.9-3.4-3.3zM5.5 22.4l9.1-8.9 1.8 1.8z"/></svg>
+              <span><small>Get it on</small>Google Play</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="app reveal" style="--d:80ms">
+        <div class="phone" style="--app-accent:#f5a524; --app-bg:linear-gradient(170deg,#2b210d,#140f06)">
+          <div class="phone__screen">
+            <img src="assets/img/apps/benimkasam.png" alt="" onerror="this.remove()">
+            <div class="phone__icon phone__icon--img"><img src="assets/img/apps/icon-benimkasam.png" alt="Benim Kasam app icon" width="192" height="192"></div>
+            <div class="phone__name">Benim Kasam</div>
+            <div class="phone__sub">Personal digital vault</div>
+            <div class="phone__rows">
+              <div class="phone__row">My vault</div>
+              <div class="phone__row">Transactions</div>
+              <div class="phone__row">QR device pairing</div>
+              <div class="phone__row">App lock</div>
+            </div>
+          </div>
+        </div>
+        <div class="app__body">
+          <h3>Benim Kasam</h3>
+          <p>A digital vault that stores personal records and transactions securely, pairing across devices via QR.</p>
+          <div class="app__links">
+            <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.suphiatilim.benimkasam" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.6-9.7zM14.6 10.5 5.5 1.6l9.9 5.6zM17.6 12l3.3 1.9c.7.4.7 1.4 0 1.8l-3.4 1.9-3.4-3.3zM5.5 22.4l9.1-8.9 1.8 1.8z"/></svg>
+              <span><small>Get it on</small>Google Play</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="app reveal" style="--d:160ms">
+        <div class="phone" style="--app-accent:#ef4444; --app-bg:linear-gradient(170deg,#301212,#170808)">
+          <div class="phone__screen">
+            <img src="assets/img/apps/focuslife.png" alt="" onerror="this.remove()">
+            <div class="phone__icon phone__icon--img"><img src="assets/img/apps/icon-focuslife.png" alt="FocusLife app icon" width="192" height="192"></div>
+            <div class="phone__name">FocusLife</div>
+            <div class="phone__sub">Pomodoro & focus</div>
+            <div class="phone__rows">
+              <div class="phone__row">Categories: study · work · sport</div>
+              <div class="phone__row">Circular countdown</div>
+              <div class="phone__row">Accurate in the background</div>
+              <div class="phone__row">Statistics and streaks</div>
+            </div>
+          </div>
+        </div>
+        <div class="app__body">
+          <h3>FocusLife</h3>
+          <p>A Pomodoro timer with per-category durations, countdown that stays accurate in the background, and daily focus statistics.</p>
+          <div class="app__links">
+            <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.suphiati.focuslife" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.6-9.7zM14.6 10.5 5.5 1.6l9.9 5.6zM17.6 12l3.3 1.9c.7.4.7 1.4 0 1.8l-3.4 1.9-3.4-3.3zM5.5 22.4l9.1-8.9 1.8 1.8z"/></svg>
+              <span><small>Get it on</small>Google Play</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="app reveal" style="--d:240ms">
+        <div class="phone" style="--app-accent:#a78bfa; --app-bg:linear-gradient(170deg,#1e1633,#0c0918)">
+          <div class="phone__screen">
+            <img src="assets/img/apps/hafizatutucum.png" alt="" onerror="this.remove()">
+            <div class="phone__icon phone__icon--img"><img src="assets/img/apps/icon-hafizatutucum.png" alt="Hafıza Tutucum app icon" width="192" height="192"></div>
+            <div class="phone__name">Hafıza Tutucum</div>
+            <div class="phone__sub">On-device AI</div>
+            <div class="phone__rows">
+              <div class="phone__row">Dictate a note</div>
+              <div class="phone__row">Text from images (OCR)</div>
+              <div class="phone__row">Automatic reminder extraction</div>
+              <div class="phone__row">Fully offline</div>
+            </div>
+          </div>
+        </div>
+        <div class="app__body">
+          <h3>Hafıza Tutucum</h3>
+          <p>A serverless note and reminder assistant: an on-device LLM, offline OCR and voice dictation.</p>
+          <div class="app__links">
+            <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.hafizatutucum.app" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.6-9.7zM14.6 10.5 5.5 1.6l9.9 5.6zM17.6 12l3.3 1.9c.7.4.7 1.4 0 1.8l-3.4 1.9-3.4-3.3zM5.5 22.4l9.1-8.9 1.8 1.8z"/></svg>
+              <span><small>Get it on</small>Google Play</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="app reveal" style="--d:320ms">
+        <div class="phone" style="--app-accent:#22c55e; --app-bg:linear-gradient(170deg,#0c2a19,#04140b)">
+          <div class="phone__screen">
+            <img src="assets/img/apps/marketlistem.png" alt="" onerror="this.remove()">
+            <div class="phone__icon phone__icon--img"><img src="assets/img/apps/icon-marketlistem.png" alt="Market Listem app icon" width="192" height="192"></div>
+            <div class="phone__name">Market Listem</div>
+            <div class="phone__sub">Smart shopping list</div>
+            <div class="phone__rows">
+              <div class="phone__row">My lists</div>
+              <div class="phone__row">Shared list · co-editing</div>
+              <div class="phone__row">Purchases and spend tracking</div>
+              <div class="phone__row">Compare: price change</div>
+            </div>
+          </div>
+        </div>
+        <div class="app__body">
+          <h3>Market Listem</h3>
+          <p>A shopping app with link-shared lists edited together in real time, recording and comparing what you spend.</p>
+          <div class="app__links">
+            <a class="play-badge" href="https://play.google.com/store/apps/details?id=com.suphiati.marketlistem" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.6-9.7zM14.6 10.5 5.5 1.6l9.9 5.6zM17.6 12l3.3 1.9c.7.4.7 1.4 0 1.8l-3.4 1.9-3.4-3.3zM5.5 22.4l9.1-8.9 1.8 1.8z"/></svg>
+              <span><small>Get it on</small>Google Play</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ SKILLS ═══════════════════════════════════════════════════════════ -->
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Technical Skills</span>
+      <h2 class="section-title">Someone who builds <span class="grad-text">and tests</span></h2>
+      <p class="section-desc">
+        Every technology below is one I actually use in products that are live — nothing is
+        listed to pad the page. I work on both sides of software: development and quality
+        assurance. Being able to run both is the critical piece of shipping a product on your own.
+      </p>
+    </div>
+
+    <div class="skills">
+      <article class="skillset card reveal" style=" --accent:var(--brand); --accent-dim:var(--brand-dim)">
+        <div class="skillset__head">
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></i>
+          <h3>Frontend</h3>
+        </div>
+        <p class="skillset__note">Every product I ship has a React + TypeScript front end.</p>
+        <ul>
+          <li><span class="tag">TypeScript</span></li>
+          <li><span class="tag">React 19</span></li>
+          <li><span class="tag">Next.js (App Router)</span></li>
+          <li><span class="tag">Tailwind CSS</span></li>
+          <li><span class="tag">Vite</span></li>
+          <li><span class="tag">Zustand</span></li>
+          <li><span class="tag">TanStack Query</span></li>
+          <li><span class="tag">React Hook Form</span></li>
+          <li><span class="tag">Zod</span></li>
+          <li><span class="tag">Framer Motion</span></li>
+          <li><span class="tag">Recharts</span></li>
+        </ul>
+      </article>
+
+      <article class="skillset card reveal" style=" --d:80ms; --accent:var(--cyan); --accent-dim:var(--cyan-dim)">
+        <div class="skillset__head">
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="7" rx="2"/><rect x="2" y="14" width="20" height="7" rx="2"/><path d="M6 6.5h.01M6 17.5h.01"/></svg></i>
+          <h3>Backend & Data</h3>
+        </div>
+        <p class="skillset__note">Postgres, auth and realtime data on Supabase.</p>
+        <ul>
+          <li><span class="tag">Supabase</span></li>
+          <li><span class="tag">PostgreSQL</span></li>
+          <li><span class="tag">Row Level Security</span></li>
+          <li><span class="tag">Auth</span></li>
+          <li><span class="tag">Realtime</span></li>
+          <li><span class="tag">Storage</span></li>
+          <li><span class="tag">Edge Functions</span></li>
+          <li><span class="tag">Firebase</span></li>
+          <li><span class="tag">REST API</span></li>
+        </ul>
+      </article>
+
+      <article class="skillset card reveal" style=" --d:160ms; --accent:var(--violet); --accent-dim:var(--violet-dim)">
+        <div class="skillset__head">
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></i>
+          <h3>Mobile</h3>
+        </div>
+        <p class="skillset__note">Proven by five applications live on Google Play.</p>
+        <ul>
+          <li><span class="tag">React Native</span></li>
+          <li><span class="tag">Expo (SDK 54–57)</span></li>
+          <li><span class="tag">Expo Router</span></li>
+          <li><span class="tag">Capacitor</span></li>
+          <li><span class="tag">EAS Build</span></li>
+          <li><span class="tag">Play Console</span></li>
+          <li><span class="tag">PWA</span></li>
+        </ul>
+      </article>
+
+      <article class="skillset card reveal" style=" --d:240ms; --accent:var(--amber); --accent-dim:var(--amber-dim)">
+        <div class="skillset__head">
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6v6l4.5 9A3 3 0 0 1 16.8 22H7.2a3 3 0 0 1-2.7-5L9 8z"/><path d="M7 15h10"/></svg></i>
+          <h3>Testing & QA</h3>
+        </div>
+        <p class="skillset__note">What ISTQB and SDET look like in practice: every project ships with a test layer.</p>
+        <ul>
+          <li><span class="tag">ISTQB</span></li>
+          <li><span class="tag">SDET</span></li>
+          <li><span class="tag">Playwright (E2E)</span></li>
+          <li><span class="tag">Vitest</span></li>
+          <li><span class="tag">Jest</span></li>
+          <li><span class="tag">TypeScript strict</span></li>
+          <li><span class="tag">ESLint</span></li>
+          <li><span class="tag">Lighthouse CI</span></li>
+          <li><span class="tag">Sentry</span></li>
+        </ul>
+      </article>
+
+      <article class="skillset card reveal" style=" --d:320ms; --accent:var(--green); --accent-dim:var(--green-dim)">
+        <div class="skillset__head">
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="3"/><path d="M12 2v4M9 13h.01M15 13h.01M9 17h6"/></svg></i>
+          <h3>AI Integration</h3>
+        </div>
+        <p class="skillset__note">Both cloud LLMs and models running fully on-device.</p>
+        <ul>
+          <li><span class="tag">Anthropic Claude API</span></li>
+          <li><span class="tag">Google Gemini</span></li>
+          <li><span class="tag">OpenAI API</span></li>
+          <li><span class="tag">On-device LLM (llama.rn / GGUF)</span></li>
+          <li><span class="tag">ML Kit OCR</span></li>
+          <li><span class="tag">Speech Recognition</span></li>
+        </ul>
+      </article>
+
+      <article class="skillset card reveal" style=" --d:400ms; --accent:var(--brand); --accent-dim:var(--brand-dim)">
+        <div class="skillset__head">
+          <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="7" rx="2"/><rect x="2" y="14" width="20" height="7" rx="2"/><path d="M6 6.5h.01M6 17.5h.01"/></svg></i>
+          <h3>Infrastructure & Release</h3>
+        </div>
+        <p class="skillset__note">I run the whole chain from idea to store release on my own.</p>
+        <ul>
+          <li><span class="tag">Vercel</span></li>
+          <li><span class="tag">Git / GitHub</span></li>
+          <li><span class="tag">CI/CD</span></li>
+          <li><span class="tag">Sentry</span></li>
+          <li><span class="tag">Resend</span></li>
+          <li><span class="tag">next-intl (i18n)</span></li>
+          <li><span class="tag">SEO / JSON-LD</span></li>
+          <li><span class="tag">KVKK / GDPR</span></li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CERTIFICATES ═════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="certificates">
+  <div class="wrap">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Certificates</span>
+      <h2 class="section-title">Certified <span class="grad-text">competence</span></h2>
+      <p class="section-desc">Certifications documenting my technical foundation in software development and testing.</p>
+    </div>
+
+    <div class="certs">
+      <article class="cert card reveal" style="--accent:var(--brand); --accent-dim:var(--brand-dim)">
+        <div class="cert__seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><path d="m8.2 14.3-1.4 7 5.2-3 5.2 3-1.4-7"/></svg></div>
+        <h3>ISTQB®</h3>
+        <span class="cert__issuer">Software Testing Certification</span>
+        <p>Internationally recognised certification covering software testing processes,
+           testing principles and quality assurance fundamentals.</p>
+        <div class="cert__btn">
+          <button type="button" data-cert="istqb" data-title="ISTQB®" data-issuer="Software Testing Certification" data-img="assets/img/certs/istqb.jpg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            View
+          </button>
+        </div>
+      </article>
+
+      <article class="cert card reveal" style="--d:80ms; --accent:var(--amber); --accent-dim:var(--amber-dim)">
+        <div class="cert__seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/><path d="m14 4-4 16"/></svg></div>
+        <h3>Software Development Engineer in Test</h3>
+        <span class="cert__issuer">SDET Certification</span>
+        <p>Training that combines software development with testing, focused on test automation.</p>
+        <div class="cert__btn">
+          <button type="button" data-cert="sdet" data-title="Software Development Engineer in Test" data-issuer="SDET Certification" data-img="assets/img/certs/sdet.jpg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            View
+          </button>
+        </div>
+      </article>
+
+      <article class="cert card reveal" style="--d:160ms; --accent:var(--violet); --accent-dim:var(--violet-dim)">
+        <div class="cert__seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+        <h3>Fullstack Developer</h3>
+        <span class="cert__issuer">Udemy Certification</span>
+        <p>End-to-end web development training covering both frontend and backend technologies.</p>
+        <div class="cert__btn">
+          <button type="button" data-cert="udemy" data-title="Fullstack Developer" data-issuer="Udemy Certification" data-img="assets/img/certs/udemy-fullstack.jpg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            View
+          </button>
+        </div>
+      </article>
+
+      <article class="cert card reveal" style="--d:240ms; --accent:var(--green); --accent-dim:var(--green-dim)">
+        <div class="cert__seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/></svg></div>
+        <h3>Introduction to Software Testing</h3>
+        <span class="cert__issuer">BTK Akademi</span>
+        <p>Introduction to software testing processes, core principles and the test life cycle.</p>
+        <div class="cert__btn">
+          <button type="button" data-cert="btk" data-title="Introduction to Software Testing" data-issuer="BTK Akademi" data-img="assets/img/certs/btk-testing.jpg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            View
+          </button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ EDUCATION ════════════════════════════════════════════════════════ -->
+<section class="section" id="education">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Education</span>
+      <h2 class="section-title">Three degrees, <span class="grad-text">three perspectives</span></h2>
+    </div>
+
+    <div class="edu">
+      <article class="edu-item card reveal">
+        <div class="edu-item__years">2024 – 2026</div>
+        <div><h3>Computer Programming</h3><span>Anadolu University</span></div>
+      </article>
+      <article class="edu-item card reveal" style="--d:80ms">
+        <div class="edu-item__years">2018 – 2024</div>
+        <div><h3>International Trade &amp; Logistics Management</h3><span>Anadolu University</span></div>
+      </article>
+      <article class="edu-item card reveal" style="--d:160ms">
+        <div class="edu-item__years">2007 – 2014</div>
+        <div><h3>Mining Engineering</h3><span>Dokuz Eylül University</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="contact">
+  <div class="wrap">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Contact</span>
+      <h2 class="section-title">Let's <span class="grad-text">talk</span></h2>
+      <p class="section-desc">Project, consulting or collaboration — whatever it is, feel free to write. I usually reply the same day.</p>
+    </div>
+
+    <div class="contact">
+      <a class="contact-card card reveal" id="mailCard" href="#" data-u="suphi.celikoz" data-d="gmail.com">
+        <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg></i>
+        <small>Email</small>
+        <b id="mailText">loading…</b>
+      </a>
+
+      <a class="contact-card card reveal" style="--d:80ms" id="telCard" href="#" data-p="905547948590">
+        <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></i>
+        <small>Phone</small>
+        <b id="telText">loading…</b>
+      </a>
+
+      <a class="contact-card card reveal" style="--d:160ms" href="https://www.linkedin.com/in/suphi-atilim-celikoz/" target="_blank" rel="noopener">
+        <i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.2 8.75h3.5V21H3.2zM9.5 8.75H13v1.67h.05c.49-.88 1.68-1.81 3.45-1.81 3.7 0 4.38 2.3 4.38 5.3V21h-3.5v-5.4c0-1.29-.02-2.95-1.85-2.95-1.85 0-2.13 1.4-2.13 2.86V21H9.5z"/></svg></i>
+        <small>LinkedIn</small>
+        <b>Visit profile</b>
+      </a>
+
+      <a class="contact-card card reveal" style="--d:240ms" href="https://github.com/suphiati" target="_blank" rel="noopener">
+        <i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg></i>
+        <small>GitHub</small>
+        <b>My repositories</b>
+      </a>
+
+      <a class="contact-card card reveal" style="--d:320ms" href="https://play.google.com/store/apps/developer?id=RiskManage+Studio" target="_blank" rel="noopener">
+        <i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6a1 1 0 0 0 .6.9l9.6-9.7zM14.6 10.5 5.5 1.6l9.9 5.6zM17.6 12l3.3 1.9c.7.4.7 1.4 0 1.8l-3.4 1.9-3.4-3.3zM5.5 22.4l9.1-8.9 1.8 1.8z"/></svg></i>
+        <small>Google Play</small>
+        <b>My applications</b>
+      </a>
+    </div>
+
+    <div class="cta-band reveal print-hide">
+      <h3>Have an idea?</h3>
+      <p>Dangerous goods, logistics or something entirely different — describe the problem and let's solve it together.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" id="mailCta" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>
+          Send an Email
+        </a>
+        <button class="btn btn--ghost" type="button" id="printCv2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+          Download CV
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <p>© <span id="year">2026</span> Suphi Atılım ÇELİKÖZ — All rights reserved.</p>
+    <nav aria-label="Footer menu">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#certificates">Certificates</a>
+      <a href="#contact">Contact</a>
+      <a href="index.html">Türkçe</a>
+    </nav>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" type="button" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lbTitle" hidden>
+  <div class="lightbox__inner">
+    <button class="lightbox__close" id="lbClose" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <h3 class="lightbox__title" id="lbTitle">Certificate</h3>
+    <span class="lightbox__issuer" id="lbIssuer"></span>
+    <div class="lightbox__body" id="lbBody"></div>
+  </div>
+</div>
+
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
