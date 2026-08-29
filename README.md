@@ -128,15 +128,20 @@ adıyla anmak çok daha güçlü durur. Değiştirilecek yerler:
 - `index.html` → kariyer zaman çizelgesinde `<span class="tl-org">Kendi Yazılım Şirketim</span>`
 - `en.html` → `<span class="tl-org">My own software company</span>`
 
-### 6. Alan adını güncelle
+### 6. Alan adı  ✅ suphicelikoz.com
 
-`suphicelikoz.com` örnek olarak yazıldı. Şu dosyalarda geçiyor:
+Alan adı alındı ve site zaten bu adrese göre yapılandırılmış durumda —
+değiştirilecek bir şey yok. Geçtiği yerler:
 
-- `index.html` ve `en.html` → `canonical`, `hreflang`, `og:url`, JSON-LD
-- `sitemap.xml`
-- `robots.txt`
+- `index.html` ve `en.html` → `canonical`, `hreflang`, `og:url`, JSON-LD `url`/`image`
+- `sitemap.xml` (2 URL)
+- `robots.txt` (sitemap satırı)
 
-Kendi alan adınla değiştir (ya da GitHub Pages adresinle).
+İleride alan adı değişirse tek komutla güncellenir:
+
+```bash
+grep -rl "suphicelikoz.com" index.html en.html sitemap.xml robots.txt | xargs sed -i "s/suphicelikoz\.com/YENI-ALAN-ADI/g"
+```
 
 ### 7. Teknoloji etiketleri  ✅ projelerden doğrulandı
 
