@@ -1,5 +1,94 @@
-# Yerel onizleme sunucusu ve editor ayarlari - siteye dahil degil
-.claude/
-.DS_Store
-Thumbs.db
+# ==========================================================================
+#  Bu depoya GONDERILMEMESI gerekenler
+#  Kural: siteyi calistirmak icin gerekmeyen ya da gizli olan her sey.
+# ==========================================================================
+
+# --- Gizli bilgiler (EN ONEMLI) -------------------------------------------
+# Bunlar depoya bir kez girerse, sonradan silsen bile gecmiste kalir.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*service-account*.json
+*serviceaccount*.json
+*-play-api-*.json
+*credential*
+*secret*
+*.token
+auth.json
+
+# --- Mobil uygulama derleme ciktilari --------------------------------------
+*.apk
+*.aab
+*.ipa
+*.dSYM.zip
+
+# --- Bagimliliklar ve derleme ciktilari -------------------------------------
 node_modules/
+dist/
+build/
+out/
+.next/
+.cache/
+.parcel-cache/
+.turbo/
+
+# --- Yayin araclari ---------------------------------------------------------
+.vercel/
+.netlify/
+.firebase/
+
+# --- Yerel gelistirme araclari (siteye dahil degil) -------------------------
+.claude/
+.vscode/
+.idea/
+*.code-workspace
+
+# --- Isletim sistemi coplugu ------------------------------------------------
+.DS_Store
+._*
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# --- Gunlukler ve gecici dosyalar -------------------------------------------
+*.log
+npm-debug.log*
+yarn-error.log*
+*.tmp
+*.temp
+*.bak
+*.orig
+*.swp
+*~
+
+# --- Kisisel / taslak dosyalar ----------------------------------------------
+# Siteye girmeyecek notlarini, taslaklarini ve ozel belgelerini bu
+# klasorlere koyarsan otomatik olarak depo disinda kalirlar.
+ozel/
+kisisel/
+taslak/
+notlar/
+NOTLAR.md
+_draft*/
+
+# ==========================================================================
+#  NOT: Buraya "!*.png" gibi genel izin satirlari EKLEME.
+#  .gitignore'da son eslesen kural kazanir; boyle bir satir yukaridaki
+#  *secret* / *credential* korumalarini gecersiz kilar ve gizli bir dosyanin
+#  sessizce depoya girmesine yol acar.
+#
+#  Sitenin calismasi icin gereken su dosyalar zaten hicbir kurala takilmiyor
+#  ve depoya girer:
+#    index.html · en.html · robots.txt · sitemap.xml · .nojekyll
+#    assets/css/ · assets/js/ · assets/img/ (fotograf, ikon, sertifika)
+#
+#  Yeni bir dosyanin gonderilip gonderilmeyecegini merak edersen:
+#    git check-ignore -v <dosya>
+# ==========================================================================
