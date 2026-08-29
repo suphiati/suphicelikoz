@@ -1303,8 +1303,14 @@ html[data-theme="light"] .hero__photo-frame::after {
   .section { padding: 14pt 0; break-inside: avoid; }
   .section--alt { background: none; border: none; }
   .hero { padding: 0 0 12pt; }
-  .hero__grid { grid-template-columns: 1fr 150px; gap: 18pt; }
-  .hero__photo { width: 150px; }
+  /* A4 dikey kagit 794px genisligindedir, yani "max-width: 900px" mobil
+     sorgusu yazdirmada da eslesir. O blok fotografa "order: -1" veriyor;
+     burada sifirlanmazsa fotograf genis 1fr sutununa, metin de dar 150px
+     sutununa duser ve metin kelime kelime sarar. A4 yatayda (1123px)
+     sorgu eslesmedigi icin sorun yalnizca dikeyde gorunurdu. */
+  .hero__grid { grid-template-columns: 1fr 150px; gap: 18pt; align-items: start; }
+  .hero__intro { order: 0; }
+  .hero__photo { order: 0; width: 150px; }
   .hero__photo-frame { box-shadow: none; border: 1px solid #ccc; }
   .hero__title { font-size: 24pt; }
   .card, .project, .tl-card, .cert, .domain, .edu-item, .skillset, .contact-card {

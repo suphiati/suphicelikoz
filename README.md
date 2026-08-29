@@ -58,7 +58,7 @@ yani orijinali olduğu gibi büyük kaydetmen yeterli, kırpmaya gerek yok.
 JPG de olur; o durumda `index.html` ve `en.html` içindeki `suphifoto.png` yazan
 4 yeri yeni uzantıyla değiştir.
 
-> Fotoğraf hiç olmazsa site kırılmaz — otomatik olarak “SAÇ” baş harfli görsel gösterilir.
+> Fotoğraf hiç olmazsa site kırılmaz — otomatik olarak “SÇ” baş harfli görsel gösterilir.
 
 ### 2. Sertifika görsellerini ekle  (opsiyonel ama tavsiye edilir)
 
