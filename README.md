@@ -13,16 +13,17 @@ Suphi CV/
 ├─ index.html              ← Türkçe ana sayfa
 ├─ en.html                 ← İngilizce sürüm
 ├─ robots.txt              ← Arama motoru yönergesi
-├─ sitemap.xml             ← Site haritası (alan adını değiştirmeyi unutma)
+├─ .nojekyll               ← GitHub Pages icin (Vercel kullanilsa da zararsiz)
+├─ sitemap.xml             ← Site haritası
 └─ assets/
    ├─ css/style.css        ← Tüm stiller (tema, yazdırma/CV dahil)
    ├─ js/main.js           ← Tüm etkileşimler (bağımlılık yok)
    ├─ files/               ← PDF CV vb. koyacaksan buraya
    └─ img/
       ├─ favicon.svg       ← Sekme ikonu
-      ├─ suphi.jpg         ← ⚠️ PORTRE FOTOĞRAFIN — buraya koy
+      ├─ suphifoto.png     ← portre fotoğrafın
       ├─ og-cover.jpg      ← (opsiyonel) sosyal medya paylaşım görseli 1200×630
-      ├─ apps/             ← (opsiyonel) uygulama ekran görüntüleri
+      ├─ apps/             ← uygulama simgeleri (+ opsiyonel ekran görüntüleri)
       └─ certs/            ← (opsiyonel) sertifika belgeleri
 ```
 
@@ -176,35 +177,70 @@ maketleri gizlenir; içerik beyaz zeminli, iki sütunlu düzgün bir CV’ye dö
 
 ---
 
-## 🚀 Yayına alma
+## 🚀 Yayın  ✅ canlı
 
-### Seçenek A — Netlify (en kolay)
+Site yayında ve her `git push` ile otomatik güncelleniyor.
 
-1. [app.netlify.com/drop](https://app.netlify.com/drop) adresini aç
-2. Bu klasörü olduğu gibi tarayıcıya sürükle
-3. Site birkaç saniyede yayında. Ayarlardan kendi alan adını bağlayabilirsin.
+| | Adres |
+| --- | --- |
+| **Canlı site** | **https://suphicelikoz.com** |
+| İngilizce | https://suphicelikoz.com/en.html |
+| Kaynak kod | https://github.com/suphiati/suphicelikoz |
+| Vercel projesi | https://vercel.com/suphis-projects-f81baff7/suphicelikoz |
 
-### Seçenek B — GitHub Pages
+### Nasıl güncellerim?
 
-```bash
-git init
-git add .
-git commit -m "Kisisel site"
-git branch -M main
-git remote add origin https://github.com/KULLANICI-ADIN/KULLANICI-ADIN.github.io.git
-git push -u origin main
-```
-
-Repo → **Settings → Pages → Branch: main / root** seç. Adres:
-`https://KULLANICI-ADIN.github.io`
-
-### Seçenek C — Vercel
+Dosyalarda değişiklik yap, sonra:
 
 ```bash
-npx vercel
+git add -A && git commit -m "aciklama" && git push
 ```
 
-Build komutu yok, output dizini bu klasör. Statik site olarak otomatik algılanır.
+Vercel `main` dalını izliyor; push'tan ~30 saniye sonra site güncellenir.
+Başka bir dala push edersen otomatik olarak bir **önizleme (preview)** adresi oluşur —
+canlı siteye dokunmaz, önce orada denersin.
+
+### Kurulum böyle yapıldı (bir daha gerekirse)
+
+**Vercel**
+- Proje `suphiati/suphicelikoz` deposundan **Import** edildi (Clone değil — Clone yeni bir depo oluşturur).
+- Application Preset: **Other** (statik site, build komutu yok).
+- Root Directory: `./`
+- Environment Variables: yok.
+
+**Alan adları** (Vercel → Settings → Domains)
+
+| Alan adı | Davranış |
+| --- | --- |
+| `suphicelikoz.com` | Production — sitenin kendisi |
+| `www.suphicelikoz.com` | **308** kalıcı yönlendirme → `suphicelikoz.com` |
+| `suphicelikoz.vercel.app` | Vercel'in verdiği yedek adres |
+
+> Apex'i (www'suz) ana adres seçtim çünkü sayfalardaki `canonical` etiketleri
+> `https://suphicelikoz.com/` diyor. Vercel'in "Redirect apex domains to www"
+> önerisini bilerek **kapattım**; açık kalsaydı canonical ile yönlendirme
+> birbiriyle çelişirdi.
+
+**DNS** (Cloudflare — `suphicelikoz.com` zone'u)
+
+| Tip | Ad | Hedef | Proxy |
+| --- | --- | --- | --- |
+| CNAME | `@` | `c6640786ac790380.vercel-dns-017.com` | **DNS only** |
+| CNAME | `www` | `c6640786ac790380.vercel-dns-017.com` | **DNS only** |
+
+> ⚠️ **Proxy'yi (turuncu bulut) açma.** Vercel kendi CDN'ini ve SSL sertifikasını
+> kullanıyor; Cloudflare proxy'si açık olursa sertifika üretimi ve yönlendirmeler
+> bozulabilir. Cloudflare panelinde "Proxying is required for most security
+> features" uyarısı çıkar — bu kurulumda görmezden gelinir.
+
+### Doğrulama
+
+```bash
+curl -sS -o /dev/null -w "%{http_code} %{redirect_url}\n" https://suphicelikoz.com/
+curl -sS -o /dev/null -w "%{http_code} %{redirect_url}\n" https://www.suphicelikoz.com/
+```
+
+Beklenen: apex `200`, www `308 https://suphicelikoz.com/`.
 
 ---
 
