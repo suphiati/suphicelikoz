@@ -28,6 +28,7 @@ Suphi CV/
       ├─ suphifoto.png     ← portre fotoğrafın
       ├─ og-cover.jpg      ← sosyal paylaşım görseli 1200×630 (üretilir)
       ├─ og-cover-en.jpg   ← aynısının İngilizcesi (en.html için)
+      ├─ projects/         ← proje kartlarındaki 16:9 görseller (800×450 WebP)
       ├─ apps/             ← uygulama simgeleri (+ opsiyonel ekran görüntüleri)
       └─ certs/            ← (opsiyonel) sertifika belgeleri
 ```
@@ -81,7 +82,37 @@ assets/img/certs/btk-testing.jpg
 > Ziyaretçiye dosya yolu ya da “şu klasöre JPG bırak” gibi bir kurulum notu **gösterilmez** —
 > o pencereyi açan kişi sertifikayı doğrulamaya geliyor.
 
-### 3. Uygulama ekran görüntüleri  (opsiyonel)
+### 3. Proje kartı görselleri  ✅ eklendi
+
+Projeler bölümündeki altı kartın hepsi 16:9 bir görselle açılıyor
+(`assets/img/projects/`, 800×450 WebP, 13–36 KB):
+
+| Dosya | Kaynak |
+| --- | --- |
+| `tmgdasistani.webp` · `safecargo.webp` · `kuryevenakliyat.webp` · `hafizatutucum.webp` | Upwork portfolyo görsellerinin **orta bandı** kırpıldı |
+| `gidiniz.webp` | gidiniz.blog ana sayfasının canlı ekran görüntüsü |
+| `uygulamalar.webp` | üç uygulama simgesinden üretilen bileşik görsel |
+
+> Upwork görselleri olduğu gibi kullanılmadı: onlarda kendi başlığı, logosu ve
+> teknoloji etiketleri var; kartın **zaten** başlığı ve etiketleri olduğu için
+> kart içinde kart gibi görünüyorlardı. Yalnızca ortadaki ürün görüntüsü alındı.
+
+Görseli değiştirmek istersen aynı ada, 16:9 oranında yaz. Yeniden üretmek için:
+
+```bash
+ffmpeg -i kaynak.png -vf "crop=1440:810:80:170,scale=800:450" \
+       -c:v libwebp -quality 82 assets/img/projects/ad.webp
+```
+
+> ⚠️ **Yazdırmada gizleniyor.** `assets/css/style.css` içindeki `@media print`
+> bloğu `.project__shot` öğesini `display: none` yapar. Bu kural kaldırılırsa
+> CV çıktısı 3 sayfadan taşar ve `build-cv-pdf.js` PDF'i yazmayı reddeder.
+>
+> Aynı sebeple görsellere `loading="lazy"` **konulmadı**: yazdırma sırasında
+> gizli kalan tembel görseller hiç yüklenmez, `brokenImages` kontrolü de
+> takılırdı. Altı dosya toplam ~117 KB.
+
+### 4. Uygulama ekran görüntüleri  (opsiyonel)
 
 **Uygulama simgeleri ✅ eklendi.** Telefon maketlerinin içinde artık gerçek Play Store
 simgelerin görünüyor. Kaynak projelerden alınıp 192×192 px'e küçültüldüler
@@ -118,7 +149,7 @@ assets/img/apps/marketlistem.png
 
 > Boyut: yaklaşık 1080×2220 px (telefon ekran görüntüsü oranı).
 
-### 4. Sosyal bağlantılar  ✅ eklendi
+### 5. Sosyal bağlantılar  ✅ eklendi
 
 Gerçek adresler yerine kondu (her iki dilde, hem hero hem iletişim bölümünde):
 
@@ -132,7 +163,7 @@ Gerçek adresler yerine kondu (her iki dilde, hem hero hem iletişim bölümünd
 Aynı dört adres `schema.org` verisine `sameAs` olarak da eklendi — Google’ın bu profilleri
 seninle aynı kişi olarak eşleştirmesini sağlar.
 
-### 5. Şirket adı  ⚠️ karar senin
+### 6. Şirket adı  ⚠️ karar senin
 
 Google Play geliştirici hesabın **RiskManage Studio** adına kayıtlı. Sitede şirketin şu an
 “Kendi Yazılım Şirketim” diye geçiyor. Eğer RiskManage Studio kurduğun şirketin adıysa,
@@ -141,7 +172,7 @@ adıyla anmak çok daha güçlü durur. Değiştirilecek yerler:
 - `index.html` → kariyer zaman çizelgesinde `<span class="tl-org">Kendi Yazılım Şirketim</span>`
 - `en.html` → `<span class="tl-org">My own software company</span>`
 
-### 6. Alan adı  ✅ suphicelikoz.com
+### 7. Alan adı  ✅ suphicelikoz.com
 
 Alan adı alındı ve site zaten bu adrese göre yapılandırılmış durumda —
 değiştirilecek bir şey yok. Geçtiği yerler:
@@ -156,7 +187,7 @@ değiştirilecek bir şey yok. Geçtiği yerler:
 grep -rl "suphicelikoz.com" index.html en.html sitemap.xml robots.txt | xargs sed -i "s/suphicelikoz\.com/YENI-ALAN-ADI/g"
 ```
 
-### 7. Teknoloji etiketleri  ✅ projelerden doğrulandı
+### 8. Teknoloji etiketleri  ✅ projelerden doğrulandı
 
 Yetkinlikler bölümü, yedi proje klasörünün `package.json` dosyaları okunarak yeniden yazıldı.
 Artık listedeki her kalem gerçekten kullandığın bir teknoloji.

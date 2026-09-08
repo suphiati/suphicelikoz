@@ -859,6 +859,25 @@ html[data-theme="light"] .hero__photo-frame::after {
 }
 .project.is-hidden { display: none; }
 
+/* Kart basindaki tam genislikte gorsel bandi. Negatif kenar boslugu
+   .project kuralindaki "padding: 26px" ile eslesiyor; .project zaten
+   "overflow: hidden" tasidigi icin ust kose yuvarlaklarini kirpar.
+   aspect-ratio SART: genel "img, svg" kuralinda height:auto yok, yani
+   width/height ozniteliklerini tasiyan gorsel 450px yerine tam boyunda
+   uzar ve yazdirma sayfa sayisini patlatir. */
+.project__shot {
+  margin: -26px -26px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.project__shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
 .project__top {
   display: flex;
   align-items: flex-start;
@@ -1335,8 +1354,9 @@ html[data-theme="light"] .hero__photo-frame::after {
   #uzmanlik, #expertise,
   /* Kariyer akisi gorseli ve alintili blok - anlatim, veri degil */
   .flow, .about__quote,
-  /* Proje kartlarindaki Problem/Cozum/Olcek detaylari */
-  .project__meta,
+  /* Proje kartlarindaki gorsel bandi ve Problem/Cozum/Olcek detaylari.
+     Gorsel kagitta hem yer harcar hem de CV'yi 3 sayfadan tasirir. */
+  .project__shot, .project__meta,
   /* Tek satirlik aciklama notlari */
   .skillset__note, .cert p, .app__body, .domain p, .domain ul,
   .tl-kind,
