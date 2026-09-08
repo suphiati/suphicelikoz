@@ -68,7 +68,7 @@ JPG de olur; o durumda `index.html` ve `en.html` içindeki `suphifoto.png` yazan
 ### 2. Sertifika görsellerini ekle  (opsiyonel ama tavsiye edilir)
 
 Sertifika kartlarındaki **Görüntüle** butonu bir pencere açar. Belgeleri şu adlarla koyarsan
-otomatik görünürler; koymazsan pencerede “henüz eklenmedi” notu çıkar:
+otomatik görünürler:
 
 ```
 assets/img/certs/istqb.jpg
@@ -76,6 +76,10 @@ assets/img/certs/sdet.jpg
 assets/img/certs/udemy-fullstack.jpg
 assets/img/certs/btk-testing.jpg
 ```
+
+> Belge koymazsan pencerede “Belgenin kopyası talep üzerine paylaşılır.” yazar.
+> Ziyaretçiye dosya yolu ya da “şu klasöre JPG bırak” gibi bir kurulum notu **gösterilmez** —
+> o pencereyi açan kişi sertifikayı doğrulamaya geliyor.
 
 ### 3. Uygulama ekran görüntüleri  (opsiyonel)
 

@@ -217,10 +217,10 @@
         var img = new Image();
         img.alt = (btn.getAttribute("data-title") || "") + t(" sertifikası", " certificate");
         img.src = src;
-        img.onerror = function () { body.innerHTML = placeholder(src); };
+        img.onerror = function () { body.innerHTML = placeholder(); };
         body.appendChild(img);
       } else {
-        body.innerHTML = placeholder("assets/img/certs/");
+        body.innerHTML = placeholder();
       }
 
       box.hidden = false;
@@ -230,13 +230,15 @@
       closeEl.focus();
     };
 
-    var placeholder = function (path) {
+    /* Belge taramasi konulmadiginda ziyaretcinin gordugu metin. Burada
+       dosya yolu ya da "su klasore JPG birak" gibi bir gelistirici notu
+       OLMAMALI: bu pencereyi acan kisi sertifikayi dogrulamaya geliyor,
+       kurulum talimati okumaya degil. Taramalar assets/img/certs/ altina
+       konuldugunda bu metin zaten hic gorunmez (bkz. README). */
+    var placeholder = function () {
       return '<div class="lightbox__placeholder">' +
-             "<span>" + t("Sertifika görseli henüz eklenmedi.",
-                          "The certificate image has not been added yet.") + "</span>" +
-             "<code>" + path + "</code>" +
-             "<span>" + t("Belgenin JPG/PNG kopyasını bu yola koyduğunda burada otomatik görünür.",
-                          "Drop a JPG/PNG copy of the document at this path and it will appear here.") + "</span>" +
+             "<span>" + t("Belgenin kopyası talep üzerine paylaşılır.",
+                          "A copy of this document is available on request.") + "</span>" +
              "</div>";
     };
 
