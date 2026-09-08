@@ -15,10 +15,11 @@ Suphi CV/
 ├─ robots.txt              ← Arama motoru yönergesi
 ├─ .nojekyll               ← GitHub Pages icin (Vercel kullanilsa da zararsiz)
 ├─ sitemap.xml             ← Site haritası
+├─ tools/build-cv-pdf.js   ← CV PDF'lerini üreten betik (geliştirme aracı)
 └─ assets/
    ├─ css/style.css        ← Tüm stiller (tema, yazdırma/CV dahil)
    ├─ js/main.js           ← Tüm etkileşimler (bağımlılık yok)
-   ├─ files/               ← PDF CV vb. koyacaksan buraya
+   ├─ cv/                  ← hazır CV PDF'leri (İndir butonları buraya bağlı)
    └─ img/
       ├─ favicon.svg       ← Sekme ikonu
       ├─ suphifoto.png     ← portre fotoğrafın
@@ -165,14 +166,25 @@ llama.rn (cihaz-üstü GGUF modeli), ML Kit OCR, konuşma tanıma.
 
 ---
 
-## 🖨️ CV çıktısı
+## 📄 CV çıktısı
 
-Sağ üstteki **CV İndir** butonu tarayıcının yazdırma penceresini açar. Sayfa
-yazdırılırken tamamen farklı bir stil devreye girer ve **2–3 sayfalık** derli toplu
-bir CV çıkar. (Ekranda görünen site hiç değişmez.)
+Sağ üstteki **CV İndir** ve sayfa sonundaki **CV'mi İndir** butonları hazır bir PDF
+dosyasını doğrudan indirir — yazdırma penceresi açılmaz:
 
-**PDF olarak kaydetmek için:** Yazdır penceresinde hedef olarak
-“**PDF olarak kaydet / Save as PDF**” seç. Düzen **Dikey** olmalı.
+| Sayfa | İnen dosya |
+| --- | --- |
+| `index.html` | `assets/cv/Suphi-Atilim-Celikoz-CV.pdf` |
+| `en.html` | `assets/cv/Suphi-Atilim-Celikoz-CV-EN.pdf` |
+
+PDF'ler sitenin kendi `@media print` stilinden üretiliyor: yani inen dosya, sayfayı
+**Ctrl+P** ile yazdırdığında çıkacak olanın birebir aynısı — **3 sayfalık** derli toplu
+bir CV. (Ekranda görünen site hiç değişmez; Ctrl+P de çalışmaya devam eder.)
+
+> **Dosyanın adını değiştirmek istersen** `assets/cv/` içindeki dosyayı yeniden
+> adlandır ve HTML'deki `href`'i güncelle. `<a download="başka-ad.pdf">` yazmak
+> yetmez: Vercel her statik dosyada `Content-Disposition: inline; filename="..."`
+> gönderiyor ve tarayıcı bunu öznitelikteki isme tercih ediyor. Yani yerelde
+> çalışır, yayında sessizce yok sayılır — indirilen adı yalnızca diskteki ad belirler.
 
 ### Çıktıya giren / girmeyen
 
@@ -192,8 +204,35 @@ bir CV çıkar. (Ekranda görünen site hiç değişmez.)
 gizlenecekleri `display: none !important` listesine ekle/çıkar, genel boyut için
 `body { font-size: 8.6pt }` değerini oynat.
 
-> İstersen elde ettiğin PDF’i `assets/files/suphi-celikoz-cv.pdf` olarak kaydedip
-> butonu doğrudan o dosyaya bağlayabilirsin.
+### PDF'i yeniden üretmek
+
+**Sayfa içeriğini ya da `@media print` bloğunu her değiştirdiğinde** PDF'ler eskir.
+Kurulum yok; Node ve Chrome (veya Edge) yeterli:
+
+```bash
+node tools/build-cv-pdf.js --check   # eskimiş mi? (çıkış kodu 1 = eskimiş)
+node tools/build-cv-pdf.js           # yeniden üret
+```
+
+Betik Chrome'u arka planda açar, iki sayfayı da yazdırma stiliyle basar ve
+`assets/cv/` altındaki dosyaların üzerine yazar. Çıktıyı **yazmadan önce**
+doğruluyor — geçerli PDF mi, 2–4 sayfa mı, portre yüklendi mi, istatistik
+rakamları HTML'deki değerlerle aynı mı, e-posta yerleşti mi, filtreyle gizli
+kalan proje var mı, yazdırma paleti (`--brand: #14497f`) gerçekten uygulandı mı.
+Biri tutmazsa dosya yazılmaz ve betik hata verir. İçerik değişmemişse dosyaya
+hiç dokunmaz, böylece `git status` boş yere kirlenmez.
+
+> ⚠️ İnternet bağlantısı gerekir: Google Fonts inmezse PDF sistem yazı tipiyle
+> üretilir ve bütün sayfa sonları kayar. Betik bu durumda uyarı basar.
+
+> `assets/cv/.build-stamp` kaynakların özetini tutar; `--check` bunu karşılaştırır.
+> Dosya tarihine bakmıyor: `git clone` dosyaları alfabetik sırayla yazdığı için
+> PDF'ler her taze klonda `index.html`'den eski görünür ve tarih karşılaştırması
+> koşulsuz “eskimiş” derdi. Bu dosya da depoya girer.
+
+> `tools/` klasörü Vercel tarafından da yayınlanır (siteye bağlantısı yoktur ama
+> `suphicelikoz.com/tools/build-cv-pdf.js` adresinden erişilebilir). İçinde gizli
+> bilgi yok; gerçekten gizlemek istersen `.vercelignore` eklemek gerekir.
 
 ---
 
@@ -282,6 +321,9 @@ Açık tema renkleri hemen altındaki `html[data-theme="light"]` bloğunda.
 
 - **Bağımlılık yok.** Sadece Google Fonts dışarıdan yükleniyor; internet olmasa da site çalışır
   (sistem yazı tipine düşer).
+- **CV butonu düz bağlantı.** JavaScript çalıştırmaz; `assets/cv/` altındaki dosyaya
+  bağlı normal bir `<a download>` etiketidir — JavaScript kapalıyken, orta tıklamayla
+  ve “bağlantıyı farklı kaydet” ile de çalışır.
 - **Tema:** koyu/açık geçiş sağ üstteki butonla, tercih `localStorage`’a kaydedilir.
   İlk açılışta işletim sistemi tercihine uyar.
 - **Erişilebilirlik:** klavyeyle tam gezinilebilir, `skip link`, `aria` etiketleri,
@@ -296,3 +338,8 @@ Açık tema renkleri hemen altındaki `html[data-theme="light"]` bloğunda.
 
 > `.claude/` klasoru yalnizca yerel onizleme icindir (bagimliliksiz kucuk bir
 > statik sunucu). Siteyi yayina alirken gerekmez; `.gitignore` icinde haric tutuldu.
+>
+> `tools/` klasoru ise depoya **girer**. Icindeki betik, depoda duran iki CV PDF'ini
+> ureten tek dosyalik bir gelistirme aracidir; `.claude/` gibi haric tutulsaydi
+> PDF'leri baska bir bilgisayarda guncellemek mumkun olmazdi. Ayni sebeple
+> `.claude/serve.js`'i cagirmak yerine kendi mini sunucusunu iceriyor.

@@ -1,0 +1,2 @@
+# PDF ikili dosyadir; core.autocrlf acikken satir sonu donusumune girmemeli.
+*.pdf binary

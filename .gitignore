@@ -88,6 +88,7 @@ _draft*/
 #  ve depoya girer:
 #    index.html · en.html · robots.txt · sitemap.xml · .nojekyll
 #    assets/css/ · assets/js/ · assets/img/ (fotograf, ikon, sertifika)
+#    assets/cv/ (hazir CV PDF'leri) · tools/ (CV PDF uretim betigi)
 #
 #  Yeni bir dosyanin gonderilip gonderilmeyecegini merak edersen:
 #    git check-ignore -v <dosya>

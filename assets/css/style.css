@@ -1296,12 +1296,27 @@ html[data-theme="light"] .hero__photo-frame::after {
 
   @page { margin: 12mm 12mm 10mm; }
 
-  :root {
+  /* html[data-theme="light"] (bkz. satir 57) ozgullugu (0,1,1); sadece
+     ":root" yazilsaydi (0,1,0) onu ezemezdi. Sayfa acilirken satir ici tema
+     betigi data-theme'i her zaman yaziyor, yani asagidaki palet acik temada
+     hic uygulanmiyordu: cikti ziyaretcinin temasina gore degisiyordu.
+     Koyu tema icin ayri bir secici gerekmiyor; onun degiskenleri duz :root
+     uzerinde (satir 12) ve bu blok kaynakta ondan sonra geliyor. */
+  :root,
+  html[data-theme="light"] {
     --bg: #fff; --surface: #fff; --surface-2: #fff; --surface-3: #fff;
     --text: #111; --text-soft: #333; --muted: #555;
     --border: #d5dae3; --border-str: #b9c1cd;
     --brand: #14497f; --brand-soft: #14497f; --cyan: #14497f;
     --brand-dim: #eef3fa; --cyan-dim: #eef3fa;
+    --bg-soft: #fff;
+    /* Vurgu renkleri de sabitlenmeli: aksi halde sertifika muhurleri kagitta
+       kehribar/yesil/mor basiliyor ve cikti yine temaya gore degisiyordu.
+       Koyu tema tonlari (#2dd4a7 gibi) beyaz kagitta zaten okunmuyor. */
+    --amber: #8a5a06; --amber-dim: #f6f1e6;
+    --green: #0b6b53; --green-dim: #e9f4f0;
+    --violet: #4b3597; --violet-dim: #efecf8;
+    --grad-text: none;
     --shadow: none; --shadow-lg: none;
   }
 
@@ -1324,7 +1339,10 @@ html[data-theme="light"] .hero__photo-frame::after {
   .project__meta,
   /* Tek satirlik aciklama notlari */
   .skillset__note, .cert p, .app__body, .domain p, .domain ul,
-  .tl-kind {
+  .tl-kind,
+  /* Fotografin alt yarisini koyulastiran dekoratif gradyan: ekranda hos
+     duruyor, kagitta baski hatasi gibi gorunuyor. */
+  .hero__photo-frame::after {
     display: none !important;
   }
 
@@ -1435,7 +1453,14 @@ html[data-theme="light"] .hero__photo-frame::after {
   .footer p { font-size: 7.6pt; }
 
   /* --- Renk / animasyon ---------------------------------------------- */
-  .reveal { opacity: 1 !important; transform: none !important; }
+  /* transition sifirlanmazsa gecis bitmeden yazdirilan ogeler yari saydam
+     basilabiliyor. */
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  /* Ziyaretci projeleri filtrelemis olsa bile ciktida hepsi yer alsin.
+     Eskiden bunu butondaki JS yapiyordu; buton artik hazir PDF'e giden duz
+     bir baglanti oldugu icin is buraya tasindi. ".project" flex kutu
+     (satir 847) ve gizleyen kural ayni ozgullukte, o yuzden !important. */
+  .project.is-hidden { display: flex !important; }
   .grad-text, .stat__num { color: #14497f !important; -webkit-text-fill-color: #14497f; }
 
   /* Proje adreslerinin altinda URL zaten yazili oldugu icin baglantilarin

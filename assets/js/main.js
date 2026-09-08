@@ -287,16 +287,15 @@
     }
   })();
 
-  /* --- 10. CV cikti (yazdirma stili sayfayi CV'ye donusturur) ------------ */
-  (function printCv() {
-    $$("#printCv, #printCv2").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        $$(".reveal").forEach(function (el) { el.classList.add("is-visible"); });
-        $$(".project.is-hidden").forEach(function (el) { el.classList.remove("is-hidden"); });
-        window.print();
-      });
-    });
-  })();
+  /* --- 10. CV indirme ----------------------------------------------------
+     Burada JS yok: "CV Indir" butonlari artik assets/cv/ altindaki hazir
+     PDF'e giden duz <a download> baglantilari. Eskiden window.print()
+     cagriliyordu, yani buton indirmiyor yazdirma penceresi aciyordu.
+     Ctrl+P hala eksiksiz calisiyor; butonun JS'te yaptigi iki hazirlik
+     (reveal animasyonlarini acmak, filtrelenmis projeleri geri getirmek)
+     yazdirma stiline tasindi. PDF'leri yenilemek icin:
+       node tools/build-cv-pdf.js
+     ---------------------------------------------------------------------- */
 
   /* --- 11. Yil ---------------------------------------------------------- */
   (function year() {
