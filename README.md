@@ -29,7 +29,7 @@ Suphi CV/
       ├─ og-cover.jpg      ← sosyal paylaşım görseli 1200×630 (üretilir)
       ├─ og-cover-en.jpg   ← aynısının İngilizcesi (en.html için)
       ├─ projects/         ← proje kartlarındaki 16:9 görseller (800×450 WebP)
-      ├─ apps/             ← uygulama simgeleri (+ opsiyonel ekran görüntüleri)
+      ├─ apps/             ← uygulama simgeleri + telefon maketi ekran görüntüleri
       └─ certs/            ← (opsiyonel) sertifika belgeleri
 ```
 
@@ -112,42 +112,48 @@ ffmpeg -i kaynak.png -vf "crop=1440:810:80:170,scale=800:450" \
 > gizli kalan tembel görseller hiç yüklenmez, `brokenImages` kontrolü de
 > takılırdı. Altı dosya toplam ~117 KB.
 
-### 4. Uygulama ekran görüntüleri  (opsiyonel)
+### 4. Uygulama ekran görüntüleri  ✅ eklendi
 
-**Uygulama simgeleri ✅ eklendi.** Telefon maketlerinin içinde artık gerçek Play Store
-simgelerin görünüyor. Kaynak projelerden alınıp 192×192 px'e küçültüldüler
-(2,9 MB → 237 KB):
+Telefon maketlerinin içinde artık **gerçek uygulama ekranları** var. Beş dosya da
+540×1110 WebP (21–32 KB), yani maketin `9 / 18.5` oranıyla birebir — `object-fit: cover`
+hiçbir şeyi kırpmıyor:
 
-| Dosya                                    | Kaynak proje         |
-| ---------------------------------------- | -------------------- |
-| `assets/img/apps/icon-kuryevenakliyat.png` | `tasiapp`            |
-| `assets/img/apps/icon-benimkasam.png`      | `benim_kasam`        |
-| `assets/img/apps/icon-focuslife.png`       | `pomodoro-sayaci`    |
-| `assets/img/apps/icon-hafizatutucum.png`   | `Hafiza-tutucum`     |
-| `assets/img/apps/icon-marketlistem.png`    | `market-listem`      |
+| Dosya | Ekran | Kaynak |
+| --- | --- | --- |
+| `kuryevenakliyat.webp` | Ana sayfa | `tasiapp` → `mobile/store-assets/real-captures/phone/05-home.png` (ham çekim) |
+| `benimkasam.webp` | Kasa | `benim_kasam` → `store-assets/screenshots/1-kasa.png` |
+| `focuslife.webp` | Odak sayacı | `pomodoro-sayaci` → `store-assets/googleplay/play-01-focus-1080x2160.png` |
+| `hafizatutucum.webp` | Notlar | `Hafiza-tutucum` → `store-assets/01-notlar.png` |
+| `marketlistem.webp` | Listelerim | `market-listem` → `store-assets/google-play/play-screenshot-1.png` |
 
-> Simgeyi güncellersen aynı isimle üzerine yaz; 192×192 px yeterli.
+Mağaza görselleri olduğu gibi kullanılamadı: `tasiapp` dışındakiler **çerçeveli pazarlama
+tasarımı** (üstte başlık metni, altta telefon gövdesi). Maketin içine konsaydı
+telefon-içinde-telefon görünürlerdi. Her birinden **bezel içindeki ekran** kırpıldı, sonra
+oran `9 / 18.5`'e tamamlandı:
 
-Simgenin altındaki ekran içeriği stilize bir ön izleme — ama artık **gerçek ekranlarına göre**
-yazıldı (Market Listem’de “Listelerim / Paylaşılan liste / Kıyasla”, Kurye ve Nakliyat’ta
-“Yeni Nakliye · Kurye · Yük / Teklifleri karşılaştır” gibi).
+```bash
+# 1) bezel içindeki ekranı kırp  (koordinatlar görsele göre değişir)
+ffmpeg -i kaynak.png -vf "crop=606:1380:232:385" ekran.png
 
-> **Not:** `store-assets` klasörlerindeki mağaza görsellerini kullanmadım. Onlar telefon
-> çerçevesi ve başlık metni içeren **pazarlama tasarımları**; telefon maketinin içine
-> konulunca telefon-içinde-telefon görünüyorlar.
+# 2) kırpılan ekran maketten dar kalıyorsa kenarları kendi zeminiyle tamamla
+#    (gövde ve alt navigasyon farklı renkte olduğu için iki parça hâlinde)
+ffmpeg -i ekran.png -filter_complex \
+  "[0:v]crop=606:1258:0:0,pad=671:1258:32:0:0xf3f3f8[t];\
+   [0:v]crop=606:122:0:1258,pad=671:122:32:0:0xffffff[b];[t][b]vstack" tam.png
 
-Gerçek ekran görüntüsü koymak istersen, telefondan **ham ekran görüntüsü** al (çerçevesiz,
-yazısız) ve şu adlarla kaydet — telefonun tamamını kaplayarak stilize ön izlemenin yerine geçer:
-
+# 3) siteye koy
+ffmpeg -i tam.png -vf "scale=540:-2" -c:v libwebp -quality 84 \
+  assets/img/apps/hafizatutucum.webp
 ```
-assets/img/apps/kuryevenakliyat.png
-assets/img/apps/benimkasam.png
-assets/img/apps/focuslife.png
-assets/img/apps/hafizatutucum.png
-assets/img/apps/marketlistem.png
-```
 
-> Boyut: yaklaşık 1080×2220 px (telefon ekran görüntüsü oranı).
+> **Neden tamamlandı, kırpılmadı?** Kaynak ekranlar 0,44 oranında, maket 0,486.
+> `cover` farkı üstten ve alttan kırpıyor ve alt navigasyon çubuğunun etiketleri
+> kesiliyordu. Kenarlara ekranın kendi zemin rengi eklenince hiçbir şey kaybolmuyor.
+
+Simgeler (`icon-*.png`, 192×192) yerinde duruyor ama artık görünmüyorlar: gerçek ekran
+görüntüsü maketin tamamını kaplıyor. `onerror="this.remove()"` de duruyor — dosya bir gün
+kaybolursa stilize önizleme yine devreye girer.
+
 
 ### 5. Sosyal bağlantılar  ✅ eklendi
 
