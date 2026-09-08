@@ -1437,7 +1437,7 @@ html[data-theme="light"] .hero__photo-frame::after {
   .edu-item h3 { font-size: 9.2pt; }
   .edu-item span { margin-top: 0; font-size: 8.2pt; }
 
-  .contact { grid-template-columns: repeat(5, 1fr); gap: 5pt; }
+  .contact { grid-template-columns: repeat(6, 1fr); gap: 5pt; }
   .contact-card { padding: 7pt; gap: 1pt; }
   .contact-card i { width: 16pt; height: 16pt; margin-bottom: 4pt; border-radius: 4pt; }
   .contact-card i svg { width: 9pt; height: 9pt; }

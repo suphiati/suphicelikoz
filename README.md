@@ -119,8 +119,9 @@ Gerçek adresler yerine kondu (her iki dilde, hem hero hem iletişim bölümünd
 | LinkedIn     | `https://www.linkedin.com/in/suphi-atilim-celikoz/`                  |
 | GitHub       | `https://github.com/suphiati`                                        |
 | Google Play  | `https://play.google.com/store/apps/developer?id=RiskManage+Studio`  |
+| Upwork       | `https://www.upwork.com/freelancers/~0182462aa45cf30710`             |
 
-Aynı üç adres `schema.org` verisine `sameAs` olarak da eklendi — Google’ın bu profilleri
+Aynı dört adres `schema.org` verisine `sameAs` olarak da eklendi — Google’ın bu profilleri
 seninle aynı kişi olarak eşleştirmesini sağlar.
 
 ### 5. Şirket adı  ⚠️ karar senin
