@@ -15,7 +15,10 @@ Suphi CV/
 ├─ robots.txt              ← Arama motoru yönergesi
 ├─ .nojekyll               ← GitHub Pages icin (Vercel kullanilsa da zararsiz)
 ├─ sitemap.xml             ← Site haritası
-├─ tools/build-cv-pdf.js   ← CV PDF'lerini üreten betik (geliştirme aracı)
+├─ tools/
+│  ├─ build-cv-pdf.js     ← CV PDF dosyalarını üreten betik (geliştirme aracı)
+│  ├─ build-og-cover.js   ← sosyal paylaşım kapaklarını üreten betik
+│  └─ og-cover.html       ← kapağın tasarım şablonu (siteye bağlı değil)
 └─ assets/
    ├─ css/style.css        ← Tüm stiller (tema, yazdırma/CV dahil)
    ├─ js/main.js           ← Tüm etkileşimler (bağımlılık yok)
@@ -23,7 +26,8 @@ Suphi CV/
    └─ img/
       ├─ favicon.svg       ← Sekme ikonu
       ├─ suphifoto.png     ← portre fotoğrafın
-      ├─ og-cover.jpg      ← (opsiyonel) sosyal medya paylaşım görseli 1200×630
+      ├─ og-cover.jpg      ← sosyal paylaşım görseli 1200×630 (üretilir)
+      ├─ og-cover-en.jpg   ← aynısının İngilizcesi (en.html için)
       ├─ apps/             ← uygulama simgeleri (+ opsiyonel ekran görüntüleri)
       └─ certs/            ← (opsiyonel) sertifika belgeleri
 ```
@@ -164,6 +168,40 @@ llama.rn (cihaz-üstü GGUF modeli), ML Kit OCR, konuşma tanıma.
 
 > Yeni bir teknolojiye geçtiğinde etiketi eklemek/çıkarmak tek satır:
 > `<li><span class="tag">Yeni Teknoloji</span></li>`
+
+---
+
+## 🖼️ Sosyal paylaşım görseli
+
+Siteyi LinkedIn'de, WhatsApp'ta, Slack'te ya da Upwork mesajında paylaştığında
+görünen 1200×630 kapak. İki dil için iki dosya var; `index.html` Türkçesini,
+`en.html` İngilizcesini gösteriyor.
+
+| Sayfa | Kapak |
+| --- | --- |
+| `index.html` | `assets/img/og-cover.jpg` |
+| `en.html` | `assets/img/og-cover-en.jpg` |
+
+> ⚠️ Bu dosyalar **zorunlu**. `og:image` etiketi koşulsuz olarak onları gösteriyor;
+> dosya yoksa paylaşım önizlemesi "eksik" görünmez, hiç oluşmaz.
+
+Tasarım `tools/og-cover.html` dosyasında duruyor — sitenin kendi paletini kullanan
+tek sayfalık bir şablon. İkinci dil ayrı bir dosya değil: şablon `?lang=en` ile
+açıldığında metinleri İngilizceye çeviriyor, düzen ve renkler aynı kalıyor.
+
+```bash
+node tools/build-og-cover.js --check   # eskimiş mi? (çıkış kodu 1 = eskimiş)
+node tools/build-og-cover.js           # ikisini de yeniden üret
+```
+
+Betik, PDF üreticisiyle aynı düzeni izliyor: kendi mini sunucusunu açar, Chrome'u
+arka planda çalıştırır ve dosyayı yazmadan **önce** doğrular — gerçekten JPEG mi,
+tam 1200×630 mü, portre yüklendi mi, web fontları indi mi, tuval taştı mı. Biri
+tutmazsa dosya yazılmaz. `assets/img/.og-cover-stamp` kaynakların özetini tutar.
+
+> Şablondaki metinleri değiştirirsen sitedeki karşılıklarıyla (hero durum rozeti,
+> roller, istatistikler) aynı kalmasına dikkat et — dosyanın içinde bunu hatırlatan
+> bir not var.
 
 ---
 

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>og-cover</title>
+
+<!--
+  Sosyal paylasim kapagi (1200x630). Bu sayfa siteye bagli degildir; yalnizca
+  "node tools/build-og-cover.js" onu 1200x630 goruntu alip
+  assets/img/og-cover.jpg olarak kaydetmek icin acar.
+
+  Renkler assets/css/style.css icindeki :root degiskenlerinin birebir
+  kopyasidir. Stil dosyasini disaridan baglamiyoruz cunku o dosya
+  "@media print" ve mobil sorgular tasiyor; 1200x630'luk bir tuvalde
+  ikisi de yanlis yerlerde devreye girer.
+  Paleti degistirirsen iki dosyayi birlikte guncelle.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:        #060a15;
+    --surface:   #0e1526;
+    --border:    rgba(255, 255, 255, .09);
+    --text:      #e8eefc;
+    --text-soft: #b6c3dd;
+    --muted:     #8395b5;
+    --brand:     #2e7dff;
+    --cyan:      #22d3ee;
+    --grad-text: linear-gradient(120deg, #ffffff 0%, #a9c8ff 46%, #22d3ee 100%);
+    --ff-sans: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+    --ff-head: "Space Grotesk", var(--ff-sans);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+
+  body {
+    position: relative;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--ff-sans);
+    /* Chrome'un kendi yumusatmasi 1x olcekte metni inceltiyor; kapak
+       kucuk onizlemede gosterilecegi icin dolgun kalmasi daha iyi. */
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Sitedeki hero isiltilarinin ayni tonlari */
+  body::before,
+  body::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+  }
+  body::before {
+    width: 620px; height: 620px;
+    top: -260px; left: -180px;
+    background: rgba(46, 125, 255, .38);
+  }
+  body::after {
+    width: 520px; height: 520px;
+    right: -170px; bottom: -260px;
+    background: rgba(34, 211, 238, .22);
+  }
+
+  /* Ust kenardaki marka seridi */
+  .edge {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 6px;
+    background: linear-gradient(90deg, #2e7dff 0%, #22d3ee 100%);
+  }
+
+  .sheet {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    align-items: center;
+    gap: 56px;
+    height: 100%;
+    padding: 64px 72px 58px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 18px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: rgba(14, 21, 38, .72);
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: .01em;
+    color: var(--text-soft);
+  }
+  .eyebrow i {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: #2dd4a7;
+    box-shadow: 0 0 0 4px rgba(45, 212, 167, .18);
+  }
+
+  h1 {
+    margin-top: 26px;
+    font-family: var(--ff-head);
+    font-size: 68px;
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -.02em;
+  }
+  h1 .sur {
+    display: block;
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    margin-top: 22px;
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--text-soft);
+    list-style: none;
+  }
+  .roles li + li::before {
+    content: "·";
+    margin-right: 14px;
+    color: var(--brand);
+    font-weight: 700;
+  }
+
+  .lead {
+    max-width: 640px;
+    margin-top: 20px;
+    font-size: 21px;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  .stats {
+    display: flex;
+    gap: 12px;
+    margin-top: 34px;
+  }
+  .stat {
+    flex: 1;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: rgba(14, 21, 38, .72);
+  }
+  .stat b {
+    display: block;
+    font-family: var(--ff-head);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text);
+  }
+  .stat span {
+    display: block;
+    margin-top: 7px;
+    font-size: 13.5px;
+    line-height: 1.25;
+    color: var(--muted);
+  }
+
+  /* --- Portre --------------------------------------------------------
+     Kaynak dosya 215x265 px. Burada 268x330 gosteriliyor (1,25x): daha
+     fazla buyutmek bulaniklastiriyor, sitedeki hero ile ayni gerekce
+     (bkz. README, "Fotografin"). */
+  .side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 26px;
+  }
+  .shot {
+    position: relative;
+    width: 268px;
+    height: 330px;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .14);
+    box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .9);
+  }
+  .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .site {
+    font-family: var(--ff-head);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: .01em;
+    color: var(--text-soft);
+  }
+</style>
+</head>
+
+<body>
+<span class="edge"></span>
+
+<div class="sheet">
+  <div>
+    <span class="eyebrow"><i></i>Yeni projeler ve iş birlikleri için uygunum</span>
+
+    <h1><span>Suphi Atılım</span><span class="sur">ÇELİKÖZ</span></h1>
+
+    <ul class="roles">
+      <li>Maden Mühendisi</li>
+      <li>TMGD</li>
+      <li>Software Developer</li>
+      <li>SDET</li>
+    </ul>
+
+    <p class="lead">
+      Tehlikeli madde, lojistik ve taşımacılık alanında
+      gerçek saha problemlerine çalışan dijital çözümler.
+    </p>
+
+    <div class="stats">
+      <div class="stat"><b>10+</b><span>Yıl deneyim</span></div>
+      <div class="stat"><b>5</b><span>Google Play uygulaması</span></div>
+      <div class="stat"><b>4</b><span>Web platformu</span></div>
+      <div class="stat"><b>4</b><span>Mesleki sertifika</span></div>
+    </div>
+  </div>
+
+  <div class="side">
+    <div class="shot">
+      <img src="/assets/img/suphifoto.png" alt="Suphi Atılım ÇELİKÖZ">
+    </div>
+    <span class="site">suphicelikoz.com</span>
+  </div>
+</div>
+
+<script>
+/*
+  Tek sablon, iki dil. "?lang=en" ile acildiginda metinler Ingilizceye
+  cevrilir; duzen, palet ve olculer ayni kalir - iki ayri HTML tutulsaydi
+  biri guncellenip digeri unutulurdu.
+
+  Metinler sitedeki karsiliklariyla ayni olmali:
+    .eyebrow  -> hero__status      (index.html / en.html)
+    .roles    -> hero__roles
+    .stat     -> .stats
+  Birini degistirirsen otekini de guncelle.
+*/
+(function () {
+  if (new URLSearchParams(location.search).get("lang") !== "en") return;
+
+  document.documentElement.lang = "en";
+
+  var set = function (sel, text) {
+    var el = document.querySelector(sel);
+    if (el) el.textContent = text;
+  };
+
+  /* Durum rozetindeki yesil nokta <i> ayri bir dugum; textContent yerine
+     yalnizca son metin dugumunu degistiriyoruz ki nokta silinmesin. */
+  var pill = document.querySelector(".eyebrow");
+  pill.lastChild.nodeValue = "Available for new projects and collaborations";
+
+  var roles = ["Mining Engineer", "DGSA", "Software Developer", "SDET"];
+  document.querySelectorAll(".roles li").forEach(function (li, i) {
+    li.textContent = roles[i];
+  });
+
+  set(".lead", "Digital products for real field problems in dangerous goods, " +
+               "logistics and transport.");
+
+  var labels = ["Years of experience", "Google Play apps", "Web platforms",
+                "Professional certificates"];
+  document.querySelectorAll(".stat span").forEach(function (s, i) {
+    s.textContent = labels[i];
+  });
+
+  /* .site aynen kalir: kanonik adres iki dilde de suphicelikoz.com */
+})();
+</script>
+</body>
+</html>
