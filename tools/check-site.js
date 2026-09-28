@@ -230,7 +230,7 @@ try {
     const src = path.join(ROOT, "content", "blog", l);
     if (fs.existsSync(src)) fs.readdirSync(src).filter(function (f) { return f.endsWith(".md"); }).forEach(function (f) { fs.copyFileSync(path.join(src, f), path.join(blogDir, l, f)); });
   });
-  const body = "Giriş paragrafı.\n\n## Birinci\n\nMetin ve [proje](proje:safecargo).\n\n## İkinci\n\n```js\nconst x = 1 < 2;\n```\n\n## Üçüncü\n\n![Ekran](/assets/img/projects/safecargo.webp \"Alt yazı\")\n";
+  const body = "Giriş paragrafı.\n\n## Birinci\n\nMetin ve [proje](proje:safecargo).\n\n## İkinci\n\n### Alt başlık\n\nMetin.\n\n```js\nconst x = 1 < 2;\n```\n\n## Üçüncü\n\n![Ekran](/assets/img/projects/safecargo.webp \"Alt yazı\")\n";
   fs.writeFileSync(path.join(blogDir, "tr", "deneme-yazisi.md"),
     "---\ntitle: Deneme yazısı\ndescription: Kontrol betiğinin geçici yayımlanmış yazısı, gerçek içerik değil.\nstatus: published\ndate: 2026-01-15\nupdated: 2026-02-01\ncategory: Deneme\nrelated: [safecargo]\ntranslation: test-post\n---\n" + body);
   fs.writeFileSync(path.join(blogDir, "en", "test-post.md"),
@@ -247,6 +247,8 @@ try {
   ok(/<item>[\s\S]*Test post/.test(fr("en/blog/rss.xml")) && !/Deneme/.test(fr("en/blog/rss.xml")), "[yayımlama] İngilizce RSS yanlış");
   const post = fr("blog/deneme-yazisi/index.html");
   ok(/class="toc"/.test(post), "[yayımlama] uzun yazıda içindekiler yok");
+  /* ### başlıkları ## altında iç içe olmalı; aynı listede kalırsa numaralar atlar */
+  ok(/<li><a href="#ikinci">İkinci<\/a><ul><li><a href="#alt-baslik">Alt başlık<\/a><\/li><\/ul><\/li><li><a href="#ucuncu">/.test(post), "[yayımlama] içindekilerde alt başlık iç içe değil");
   ok(/<pre><code class="language-js">const x = 1 &lt; 2;<\/code><\/pre>/.test(post), "[yayımlama] kod bloğu yanlış");
   ok(/<figure class="figure"><img src="\/assets\/img\/projects\/safecargo.webp" alt="Ekran" width="800" height="450"/.test(post), "[yayımlama] görsel ölçüsüyle birlikte eklenmedi");
   ok(/href="\/projeler\/safecargo\/"/.test(post), "[yayımlama] proje: bağlantısı çözülmedi");

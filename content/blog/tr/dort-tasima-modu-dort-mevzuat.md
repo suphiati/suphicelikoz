@@ -10,9 +10,9 @@ related: [safecargo]
 
 <!-- ONAY: Bu taslak genel mevzuat/teknik bilgilerden ve sitedeki doğrulanmış bilgilerden yazıldı; yaşamadığın bir olay, ölçüm ya da gerekçe eklenmedi. Onay notlarını yanıtlayıp sil. -->
 
-Bir maddenin tehlike sınıfı çoğu zaman hangi yoldan taşındığına göre değişmez; yine de bazı maddeler yalnızca tek bir modda düzenleniyor. Örneğin mıknatıslanmış malzeme (UN 2807) yalnızca havayolunda tehlikeli madde sayılıyor. Asıl değişen ise maddenin nasıl ambalajlanacağı, bir kolide ne kadar taşınabileceği, hangi etiketi taşıyacağı ve hangi belgeyle yola çıkacağı değişir. Karayolu, demiryolu, denizyolu ve havayolu için ayrı kurallar var: ADR, RID, IMDG Code ve havayolunda ICAO Teknik Talimatları ile IATA DGR.
+Bir maddenin tehlike sınıfı çoğu zaman hangi yoldan taşındığına göre değişmez. Değişen, maddenin nasıl ambalajlanacağı, bir kolide ne kadar taşınabileceği, hangi etiketi taşıyacağı ve hangi belgeyle yola çıkacağı. Bazı maddeler ise yalnızca tek bir modda düzenleniyor: örneğin mıknatıslanmış malzeme (UN 2807) yalnızca havayolunda tehlikeli madde sayılıyor. Karayolu, demiryolu, denizyolu ve havayolu için ayrı kurallar var: ADR, RID, IMDG Code ve havayolunda ICAO Teknik Talimatları ile IATA DGR.
 
-2019–2026 arasında havayolu ve karayolu taşımacılığında tehlikeli madde güvenlik danışmanı olarak çalıştım; ADR ve IATA DGR'yi günlük operasyonun içinde uyguladım. Bu yazıda dört mevzuatın ortak kökünü, kimin yayımladığını, nasıl güncellendiğini ve pratikte nerelerde ayrıldığını anlatıyorum.
+Bu yazıda dört mevzuatın ortak kökünü, kimin yayımladığını, nasıl güncellendiğini ve pratikte nerelerde ayrıldığını anlatıyorum.
 
 ## Ortak kök: BM Model Düzenlemeleri
 
@@ -76,8 +76,6 @@ Tek bir UN numarasını dört modda kontrol etmek bu yüzden uzun sürüyor:
 - **Farklı sürümler:** IATA DGR her yıl, diğerleri iki yılda bir yenileniyor. Önündeki metnin hangi sürüm olduğunu kontrol etmeden verilen karar yanlış olabilir.
 - **Farklılık listeleri:** Havayolunda devlet ve havayolu şirketi farklılıklarının ayrıca kontrol edilmesi gerekiyor.
 
-<!-- ONAY: Buraya havayolu ile karayolu arasında geçiş yaparken zorlandığın bir nokta hakkında kendi deneyimini ekleyebilirsin (ör. aynı maddenin iki modda farklı miktar sınırına, ambalajlama talimatına ya da belgeye takılması; firma veya kişi adı vermeden). Eklemeyeceksen notu sil. -->
-
 ## Çok modlu gönderilerde nelere dikkat etmeli?
 
 Bir gönderi fabrikadan karayoluyla çıkıp limana, oradan gemiye ya da havalimanından uçağa gidiyorsa her halkanın kuralları ayrı ayrı sağlanmalı. Genel olarak şu noktalar öne çıkıyor:
@@ -102,6 +100,4 @@ Bir gönderi fabrikadan karayoluyla çıkıp limana, oradan gemiye ya da havalim
 
 Amaç, bir UN numarasının farklı modlardaki karşılığına dağınık kaynaklar arasında gezinmeden ulaşmak. Yine de son kontrolün yürürlükteki resmî metin üzerinden yapılması gerekiyor; bu tür bir araç o kontrole giden yolu kısaltmayı amaçlıyor.
 
-<!-- ONAY: SafeCargo'daki mevzuat verisinin hangi sürümlere dayandığını, nasıl güncellendiğini ve platformu geliştirmene yol açan kendi ihtiyacını eklemek istersen buraya yaz. Doğrulanmadığı için yazılmadı. Son paragraftaki "son kontrol resmî metin üzerinden yapılmalı" ifadesini ürün yaklaşımına göre düzeltebilirsin. -->
-
-Platformu [safecargo.io](https://safecargo.io) adresinden inceleyebilir, ayrıntılarını [proje sayfasında](proje:safecargo) okuyabilirsiniz.
+<!-- ONAY: Bu bölümdeki araç listesi sitedeki SafeCargo açıklamasından alındı. "Son kontrol resmî metin üzerinden yapılmalı" ifadesi ürün yaklaşımına uymuyorsa düzelt. -->

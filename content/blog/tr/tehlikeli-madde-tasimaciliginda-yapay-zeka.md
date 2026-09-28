@@ -8,13 +8,9 @@ category: Yapay zekâ
 related: [safecargo]
 ---
 
-<!-- ONAY: Bu taslak genel mevzuat/teknik bilgilerden ve sitedeki doğrulanmış bilgilerden yazıldı; yaşamadığın bir olay, ölçüm ya da gerekçe eklenmedi. Onay notlarını yanıtlayıp sil. -->
+<!-- ONAY: Bu taslak genel mevzuat ve teknik bilgilerden yazıldı; yaşamadığın bir olay, ölçüm ya da gerekçe eklenmedi. Yazıyı onaylarsan notları sil. -->
 
-2019–2026 arasında havayolu ve karayolu tehlikeli madde taşımacılığında güvenlik danışmanı (TMGD) olarak çalıştım. Bugün kendi şirketimde yazılım geliştiriyorum. Projelerimde Anthropic Claude, Google Gemini ve OpenAI API'lerini kullandım; bir uygulamamda da dil modelini tamamen telefonda çalıştırdım.
-
-Bu iki alanı yan yana koyunca akla gelen soru şu: Yapay zekâ tehlikeli madde işinde neye yarar, nerede risk oluşturur? Bu yazıda olası kullanım alanlarını, dikkat isteyen noktaları ve böyle bir araç tasarlanırken gözetilmesi gereken ilkeleri anlatıyorum. Bunları kesinleşmiş çözümler olarak değil, yapay zekânın *yardımcı* olabileceği olası alanlar olarak okuyun. Belge kontrolü gibi bazı işler için kural tabanlı dijital araçlar zaten kullanılıyor.
-
-<!-- ONAY: Bu konuyla neden ilgilendiğini ya da tehlikeli madde alanında yapay zekâyla ilgili bir planın olup olmadığını bir iki cümleyle ekleyebilirsin. Bilinmediği için yazılmadı. Eklemeyeceksen notu sil. -->
+Yapay zekâ tehlikeli madde işinde neye yarar, nerede risk oluşturur? Bu yazıda olası kullanım alanlarını, dikkat isteyen noktaları ve böyle bir araç tasarlanırken gözetilmesi gereken ilkeleri anlatıyorum. Bunları kesinleşmiş çözümler olarak değil, yapay zekânın *yardımcı* olabileceği olası alanlar olarak okuyun. Belge kontrolü gibi bazı işler için kural tabanlı dijital araçlar zaten kullanılıyor.
 
 ## Bu alan neden ayrı bir dikkat istiyor?
 
@@ -38,8 +34,6 @@ Aşağıdakiler, bir dil modelinin ya da belge okuma teknolojisinin işi hızlan
 4. **Sınıflandırmaya yardımcı öneri.** Ürün tanımından yola çıkarak incelenmesi gereken aday girişleri listelemek. Sınıflandırmanın kendisi ise maddenin özelliklerine ve mevzuattaki kriterlere göre sorumlu kişi tarafından yapılmalı.
 5. **Eğitim içeriği hazırlama.** ADR ve IATA DGR, tehlikeli madde işinde görev alan personelin eğitimini zorunlu tutuyor. Senaryo, soru ve özet taslakları hazırlamak yapay zekânın hızlandırabileceği bir iş; içeriğin doğruluğunu ise eğitimi veren kişi kontrol etmeli.
 
-<!-- ONAY: TMGD olarak çalışırken bu işlerden hangisi en çok zamanını alıyordu ya da hangisinde bir yardımcı araca ihtiyaç duydun? Bir iki cümleyle ekleyebilirsin. Bilinmediği için yazılmadı. Eklemeyeceksen notu sil. -->
-
 ## Nerede dikkat istiyor?
 
 ### Yanlış ama ikna edici cevap
@@ -47,8 +41,6 @@ Aşağıdakiler, bir dil modelinin ya da belge okuma teknolojisinin işi hızlan
 Dil modelleri akıcı ve kendinden emin cevaplar üretir. Modelin gerçekte olmayan bir bilgiyi uydurmasına halüsinasyon deniyor. Sorun, uydurulan bilginin de doğru bilgiyle aynı akıcılıkla gelmesi. Genel bir konuda küçük bir hata tolere edilebilir. Ama yanlış bir ambalaj talimatı, yanlış bir miktar sınırı ya da hiç var olmayan bir özel hüküm, doğru bilgiyle aynı güvenle yazılabilir.
 
 Asıl tehlike şu: Hatayı fark etmek için konuyu zaten bilmek gerekiyor. Mevzuata yeni başlayan biri ikna edici bir yanlışı ayırt etmekte zorlanır.
-
-<!-- ONAY: Bir dil modeline tehlikeli madde sorusu sorup yanlış ama ikna edici bir cevap aldığın bir deneme olduysa buraya kısaca ekleyebilirsin. Bilinmediği için yazılmadı. Eklemeyeceksen notu sil. -->
 
 ### Güncel olmayan baskı
 
@@ -64,13 +56,13 @@ Bir yapay zekâ aracı bu zincirin hiçbir halkasının yerine geçmez. "Araç �
 
 Taşıma belgelerinde müşteri adları, adresler, içerik ve miktar bilgileri bulunur. Bu belgeleri bulut tabanlı bir yapay zekâ servisine göndermek, şirket verisinin ve kişisel verilerin başka bir şirkete, çoğu zaman da yurt dışındaki sunuculara gönderilmesi demek. KVKK yükümlülükleri, servis sağlayıcının veriyi nasıl kullandığı ve verinin nerede işlendiği önceden netleşmeli.
 
-Bir seçenek de modeli cihazda çalıştırmak. [Hafıza Tutucum](proje:hafiza-tutucum)'da bu yolu seçtim: yapay zekâ özellikleri tamamen telefonda çalışıyor, veri cihazdan çıkmıyor. Bunun bedeli, telefonda çalışabilen modellerin büyük bulut modellerine göre daha küçük olması. Tehlikeli madde belgeleri gibi hata payı düşük bir alanda bunun yeterli olup olmadığı ayrıca değerlendirilmeli.
+Bir seçenek de modeli cihazda çalıştırmak; bu durumda veri cihazdan çıkmıyor. Bunun bedeli, cihazda çalışabilen modellerin büyük bulut modellerine göre daha küçük olması. Tehlikeli madde belgeleri gibi hata payı düşük bir alanda bunun yeterli olup olmadığı ayrıca değerlendirilmeli.
 
 ## Güvenli kullanım için ilkeler
 
 Bu alanda yapay zekâ destekli bir araç tasarlanacaksa şu ilkeler temel alınmalı:
 
-<!-- ONAY: Aşağıdaki ilkeler genel iyi uygulama olarak yazıldı; senin görüşünle örtüşüyorsa "bence" diyerek sahiplenebilirsin. Katılmadığın, farklı ifade etmek istediğin ya da eklemek istediğin bir ilke varsa düzelt. -->
+<!-- ONAY: Aşağıdaki ilkeler genel iyi uygulama olarak yazıldı. Katılmadığın ya da farklı ifade etmek istediğin bir ilke varsa düzelt. -->
 
 1. **Son karar insanda.** Araç önerir, sorumlu kişi karar verir. Sınıflandırma, belge ve kabul kararı insan onayından geçmeden kesinleşmez.
 2. **Her cevabın kaynağı görünür.** Cevap hangi mevzuatın hangi bölümüne dayandığını göstermeli; kullanıcı asıl metne kolayca ulaşabilmeli. Kaynağı gösterilemeyen bir cevap, cevap değil tahmindir.
@@ -84,7 +76,3 @@ Bu ilkelerin çoğu aslında yapay zekâ kullansın ya da kullanmasın her mevzu
 ## Sonuç
 
 Yapay zekâ tehlikeli madde işinde aramayı, belge okumayı ve taslak hazırlamayı hızlandırabilecek bir yardımcı. Ama bu alanda hız tek başına değer taşımıyor; doğruluk, izlenebilirlik ve sorumluluk önce geliyor. Bu yüzden sorulması gereken soru "yapay zekâ bu işi yapabilir mi?" değil; "yapay zekâ bu işi yapan kişiye nasıl güvenli bir destek olabilir?"
-
-<!-- ONAY: SafeCargo ya da TMGD Asistanı'nda yapay zekâ kullanmakla ilgili bir planın ya da görüşün varsa buraya ekleyebilirsin. Bu ürünlerde yapay zekâ kullanımı doğrulanmadığı için yazıda böyle bir şey söylenmedi. Eklemeyeceksen notu sil. -->
-
-ADR Tablo A ve IATA DG List'i doğrudan sorgulayabileceğiniz, dört taşıma modunun kurallarını Türkçe ve tek yerde toplayan [SafeCargo](proje:safecargo)'ya proje sayfasından göz atabilirsiniz.

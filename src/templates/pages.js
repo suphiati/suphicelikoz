@@ -528,11 +528,22 @@ function post(lang, p, rendered, data) {
   const altFallback = {};
   altFallback[o] = PATHS[o].blog;
 
-  const h2s = rendered.headings.filter(function (h) { return h.level <= 3; });
+  /* İçindekiler: ### başlıkları üstündeki ## başlığının altında iç içe liste
+     olur; aynı listede kalsalardı ## numaraları (1, 2, 3, 8…) atlardı. */
   const showToc = rendered.headings.filter(function (h) { return h.level === 2; }).length >= 3;
+  const tocGroups = [];
+  rendered.headings.forEach(function (h) {
+    if (h.level === 2 || (h.level === 3 && !tocGroups.length)) tocGroups.push({ h: h, children: [] });
+    else if (h.level === 3) tocGroups[tocGroups.length - 1].children.push(h);
+  });
+  const tocLink = function (h) { return '<a href="#' + h.id + '">' + esc(h.text) + "</a>"; };
   const toc = showToc
     ? '<nav class="toc" aria-labelledby="toc-title"><h2 id="toc-title">' + esc(b.toc) + "</h2><ol>" +
-      h2s.map(function (h) { return '<li class="toc__l' + h.level + '"><a href="#' + h.id + '">' + esc(h.text) + "</a></li>"; }).join("") + "</ol></nav>"
+      tocGroups.map(function (g) {
+        return "<li>" + tocLink(g.h) + (g.children.length
+          ? "<ul>" + g.children.map(function (c) { return "<li>" + tocLink(c) + "</li>"; }).join("") + "</ul>"
+          : "") + "</li>";
+      }).join("") + "</ol></nav>"
     : "";
 
   const related = p.related.map(function (slug) { return data.projects.find(function (x) { return x.slug === slug; }); }).filter(Boolean);

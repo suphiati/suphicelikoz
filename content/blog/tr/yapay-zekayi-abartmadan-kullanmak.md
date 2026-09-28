@@ -1,6 +1,6 @@
 ---
-title: Yapay zekâyı abartmadan kullanmak: bir ürün geliştiricinin notları
-description: Dil modellerinin neyi iyi yapıp nerede yanıldığını, bulut ve cihaz üzerinde çalışan modeller arasındaki farkları ve geleneksel sektörlerde yapay zekâyı küçük, ölçülebilir işlerle denemeyi sade bir dille anlatıyorum.
+title: Yapay zekâyı abartmadan kullanmak
+description: Dil modellerinin neyi iyi yapıp nerede yanıldığını, bulut ve cihaz üzerinde çalışan modeller arasındaki farkları ve geleneksel sektörlerde yapay zekâyı küçük, ölçülebilir işlerle denemeyi anlatıyorum.
 status: draft
 # Yayımlarken tarihi YYYY-AA-GG biçiminde yaz ve status: published yap.
 date:
@@ -8,13 +8,11 @@ category: Yapay zekâ
 related: [hafiza-tutucum]
 ---
 
-<!-- ONAY: Bu taslak genel mevzuat/teknik bilgilerden ve sitedeki doğrulanmış bilgilerden yazıldı; yaşamadığın bir olay, ölçüm ya da gerekçe eklenmedi. Onay notlarını yanıtlayıp sil. -->
+<!-- ONAY: Bu taslak genel teknik bilgilerden yazıldı; yaşamadığın bir olay, ölçüm ya da gerekçe eklenmedi. Yazıyı onaylarsan bu notu sil. -->
 
 Yapay zekâ konuşulurken genellikle iki uç öne çıkıyor: ya her işi yapacak ya da hiçbir işe yaramayacak. Oysa ikisi de gerçeği tam yansıtmıyor.
 
-Projelerimde Anthropic Claude, Google Gemini ve OpenAI API'leriyle çalıştım. Bir uygulamamda da dil modelini tamamen telefonda çalıştırdım. Bu yazıda dil modellerinin neyi iyi yaptığını, nerede tökezlediğini ve özellikle geleneksel sektörlerde çalışanların yapay zekâyı nasıl küçük ve ölçülebilir adımlarla deneyebileceğini sade bir dille anlatmaya çalışıyorum. Gelecek tahmini yapmayacağım.
-
-<!-- ONAY: Yapay zekâyı günlük işinde (kod yazarken, yazışmada, araştırmada ya da danışmanlık işlerinde) nasıl kullandığın bilinmiyor. Bir iki cümleyle eklemek istersen buraya yaz. Eklemeyeceksen notu sil. -->
+Bu yazıda dil modellerinin neyi iyi yaptığını, nerede tökezlediğini ve özellikle geleneksel sektörlerde çalışanların yapay zekâyı nasıl küçük ve ölçülebilir adımlarla deneyebileceğini anlatıyorum.
 
 ## Dil modeli aslında ne yapıyor?
 
@@ -52,9 +50,7 @@ Dil modelini kullanmanın iki temel yolu var: bir bulut servisine istek gönderm
 - **İnternet bağımlılığı:** Bulut modeli bağlantı ister. Cihazdaki model çevrimdışı çalışabiliyor.
 - **Cihaz yükü:** Cihaz üzerindeki model depolama alanı kaplıyor; hızı cihazın donanımına bağlı.
 
-Bu seçimi somut olarak [Hafıza Tutucum](proje:hafiza-tutucum)'da yaptım: uygulamanın yapay zekâ özellikleri tamamen telefonda çalışıyor, veri cihazdan çıkmıyor ve internet gerekmiyor. Burada vurgulamak istediğim şu: tek bir doğru yok. Hangi yolun seçileceği, işlenen verinin ne kadar hassas olduğuna, beklenen kaliteye ve bütçeye bağlı.
-
-<!-- ONAY: Bulut API'lerini (Claude, Gemini, OpenAI) hangi projelerinde ve hangi iş için kullandığını, bulutu hangi durumda tercih ettiğini eklemek istersen buraya yaz. Doğrulanmadığı için yazılmadı. Hafıza Tutucum yazısı yayımlanırsa bu bölümde ona da bağlantı verebilirsin. -->
+Tek bir doğru yok. Hangi yolun seçileceği, işlenen verinin ne kadar hassas olduğuna, beklenen kaliteye ve bütçeye bağlı.
 
 ## Çıktıyı nasıl değerlendirmeli?
 
@@ -91,10 +87,6 @@ Denerken birkaç basit kural işe yarıyor:
 - **İnsan onayını sürecin içine yazın.** Çıktının kim tarafından, hangi kaynağa bakılarak kontrol edileceği baştan belli olsun.
 - **Sonuç yoksa bırakın.** Birkaç haftalık denemede fark yaratmayan bir kullanım, sırf yapay zekâ olduğu için sürdürülmemeli.
 
-<!-- ONAY: Madencilik ya da tehlikeli madde danışmanlığı yaptığın dönemden, yapay zekânın işe yarayabileceğini ya da yaramayacağını düşündüğün somut bir iş örneği eklemek istersen buraya yaz. Firma ya da kişi adı verme. Eklemeyeceksen notu sil. -->
-
 ## Sonuç
 
 Dil modelleri metinle çalışan işlerde gerçekten zaman kazandırabiliyor. Ama bu, onların doğruyu bildiği anlamına gelmiyor; olası olanı yazıyorlar. Bu farkı akılda tutarak, küçük işlerle başlayıp sonucu ölçerek ve son sözü insana bırakarak kullanmak, hem abartıdan hem de gereksiz korkudan uzak durmanın sağlam bir yolu.
-
-Cihaz üzerinde çalışan yapay zekâ tercihinin ayrıntılarını merak ediyorsanız [Hafıza Tutucum proje sayfasına](proje:hafiza-tutucum) göz atabilirsiniz.

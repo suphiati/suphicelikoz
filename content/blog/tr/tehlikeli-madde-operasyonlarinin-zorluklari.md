@@ -1,16 +1,13 @@
 ---
 title: Tehlikeli madde operasyonları: günlük işin zorlukları ve gerçek riskler
 description: Tehlikeli maddelerin dokuz sınıfını, taşıma zincirinde kimin neyden sorumlu olduğunu, hataların sık görüldüğü adımları ve işin gerçek risklerini TMGD olarak çalıştığım yıllardan bir bakışla anlatıyorum.
-status: draft
-# Yayımlarken tarihi YYYY-AA-GG biçiminde yaz ve status: published yap.
-date:
+status: published
+date: 2026-09-28
 category: Sektör deneyimi
 related: [safecargo, tmgd-asistani]
 ---
 
-<!-- ONAY: Bu taslak genel mevzuat/teknik bilgilerden ve sitedeki doğrulanmış bilgilerden yazıldı; yaşamadığın bir olay, ölçüm ya da gerekçe eklenmedi. Onay notlarını yanıtlayıp sil. -->
-
-2019–2026 arasında havayolu ve karayolu tehlikeli madde taşımacılığında güvenlik danışmanı (TMGD) olarak çalıştım. Dışarıdan bakınca bu iş bir kutuya etiket yapıştırmaktan ibaret gibi görünebilir. İçeriden bakınca durum farklı: aynı gönderiye çok sayıda kişi dokunuyor, kurallar düzenli olarak değişiyor ve zincirin herhangi bir halkasındaki küçük bir hata büyük bir soruna dönüşebiliyor.
+Dışarıdan bakınca tehlikeli madde işi bir kutuya etiket yapıştırmaktan ibaret gibi görünebilir. İçeriden bakınca durum farklı: aynı gönderiye çok sayıda kişi dokunuyor, kurallar düzenli olarak değişiyor ve zincirin herhangi bir halkasındaki küçük bir hata büyük bir soruna dönüşebiliyor.
 
 Bu yazıda tehlikeli madde operasyonlarının genel yapısını, hataların en sık nerede çıktığını ve işin gerçek risklerini anlatıyorum.
 
@@ -72,8 +69,6 @@ Bazı tehlikeli maddeler aynı araçta, aynı konteynerde ya da birbirine yakın
 
 ADR ve IATA DGR, tehlikeli maddeyle ilgili görev yapan herkesin görevine uygun eğitim almasını ve bunun kayıt altına alınmasını ister. Depo çalışanı, forklift operatörü ve sevkiyat masasındaki kişi de bu zincirin parçasıdır. Eğitim bir kez verilip bitmez; mevzuat değiştikçe tazelenmesi gerekir.
 
-<!-- ONAY: Sahada en sık karşılaştığın hata bu altı adımdan hangisindeydi? Somut bir örneği (firma ya da kişi adı vermeden) buraya ekleyebilirsin. Eklemeyeceksen notu sil. -->
-
 ## Taşıma modu değişince kurallar da değişiyor
 
 Aynı gönderi karayoluyla havalimanına, oradan uçakla başka bir ülkeye gidebilir. Karayolunda ADR, demiryolunda RID, denizyolunda IMDG Code, havayolunda ICAO Teknik Talimatları ve bunlara dayanan IATA DGR uygulanır. Temel yapı ortak olsa da ayrıntılar değişir:
@@ -84,8 +79,6 @@ Aynı gönderi karayoluyla havalimanına, oradan uçakla başka bir ülkeye gide
 - Ayrıştırma ve birlikte yükleme kuralları her modun kendi tablolarına göre değerlendirilir.
 
 Mevzuat da yerinde durmaz: ADR, RID ve IMDG Code iki yılda bir, IATA DGR ise her yıl yeni baskıyla güncellenir. Geçen yıl doğru olan bir uygulama bu yıl eksik kalabilir. Buna dil sorunu da eklenir: ADR, RID ve IMDG Code'un Bakanlıkça yayımlanan Türkçe çevirileri olsa da güncel baskılar, rehberler ve değişiklik duyuruları çoğunlukla İngilizcedir. Tek bir UN numarasını dört modda kontrol etmek, dört ayrı kaynakta arama yapmak demektir.
-
-<!-- ONAY: Havayolu ile karayolu arasında geçiş yaparken ya da mevzuat güncellemelerini takip ederken en çok zorlandığın süreç hangisiydi? Kendi deneyiminle bir iki cümle ekleyebilirsin. Eklemeyeceksen notu sil. -->
 
 ## Gerçek riskler
 
@@ -101,15 +94,11 @@ Günlük hayatta en sıradan görünen tehlikeli maddelerden biri lityum pillerd
 
 Bir diğer risk beyan edilmemiş ya da gizli tehlikeli maddelerdir. Parfüm, aerosol, boya, çakmak, el dezenfektanı, taşınabilir şarj cihazı, hava yastığı gibi araç parçaları ya da kamp gazı, gönderen tarafından sıradan kargo sanılabilir. Beyan edilmeyen bir madde hiçbir kontrolden geçmez: doğru ambalajlanmaz, etiketlenmez, ayrıştırılmaz. Bir sorun çıktığında müdahale edenler neyle karşı karşıya olduklarını bilemez.
 
-<!-- ONAY: Beyan edilmemiş ya da gizli tehlikeli maddeyle ilgili bir gözlemin varsa (firma ya da kişi adı vermeden) buraya ekleyebilirsin. Eklemeyeceksen notu sil. -->
-
 ## İnsan faktörü
 
 Hataların arkasında yalnızca bilgi eksikliği yoktur; alışkanlık, zaman baskısı ve yorgunluk da vardır. "Hep böyle gönderiyoruz" cümlesi, mevzuat ya da ürün değiştiğinde riskli bir cümleye dönüşür. Aynı ürünü yıllardır gönderen biri, ürünün içeriği ya da ambalajı değiştiğinde bunu fark etmeyebilir. İşi bilen tek bir kişiye bağımlı kalmak da bir risktir; o kişi olmadığında süreç aksar.
 
 Çözüm, insanı suçlamak değil, hatayı zorlaştıran bir düzen kurmaktır: net sorumluluklar, adım adım kontrol listeleri, ikinci bir gözün kontrolü ve düzenli eğitim.
-
-<!-- ONAY: 2015–2019 arasında madencilikte daimi nezaretçi olarak edindiğin iş güvenliği deneyiminin bu bakışa bir etkisi olduysa bir iki cümle ekleyebilirsin. Eklemeyeceksen notu sil. -->
 
 ## Kontrol listeleri ve doğru araçlar
 
@@ -121,9 +110,3 @@ Sektörde karşılaştığım problemlerin büyük bölümü aslında bir yazıl
 - [TMGD Asistanı](proje:tmgd-asistani), TMGD'lerin ve TMGD kuruluşlarının firma, ziyaret, belge ve hatırlatma takibini tek panelde toplayan bir yönetim platformu. Ziyaret, denetim ve eğitim takvimi, belge arşivi ve otomatik hatırlatma e-postaları içeriyor.
 
 Araçlar kararı vermez; kararı yine bilgili bir insan verir. Ama doğru araç, doğru bilgiye daha hızlı ulaşmayı ve bir adımın unutulmamasını kolaylaştırır.
-
-## Son söz
-
-Tehlikeli madde operasyonunda güvenlik tek bir kişinin ya da tek bir belgenin işi değil. Sınıflandırmadan teslimata kadar her halka kendi payını doğru yaptığında zincir güvenli olur. Bu yazıdaki başlıkların her biri ayrı bir yazının konusu olabilecek kadar geniş.
-
-Projelerin ayrıntılarını [SafeCargo](proje:safecargo) ve [TMGD Asistanı](proje:tmgd-asistani) sayfalarında okuyabilirsiniz.
