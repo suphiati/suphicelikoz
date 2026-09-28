@@ -5,7 +5,7 @@
      node tools/build-og-cover.js            yeniden uret
      node tools/build-og-cover.js --check    eskimis mi diye bak (cikis kodu 1)
 
-   index.html ve en.html "og:image" olarak kosulsuz sekilde
+   Sitenin butun sayfalari (src/templates/layout.js) "og:image" olarak kosulsuz sekilde
    https://suphicelikoz.com/assets/img/og-cover.jpg adresini gosteriyor.
    Dosya yoksa LinkedIn, WhatsApp, Slack ve Upwork mesajlarindaki her
    paylasim gorselsiz duz metin olarak aciliyor - onizleme "eksik" degil,
@@ -30,7 +30,7 @@ const PAGE   = path.join("tools", "og-cover.html");
 const CHECK  = process.argv.indexOf("--check") !== -1;
 
 /* Iki dil, tek sablon: og-cover.html "?lang=en" ile Ingilizce metne geciyor.
-   index.html Turkce kapagi, en.html Ingilizce kapagi gosterir. */
+   Turkce sayfalar Turkce kapagi, /en/ altindakiler Ingilizce kapagi gosterir. */
 const VARIANTS = [
   { query: "",         out: "og-cover.jpg" },
   { query: "?lang=en", out: "og-cover-en.jpg" }
@@ -234,7 +234,12 @@ function inspectJpeg(buf) {
     "--remote-debugging-port=" + dbgPort,
     "--user-data-dir=" + profile,
     "about:blank"
-  ], { stdio: ["ignore", "ignore", "pipe"] });
+  /* Linux'ta root olarak (ör. kapsayici/CI) Chrome korumali alan olmadan
+     acilmayi reddeder; Windows ve normal kullanicida bu bayrak eklenmez. */
+  ].concat(process.getuid && process.getuid() === 0 ? ["--no-sandbox"] : [])
+   /* Kurumsal ağ gibi yalnızca proxy ile internete çıkılan ortamlarda web
+      fontları insin diye. Tanımlı değilse hiçbir şey eklenmez. */
+   .concat(process.env.HTTPS_PROXY ? ["--proxy-server=" + process.env.HTTPS_PROXY] : []), { stdio: ["ignore", "ignore", "pipe"] });
   chrome.stderr.on("data", function () { /* GCM / uzanti gurultusunu yut */ });
 
   let chromeGone = false;

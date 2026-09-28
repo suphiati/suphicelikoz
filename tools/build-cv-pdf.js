@@ -2,9 +2,13 @@
 /* =============================================================================
    CV PDF uretici  --  node tools/build-cv-pdf.js
    -----------------------------------------------------------------------------
-   Sitenin kendi "@media print" stilini kullanarak assets/cv/ altina gercek PDF
-   uretir. Boylece "CV Indir" butonu yazdirma penceresi acmak yerine hazir bir
-   dosya indirebiliyor.
+   src/templates/cv.js sablonunu (verisi content/ altindaki profil ve proje
+   dosyalari) Chrome ile A4 PDF'e basar ve assets/cv/ altina yazar. "CV Indir"
+   butonlari bu dosyalari indirir.
+
+   Neden ayri bir sablon: site cok sayfali hale geldi ve ana sayfa kisaldi.
+   CV artik bir sayfanin yazdirma stilinden degil, kariyer, egitim, projeler,
+   yetkinlikler ve sertifikalarin tamamini iceren kendi sablonundan uretilir.
 
    Bagimlilik yok: yalnizca Node standart kutuphanesi ve kurulu Chrome/Edge
    (DevTools Protocol uzerinden). "npm install" gerekmez.
@@ -12,10 +16,6 @@
    Kullanim:
      node tools/build-cv-pdf.js            PDF'leri uret
      node tools/build-cv-pdf.js --check    eskimis mi diye bak (cikis kodu 1)
-
-   Neden .claude/ altinda degil: o klasor .gitignore'da. Betik depoda durmazsa
-   PDF'leri baska bir bilgisayarda yeniden uretmek mumkun olmaz. Ayni sebeple
-   .claude/serve.js'i cagirmak yerine kendi mini sunucusunu iceriyor.
    ========================================================================== */
 "use strict";
 
@@ -36,25 +36,26 @@ const CHECK   = process.argv.indexOf("--check") !== -1;
    adini yalnizca buradaki ad belirler; HTML'de oznitelige isim yazmak yerelde
    calisir, yayinda sessizce goz ardi edilir. */
 const PAGES = [
-  { file: "index.html", out: "Suphi-Atilim-Celikoz-CV.pdf" },
-  { file: "en.html",    out: "Suphi-Atilim-Celikoz-CV-EN.pdf" }
+  { lang: "tr", out: "Suphi-Atilim-Celikoz-CV.pdf" },
+  { lang: "en", out: "Suphi-Atilim-Celikoz-CV-EN.pdf" }
 ];
 
 /* PDF'in icerigini etkileyen dosyalar. Bu betik de listede: paperWidth,
-   kenar bosluklari vb. degistiginde de cikti eskimis sayilmali.
-   (assets/img/apps ve certs listede yok: o bolumleri yazdirma stili zaten
-   display:none yapiyor, PDF'e girmiyorlar.) */
+   kenar bosluklari vb. degistiginde de cikti eskimis sayilmali. */
 const SOURCES = [
-  "index.html", "en.html",
-  path.join("assets", "css", "style.css"),
-  path.join("assets", "js", "main.js"),
+  path.join("content", "profile.js"),
+  path.join("content", "projects.js"),
+  path.join("src", "templates", "cv.js"),
+  path.join("src", "templates", "cv.css"),
+  path.join("src", "lib", "util.js"),
+  path.join("src", "lib", "routes.js"),
   path.join("assets", "img", "suphifoto.png"),
   path.join("tools", "build-cv-pdf.js")
 ];
 
 /* Kaynaklarin ozeti bu dosyada durur. mtime ile karsilastirmak ise yaramiyor:
    "git clone" dosyalari indeks (alfabetik) sirasiyla yaziyor, yani
-   assets/cv/*.pdf her zaman index.html'den once olusuyor ve taze bir klonda
+   assets/cv/*.pdf her zaman kaynaklardan once olusuyor ve taze bir klonda
    --check kosulsuz "eskimis" diyordu. Icerik ozeti klondan bagimsizdir. */
 const STAMP = path.join(OUT_DIR, ".build-stamp");
 
@@ -142,11 +143,28 @@ const TYPES = {
   ".webp": "image/webp", ".ico": "image/x-icon", ".json": "application/json",
   ".pdf": "application/pdf"
 };
+function renderCv(lang) {
+  /* Her calistirmada taze: content/ ve src/ modulleri onbellekten atilir */
+  Object.keys(require.cache).forEach(function (k) {
+    if (k.startsWith(path.join(ROOT, "content") + path.sep) || k.startsWith(path.join(ROOT, "src") + path.sep)) delete require.cache[k];
+  });
+  return require(path.join(ROOT, "src", "templates", "cv.js")).renderCv(lang);
+}
+
 function startServer() {
   return new Promise(function (resolve, reject) {
     const srv = http.createServer(function (req, res) {
       let p = decodeURIComponent(req.url.split("?")[0]);
-      if (p === "/") p = "/index.html";
+      const cv = /^\/__cv\/(tr|en)\.html$/.exec(p);
+      if (cv) {
+        try {
+          res.writeHead(200, { "Content-Type": TYPES[".html"] });
+          res.end(renderCv(cv[1]));
+        } catch (e) {
+          res.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" }).end(String(e && e.stack || e));
+        }
+        return;
+      }
       const file = path.resolve(ROOT, "." + p);
       /* startsWith(ROOT) ile karsilastirmak Windows'ta egik cizgi yonu
          yuzunden her istegi 403 yapabiliyor; path.relative guvenli. */
@@ -264,7 +282,12 @@ function inspect(buf) {
     "--remote-debugging-port=" + dbgPort,
     "--user-data-dir=" + profile,
     "about:blank"
-  ], { stdio: ["ignore", "ignore", "pipe"] });
+  /* Linux'ta root olarak (ör. kapsayici/CI) Chrome korumali alan olmadan
+     acilmayi reddeder; Windows ve normal kullanicida bu bayrak eklenmez. */
+  ].concat(process.getuid && process.getuid() === 0 ? ["--no-sandbox"] : [])
+   /* Kurumsal ağ gibi yalnızca proxy ile internete çıkılan ortamlarda web
+      fontları insin diye. Tanımlı değilse hiçbir şey eklenmez. */
+   .concat(process.env.HTTPS_PROXY ? ["--proxy-server=" + process.env.HTTPS_PROXY] : []), { stdio: ["ignore", "ignore", "pipe"] });
   chrome.stderr.on("data", function () { /* GCM / uzanti gurultusunu yut */ });
 
   /* Profil klasoru silinirken Chrome'un tutamaclari hala acik olabiliyor
@@ -334,28 +357,14 @@ function inspect(buf) {
     await S("Page.enable");
     await S("Runtime.enable");
 
-    /* A4 genisligi: yazdirmada da eslesen mobil medya sorgulariyla ayni
-       sutun duzeni olussun. */
     await S("Emulation.setDeviceMetricsOverride",
       { width: 794, height: 1123, deviceScaleFactor: 1, mobile: false });
-
-    /* KRITIK - navigasyondan ONCE olmali (main.js reduceMotion'i dosya
-       basinda bir kez okuyor).
-       Istatistik sayaci [data-count] ogelerini 0'dan hedefe 1100 ms boyunca
-       animasyonla sayiyor. Baski o sirada alinirsa PDF'e yarim rakamlar
-       giriyordu: EN cikti "8+ yil" yaziyor, hemen ustundeki paragraf ise
-       "10+ years" diyordu - hangi rakamin donacagi zamanlamaya bagliydi.
-       Sitenin kendi erisilebilirlik yolu bunu tam olarak cozuyor: azaltilmis
-       hareket tercihinde sayac hic calismiyor ve HTML'deki gercek degerler
-       oldugu gibi kaliyor (main.js:118), .reveal ogeleri de aninda goruntuye
-       giriyor (main.js:90). Yani cikti belirlenimli oluyor. */
-    const MEDIA_FEATURES = [{ name: "prefers-reduced-motion", value: "reduce" }];
-    await S("Emulation.setEmulatedMedia", { features: MEDIA_FEATURES });
+    await S("Emulation.setEmulatedMedia", { media: "print" });
 
     const loaded = client.once(function (m) {
       return m.method === "Page.loadEventFired" && m.sessionId === sessionId;
     }, 45000);
-    await S("Page.navigate", { url: "http://127.0.0.1:" + port + "/" + page.file });
+    await S("Page.navigate", { url: "http://127.0.0.1:" + port + "/__cv/" + page.lang + ".html" });
     await loaded;
 
     /* Web fontlari inmeden yazdirilirsa satir metrikleri kayar. */
@@ -364,78 +373,51 @@ function inspect(buf) {
       awaitPromise: true, returnByValue: true
     });
 
-    /* --brand'i olcebilmek icin gecici olarak yazdirma medyasina geciyoruz:
-       "@media print" blogu yalnizca o sirada uygulanir, ekran medyasinda
-       okunan deger sitenin normal mavisidir ve hicbir sey kanitlamaz.
-       features her cagride yeniden verilmeli, yoksa sifirlaniyor. */
-    await S("Emulation.setEmulatedMedia", { media: "print", features: MEDIA_FEATURES });
+    /* Saglik kontrolu: sablon ya da veri degisirse cikti sessizce
+       eksilmesin. Beklenenler dogrudan content/ dosyalarindan gelir. */
+    const expected = (function () {
+      const req = function (rel) { return require(path.join(ROOT, rel)); };
+      const profile = req("content/profile.js");
+      const projects = req("content/projects.js");
+      const pick = function (v) { return v && typeof v === "object" && !Array.isArray(v) ? v[page.lang] : v; };
+      return {
+        email: profile.contact.emailUser + "@" + profile.contact.emailDomain,
+        texts: projects.map(function (p) { return p.name; })
+          .concat(profile.experience.map(function (e) { return pick(e.title); }))
+          .concat(profile.education.map(function (e) { return pick(e.title); }))
+          .concat(profile.certificates.map(function (c) { return pick(c.name); }))
+      };
+    })();
 
-    /* Emniyet kemeri + saglik kontrolu. Yazdirma stili bunlari zaten
-       hallediyor; buradaki amac ileride CSS degisirse ciktinin sessizce
-       eksilmemesi. */
     const state = await S("Runtime.evaluate", {
       returnByValue: true,
       expression: [
-        "(function () {",
-        "  var rv = document.querySelectorAll('.reveal');",
-        "  [].forEach.call(rv, function (el) {",
-        "    el.style.transition = 'none';",
-        "    el.classList.add('is-visible');",
-        "  });",
-        "  [].forEach.call(document.querySelectorAll('.project.is-hidden'), function (el) {",
-        "    el.classList.remove('is-hidden');",
-        "  });",
+        "(function (expected) {",
         "  var bad = [].filter.call(document.images, function (i) {",
         "    return !(i.complete && i.naturalWidth > 0);",
         "  });",
-        "  /* Portre ayri kontrol edilmeli: <img> uzerindeki onerror kendini",
-        "     DOM'dan siliyor, yani kirik fotograf document.images'e hic",
-        "     girmiyor ve yukaridaki filtre onu asla goremiyor. Oysa yazdirma",
-        "     stilinden gecen tek fotograf o. */",
-        "  var photo = document.querySelector('.hero__photo-frame img');",
-        "  var photoOk = !!(photo && photo.complete && photo.naturalWidth > 0) &&",
-        "                !document.querySelector('.hero__photo-fallback');",
-        "  /* Sayaclar animasyonun ortasinda yakalanirsa PDF'e yarim rakam",
-        "     girer. Beklenen deger data-count + data-suffix. */",
-        "  var stats = [].map.call(document.querySelectorAll('[data-count]'), function (e) {",
-        "    var want = e.getAttribute('data-count') + (e.getAttribute('data-suffix') || '');",
-        "    return { got: e.textContent.trim(), want: want };",
-        "  });",
-        "  var badStats = stats.filter(function (s) { return s.got !== s.want; })",
-        "                      .map(function (s) { return s.got + '!=' + s.want; });",
-        "  var mail = document.getElementById('mailText');",
-        "  var probe = document.createElement('div');",
-        "  probe.className = 'tag';",
-        "  document.body.appendChild(probe);",
-        "  var brand = getComputedStyle(document.documentElement)",
-        "                .getPropertyValue('--brand').trim();",
-        "  probe.remove();",
+        "  var photo = document.querySelector('.photo');",
+        "  var text = document.body.innerText;",
+        "  var missing = expected.texts.filter(function (t) { return text.indexOf(t) === -1; });",
         "  return JSON.stringify({",
-        "    reveal: document.querySelectorAll('.reveal.is-visible').length + '/' + rv.length,",
-        "    projHidden: document.querySelectorAll('.project.is-hidden').length,",
         "    brokenImages: bad.length,",
-        "    photoOk: photoOk,",
-        "    stats: stats.map(function (s) { return s.got; }).join(' '),",
-        "    badStats: badStats,",
-        "    mailOk: !!(mail && mail.textContent.indexOf('@') !== -1),",
+        "    photoOk: !!(photo && photo.complete && photo.naturalWidth > 0),",
+        "    missing: missing,",
+        "    mailOk: text.indexOf(expected.email) !== -1,",
         "    fonts: document.fonts.status,",
         "    webfonts: Array.from(document.fonts).filter(function (f) {",
         "      return f.status === 'loaded';",
-        "    }).length,",
-        "    brand: brand",
+        "    }).length",
         "  });",
-        "})()"
+        "})(" + JSON.stringify(expected) + ")"
       ].join("\n")
     });
 
-    /* Olcum bitti; Page.printToPDF yazdirma medyasini kendisi uyguluyor. */
-    await S("Emulation.setEmulatedMedia", { media: "", features: MEDIA_FEATURES });
-    await sleep(400);
+    await sleep(300);
 
-    /* A4. Kagit kenar bosluklarini "@page { margin: 12mm 12mm 10mm }" zaten
-       belirliyor; asagidaki margin* degerleri onu ezmiyor. paperWidth /
-       paperHeight sart: verilmezse Chrome US Letter uretir, oysa yazdirma
-       stili A4 (794px) icin yazildi. */
+    /* A4. Kagit kenar bosluklarini cv.css icindeki "@page" belirliyor;
+       asagidaki margin* degerleri onu ezmiyor. paperWidth / paperHeight
+       sart: verilmezse Chrome US Letter uretir. */
     const res = await S("Page.printToPDF", {
       printBackground: true,      // kart zeminleri, ikon dolgular, zaman cizelgesi
       preferCSSPageSize: true,
@@ -453,16 +435,12 @@ function inspect(buf) {
     /* Sessiz bozulmaya karsi kapi: gecmezse dosya yazilmaz. */
     const problems = [];
     if (!info.isPdf)                              problems.push("gecerli PDF degil");
-    if (info.pages < 2 || info.pages > 4)         problems.push(info.pages + " sayfa (2-4 bekleniyor)");
-    if (info.bytes < 100000)                      problems.push("cok kucuk: " + info.bytes + " bayt");
+    if (info.pages < 1 || info.pages > 3)         problems.push(info.pages + " sayfa (1-3 bekleniyor)");
+    if (info.bytes < 30000)                       problems.push("cok kucuk: " + info.bytes + " bayt");
     if (probe.brokenImages !== 0)                 problems.push(probe.brokenImages + " gorsel yuklenmedi");
-    if (!probe.photoOk)                           problems.push("hero fotografi yuklenmedi");
-    if (probe.badStats.length)                    problems.push("istatistik rakamlari yanlis: " + probe.badStats.join(", "));
-    if (probe.projHidden !== 0)                   problems.push(probe.projHidden + " proje gizli kaldi");
-    if (!probe.mailOk)                            problems.push("e-posta adresi yerlesmedi");
-    /* Yazdirma paleti: acik/koyu tema degiskenleri bu blogu ezerse cikti
-       sitenin ekran renkleriyle basilir. #14497f yazdirma lacivertidir. */
-    if (probe.brand !== "#14497f")                problems.push("yazdirma paleti uygulanmadi (--brand: " + probe.brand + ")");
+    if (!probe.photoOk)                           problems.push("portre yuklenmedi");
+    if (probe.missing.length)                     problems.push("CV'de eksik: " + probe.missing.join(", "));
+    if (!probe.mailOk)                            problems.push("e-posta adresi yok");
 
     let wrote = "yazildi";
     if (problems.length) {
