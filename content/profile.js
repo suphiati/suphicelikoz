@@ -87,10 +87,13 @@ module.exports = {
     {
       years: { tr: "2026 – Bugün", en: "2026 – Present" },
       title: { tr: "Kurucu · Yazılım Geliştirici", en: "Founder · Software Developer" },
-      /* Şirketin resmi adı doğrulanmadığı için yazılmadı. Google Play geliştirici
-         hesabının adı "RiskManage Studio"; bu resmi şirket adı olarak
-         varsayılmadı. Resmi adı eklemek için "org" alanını doldur. */
-      org: null,
+      /* Resmi şirket adı (kullanıcı tarafından doğrulandı). Özel ad olduğu için
+         İngilizcede de aynen yazılır. Google Play geliştirici hesabının adı
+         "RiskManage Studio" ayrı bir addır. */
+      org: {
+        tr: "Suphi Atılım Çeliköz - SafeCargo Yazılım Teknoloji ve Danışmanlık Hizmetleri",
+        en: "Suphi Atılım Çeliköz - SafeCargo Yazılım Teknoloji ve Danışmanlık Hizmetleri"
+      },
       text: {
         tr: "2026'da kurduğum şirketle kendi ürünlerimi geliştiriyorum: TMGD Asistanı ve SafeCargo gibi sektör platformları, Kurye ve Nakliyat pazar yeri ve günlük yaşam için Android uygulamaları. Fikir, tasarım, geliştirme, test ve yayın süreçlerini kendim yürütüyorum.",
         en: "Since founding my company in 2026 I build my own products: industry platforms such as TMGD Asistanı and SafeCargo, the Kurye ve Nakliyat marketplace and Android apps for everyday life. I handle the idea, design, development, testing and release myself."

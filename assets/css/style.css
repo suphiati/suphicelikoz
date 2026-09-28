@@ -783,7 +783,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 .toc h2 { font-size: 1rem; }
 .toc ol { margin-top: 8px; padding-left: 1.2em; }
 .toc li { margin-top: 4px; font-size: .95rem; }
-.toc .toc__l3 { margin-left: 1em; list-style: circle; }
+.toc ul { margin-top: 4px; padding-left: 1.2em; list-style: circle; }
 
 .post-related { max-width: var(--prose); margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--border); }
 .post-related h2 { font-size: 1.2rem; }
