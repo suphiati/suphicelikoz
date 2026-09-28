@@ -22,12 +22,12 @@
 
 <style>
   :root {
-    --bg:        #060a15;
-    --surface:   #0e1526;
+    --bg:        #0b1120;
+    --surface:   #111a2e;
     --border:    rgba(255, 255, 255, .09);
-    --text:      #e8eefc;
-    --text-soft: #b6c3dd;
-    --muted:     #8395b5;
+    --text:      #e6ecf7;
+    --text-soft: #b3c0d6;
+    --muted:     #8a9ab5;
     --brand:     #2e7dff;
     --cyan:      #22d3ee;
     --grad-text: linear-gradient(120deg, #ffffff 0%, #a9c8ff 46%, #22d3ee 100%);
@@ -49,26 +49,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Sitedeki hero isiltilarinin ayni tonlari */
-  body::before,
-  body::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    pointer-events: none;
-  }
-  body::before {
-    width: 620px; height: 620px;
-    top: -260px; left: -180px;
-    background: rgba(46, 125, 255, .38);
-  }
-  body::after {
-    width: 520px; height: 520px;
-    right: -170px; bottom: -260px;
-    background: rgba(34, 211, 238, .22);
-  }
-
   /* Ust kenardaki marka seridi */
   .edge {
     position: absolute;
@@ -87,26 +67,6 @@
     padding: 64px 72px 58px;
   }
 
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 9px 18px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    background: rgba(14, 21, 38, .72);
-    font-size: 17px;
-    font-weight: 500;
-    letter-spacing: .01em;
-    color: var(--text-soft);
-  }
-  .eyebrow i {
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    background: #2dd4a7;
-    box-shadow: 0 0 0 4px rgba(45, 212, 167, .18);
-  }
-
   h1 {
     margin-top: 26px;
     font-family: var(--ff-head);
@@ -123,57 +83,29 @@
     color: transparent;
   }
 
-  .roles {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 14px;
-    margin-top: 22px;
-    font-size: 19px;
-    font-weight: 500;
-    color: var(--text-soft);
-    list-style: none;
-  }
-  .roles li + li::before {
-    content: "·";
-    margin-right: 14px;
-    color: var(--brand);
-    font-weight: 700;
-  }
-
   .lead {
     max-width: 640px;
-    margin-top: 20px;
-    font-size: 21px;
+    margin-top: 24px;
+    font-size: 25px;
     line-height: 1.45;
-    color: var(--muted);
+    color: var(--text-soft);
   }
 
-  .stats {
+  .products {
     display: flex;
+    flex-wrap: wrap;
     gap: 12px;
     margin-top: 34px;
+    list-style: none;
   }
-  .stat {
-    flex: 1;
-    padding: 14px 16px;
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    background: rgba(14, 21, 38, .72);
-  }
-  .stat b {
-    display: block;
-    font-family: var(--ff-head);
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1;
+  .products li {
+    padding: 10px 18px;
+    font-size: 19px;
+    font-weight: 600;
     color: var(--text);
-  }
-  .stat span {
-    display: block;
-    margin-top: 7px;
-    font-size: 13.5px;
-    line-height: 1.25;
-    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
   }
 
   /* --- Portre --------------------------------------------------------
@@ -212,28 +144,18 @@
 
 <div class="sheet">
   <div>
-    <span class="eyebrow"><i></i>Yeni projeler ve iş birlikleri için uygunum</span>
-
     <h1><span>Suphi Atılım</span><span class="sur">ÇELİKÖZ</span></h1>
 
-    <ul class="roles">
-      <li>Maden Mühendisi</li>
-      <li>TMGD</li>
-      <li>Software Developer</li>
-      <li>SDET</li>
-    </ul>
-
     <p class="lead">
-      Tehlikeli madde, lojistik ve taşımacılık alanında
-      gerçek saha problemlerine çalışan dijital çözümler.
+      Tehlikeli madde ve lojistik alanındaki saha deneyimimi
+      yazılıma taşıyorum.
     </p>
 
-    <div class="stats">
-      <div class="stat"><b>10+</b><span>Yıl deneyim</span></div>
-      <div class="stat"><b>5</b><span>Google Play uygulaması</span></div>
-      <div class="stat"><b>4</b><span>Web platformu</span></div>
-      <div class="stat"><b>4</b><span>Mesleki sertifika</span></div>
-    </div>
+    <ul class="products">
+      <li>TMGD Asistanı</li>
+      <li>SafeCargo</li>
+      <li>Hafıza Tutucum</li>
+    </ul>
   </div>
 
   <div class="side">
@@ -246,46 +168,19 @@
 
 <script>
 /*
-  Tek sablon, iki dil. "?lang=en" ile acildiginda metinler Ingilizceye
-  cevrilir; duzen, palet ve olculer ayni kalir - iki ayri HTML tutulsaydi
-  biri guncellenip digeri unutulurdu.
+  Tek sablon, iki dil. "?lang=en" ile acildiginda metin Ingilizceye cevrilir;
+  duzen, palet ve olculer ayni kalir.
 
-  Metinler sitedeki karsiliklariyla ayni olmali:
-    .eyebrow  -> hero__status      (index.html / en.html)
-    .roles    -> hero__roles
-    .stat     -> .stats
-  Birini degistirirsen otekini de guncelle.
+  Metin sitedeki tanitimla uyumlu olmali (content/profile.js -> intro) ve
+  .products ana sayfada one cikan projelerle ayni kalmali
+  (content/projects.js -> featured). Birini degistirirsen otekini de guncelle.
 */
 (function () {
   if (new URLSearchParams(location.search).get("lang") !== "en") return;
-
   document.documentElement.lang = "en";
-
-  var set = function (sel, text) {
-    var el = document.querySelector(sel);
-    if (el) el.textContent = text;
-  };
-
-  /* Durum rozetindeki yesil nokta <i> ayri bir dugum; textContent yerine
-     yalnizca son metin dugumunu degistiriyoruz ki nokta silinmesin. */
-  var pill = document.querySelector(".eyebrow");
-  pill.lastChild.nodeValue = "Available for new projects and collaborations";
-
-  var roles = ["Mining Engineer", "DGSA", "Software Developer", "SDET"];
-  document.querySelectorAll(".roles li").forEach(function (li, i) {
-    li.textContent = roles[i];
-  });
-
-  set(".lead", "Digital products for real field problems in dangerous goods, " +
-               "logistics and transport.");
-
-  var labels = ["Years of experience", "Google Play apps", "Web platforms",
-                "Professional certificates"];
-  document.querySelectorAll(".stat span").forEach(function (s, i) {
-    s.textContent = labels[i];
-  });
-
-  /* .site aynen kalir: kanonik adres iki dilde de suphicelikoz.com */
+  document.querySelector(".lead").textContent =
+    "I bring my field experience in dangerous goods and logistics into software.";
+  /* Urun adlari ozel isim; iki dilde ayni. .site da ayni kalir. */
 })();
 </script>
 </body>

@@ -30,7 +30,9 @@ auth.json
 
 # --- Bagimliliklar ve derleme ciktilari -------------------------------------
 node_modules/
+# Uretilen site: Vercel dist/'i her yayinda kendisi uretir (bkz. vercel.json)
 dist/
+.preview/
 build/
 out/
 .next/
@@ -86,9 +88,9 @@ _draft*/
 #
 #  Sitenin calismasi icin gereken su dosyalar zaten hicbir kurala takilmiyor
 #  ve depoya girer:
-#    index.html · en.html · robots.txt · sitemap.xml · .nojekyll
-#    assets/css/ · assets/js/ · assets/img/ (fotograf, ikon, sertifika)
-#    assets/cv/ (hazir CV PDF'leri) · tools/ (CV PDF uretim betigi)
+#    content/ (proje, profil, blog) · src/ (sablonlar) · vercel.json
+#    assets/css/ · assets/js/ · assets/img/ · assets/cv/ (hazir CV PDF'leri)
+#    tools/ (site, CV ve kapak uretim betikleri) · google*.html · .nojekyll
 #
 #  Yeni bir dosyanin gonderilip gonderilmeyecegini merak edersen:
 #    git check-ignore -v <dosya>

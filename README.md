@@ -1,351 +1,367 @@
-# Suphi Atılım ÇELİKÖZ — Kişisel Marka Sitesi
+# Suphi Atılım ÇELİKÖZ — Kişisel Site
 
-Tek sayfalık, çerçevesiz (framework yok), tamamen statik kişisel tanıtım sitesi.
-Türkçe ve İngilizce sürümleri var. Hiçbir kurulum gerektirmez — `index.html` dosyasını
-çift tıklayarak da açabilirsin.
+Projelerimi, deneyimimi ve blog yazılarımı sunan çok sayfalı, Türkçe ve İngilizce
+statik site. Canlı adres: **https://suphicelikoz.com**
+
+Sayfalar, `content/` klasöründeki verilerden (profil, projeler, blog yazıları) küçük
+bir üretici betikle oluşturulur. **Bağımlılık yok:** yalnızca Node.js gerekir,
+`npm install` yoktur. Çıktı düz HTML, CSS ve JavaScript'tir.
+
+> **Neden bir üretici?** Site tek sayfadan çok sayfaya geçti: 8 proje detay sayfası,
+> blog, iki dil. Menü, alt menü, meta etiketleri ve proje bilgileri her sayfada elle
+> kopyalansaydı bir değişiklik 20+ dosyaya yayılırdı. Artık her bilgi tek yerde
+> duruyor; tek komut bütün sayfaları, site haritasını ve RSS'i yeniden üretiyor.
+
+---
+
+## ⚡ Hızlı başlangıç
+
+Gereken: **Node.js 18 veya üstü.** (Chrome ya da Edge yalnızca CV PDF'i ve paylaşım
+kapağını yeniden üretirken gerekir.)
+
+```bash
+node tools/serve.js            # önizleme: http://localhost:4173  (yayınla aynı)
+node tools/serve.js --drafts   # taslak blog yazıları DAHİL önizleme
+node tools/build-site.js       # yayın çıktısını dist/ klasörüne üretir
+node tools/check-site.js       # yayından önce denetim (bağlantılar, başlıklar, taslak sızıntısı…)
+node --test tools/test/markdown.test.js   # blog dönüştürücüsünün testleri
+```
+
+Önizleme sunucusu açıkken bir dosyayı değiştirip tarayıcıda sayfayı yenilemen yeterli;
+site bir sonraki istekte yeniden üretilir. Bir hata varsa tarayıcıda açıklaması görünür.
+
+> `dist/index.html` dosyasını çift tıklayarak açma: bağlantılar kök adresli
+> (`/projeler/`) olduğu için dosya olarak açıldığında çalışmaz. `node tools/serve.js`
+> kullan.
 
 ---
 
 ## 📁 Dosya yapısı
 
 ```
-Suphi CV/
-├─ index.html              ← Türkçe ana sayfa
-├─ en.html                 ← İngilizce sürüm
-├─ robots.txt              ← Arama motoru yönergesi
-├─ .nojekyll               ← GitHub Pages icin (Vercel kullanilsa da zararsiz)
-├─ sitemap.xml             ← Site haritası
-├─ tools/
-│  ├─ build-cv-pdf.js     ← CV PDF dosyalarını üreten betik (geliştirme aracı)
-│  ├─ build-og-cover.js   ← sosyal paylaşım kapaklarını üreten betik
-│  └─ og-cover.html       ← kapağın tasarım şablonu (siteye bağlı değil)
-└─ assets/
-   ├─ css/style.css        ← Tüm stiller (tema, yazdırma/CV dahil)
-   ├─ js/main.js           ← Tüm etkileşimler (bağımlılık yok)
-   ├─ cv/                  ← hazır CV PDF'leri (İndir butonları buraya bağlı)
-   └─ img/
-      ├─ favicon.svg       ← Sekme ikonu
-      ├─ suphifoto.png     ← portre fotoğrafın
-      ├─ og-cover.jpg      ← sosyal paylaşım görseli 1200×630 (üretilir)
-      ├─ og-cover-en.jpg   ← aynısının İngilizcesi (en.html için)
-      ├─ projects/         ← proje kartlarındaki 16:9 görseller (800×450 WebP)
-      ├─ apps/             ← uygulama simgeleri + telefon maketi ekran görüntüleri
-      └─ certs/            ← (opsiyonel) sertifika belgeleri
+content/                 ← İÇERİK: çoğu değişiklik burada yapılır
+├─ profile.js            ← ad, iletişim, bağlantılar, hakkımda, deneyim, eğitim,
+│                          yetkinlikler, sertifikalar, CV özeti
+├─ projects.js           ← 8 projenin her biri için TEK kayıt
+├─ site.js               ← menü, düğme ve sayfa metinleri (TR / EN), sayfa başlıkları
+└─ blog/
+   ├─ tr/*.md            ← Türkçe yazılar (dosya adı = adres)
+   └─ en/*.md            ← İngilizce yazılar
+
+src/                     ← ŞABLONLAR (tasarım değişmedikçe dokunmaya gerek yok)
+├─ templates/layout.js   ← ortak iskelet: <head>, SEO, üst menü, alt menü
+├─ templates/pages.js    ← ana sayfa, projeler, proje detayı, hakkımda, blog, yazı, 404
+├─ templates/cv.js       ← CV şablonu (yalnızca PDF üretimi için, yayınlanmaz)
+├─ templates/cv.css
+├─ templates/icons.js
+└─ lib/                  ← adresler, Markdown dönüştürücü, blog yükleyici, yardımcılar
+
+assets/                  ← olduğu gibi yayınlanır
+├─ css/style.css         ← tüm site stilleri (tema değişkenleri en üstte)
+├─ js/main.js            ← tema, proje filtresi, e-posta/telefon birleştirme
+├─ cv/                   ← hazır CV PDF'leri (İndir bağlantıları buraya)
+└─ img/                  ← fotoğraf, proje ve uygulama ekran görüntüleri, kapaklar
+
+tools/
+├─ build-site.js         ← siteyi üretir (Vercel de bunu çalıştırır)
+├─ serve.js              ← yerel önizleme sunucusu
+├─ check-site.js         ← yayın öncesi denetim
+├─ test/                 ← Markdown testleri
+├─ build-cv-pdf.js       ← CV PDF'lerini üretir
+├─ build-og-cover.js     ← sosyal paylaşım kapaklarını üretir
+└─ og-cover.html         ← kapağın şablonu
+
+vercel.json              ← Vercel yayın ayarı (derleme komutu, çıktı klasörü, yönlendirmeler)
+dist/                    ← ÜRETİLİR, depoya girmez (Vercel her yayında yeniden üretir)
+.preview/                ← taslak önizlemesi, ÜRETİLİR, depoya girmez
 ```
 
 ---
 
-## ✅ Yayına almadan önce yapman gerekenler
+## 🧭 Sayfalar ve adresler
 
-### 1. Fotoğrafın  ✅ tamam
-
-Fotoğraf `assets/img/suphifoto.png` yolunda ve sitede görünüyor.
-
-Dosya **215×265 px** olduğu için gösterim boyutu buna göre ayarlandı — büyütme
-oranı düşük tutuldu ki fotoğraf net görünsün:
-
-| Ekran | Gösterim | Büyütme |
+| Sayfa | Türkçe | İngilizce |
 | --- | --- | --- |
-| Masaüstü (≥900px) | 288×356 | 1,34× |
-| Tablet / mobil | 248×307 | 1,16× |
+| Ana sayfa (tanıtım, öne çıkan 3 proje, sektör deneyimi, son yazılar, iletişim) | `/` | `/en/` |
+| Projelerim (filtreli liste) | `/projeler/` | `/en/projects/` |
+| Proje detayı | `/projeler/<slug>/` | `/en/projects/<slug>/` |
+| Hakkımda (deneyim, eğitim, yetkinlikler, sertifikalar) | `/hakkimda/` | `/en/about/` |
+| Blog | `/blog/` | `/en/blog/` |
+| Blog yazısı | `/blog/<dosya-adı>/` | `/en/blog/<dosya-adı>/` |
+| RSS | `/blog/rss.xml` | `/en/blog/rss.xml` |
 
-**İleride yüksek çözünürlüklü orijinali bulursan** (en az 760×938 px), aynı isimle
-üzerine yaz ve fotoğrafı büyütmek için `assets/css/style.css` içinde iki değeri
-geri çıkar:
+İletişim ayrı bir sayfa değil; ana sayfanın son bölümü (`/#iletisim`, `/en/#contact`).
 
-```css
-.hero__photo { width: min(100%, 290px); }   /* → 380px */
-/* @media (max-width: 900px) içinde: */
-.hero__photo { width: min(100%, 250px); }   /* → 300px */
-```
+### Eski adresler
 
-En/boy oranı **0,81** (yaklaşık 3:3,7) olmalı — mevcut fotoğrafın oranı zaten bu,
-yani orijinali olduğu gibi büyük kaydetmen yeterli, kırpmaya gerek yok.
-JPG de olur; o durumda `index.html` ve `en.html` içindeki `suphifoto.png` yazan
-4 yeri yeni uzantıyla değiştir.
+Eski site tek sayfaydı (`/` ve `/en.html`, bölümler `#` ile). Paylaşılmış bağlantılar
+kırılmasın diye:
 
-> Fotoğraf hiç olmazsa site kırılmaz — otomatik olarak “SÇ” baş harfli görsel gösterilir.
+| Eski | Yeni | Nasıl |
+| --- | --- | --- |
+| `/en.html` | `/en/` | `vercel.json` → kalıcı (308) yönlendirme |
+| `/#hakkimda`, `/#uzmanlik` | `/hakkimda/` | ana sayfadaki küçük betik |
+| `/#yolculuk` | `/hakkimda/#deneyim` | 〃 |
+| `/#egitim`, `/#yetkinlikler`, `/#sertifikalar` | `/hakkimda/#…` | 〃 |
+| `/#projeler` | `/projeler/` | 〃 |
+| `/#uygulamalar` | `/projeler/?platform=mobile` | 〃 |
+| `/#iletisim` | aynı yerde | — |
+| `/en.html#about`, `#journey`, `#apps` … | `/en/about/`, `/en/about/#experience`, `/en/projects/?platform=mobile` … | yönlendirme + betik |
 
-### 2. Sertifika görsellerini ekle  (opsiyonel ama tavsiye edilir)
+`#` kısmı sunucuya gitmediği için bölüm eşlemesi `vercel.json`'da değil, ana sayfada
+bir satırlık betikle yapılır (liste: `src/lib/routes.js` → `LEGACY_HASHES`).
+Bir adresi ileride değiştirirsen eski adres için `vercel.json`'a yönlendirme ekle.
 
-Sertifika kartlarındaki **Görüntüle** butonu bir pencere açar. Belgeleri şu adlarla koyarsan
-otomatik görünürler:
+---
 
-```
-assets/img/certs/istqb.jpg
-assets/img/certs/sdet.jpg
-assets/img/certs/udemy-fullstack.jpg
-assets/img/certs/btk-testing.jpg
-```
+## ➕ Yeni proje eklemek
 
-> Belge koymazsan pencerede “Belgenin kopyası talep üzerine paylaşılır.” yazar.
-> Ziyaretçiye dosya yolu ya da “şu klasöre JPG bırak” gibi bir kurulum notu **gösterilmez** —
-> o pencereyi açan kişi sertifikayı doğrulamaya geliyor.
+1. Ekran görüntülerini `assets/img/` altına koy (aşağıdaki ölçülere bak).
+2. `content/projects.js` içinde bir kaydı kopyalayıp yapıştır ve alanları doldur:
 
-### 3. Proje kartı görselleri  ✅ eklendi
+   | Alan | Ne yazılır |
+   | --- | --- |
+   | `slug` | Adres parçası: küçük harf, rakam, tire; Türkçe karakter yok (`yeni-urun`) |
+   | `name` | Ürün adı |
+   | `featured` | `true` ise ana sayfada gösterilir (en fazla 3 proje) |
+   | `platforms` | Filtre: `["web"]`, `["mobile"]` ya da `["web", "mobile"]` |
+   | `platformLabel` | Kartta görünen platform adı, ör. `Web ve Android` |
+   | `tags` | Alan etiketleri (sektör/konu), **en fazla 3**. Platform buraya yazılmaz |
+   | `summary` | Kart metni: kimin hangi sorununu çözdüğü, tek cümle |
+   | `links` | `{ type: "web", url, label }` ve/veya `{ type: "play", url }` |
+   | `icon` | (isteğe bağlı) uygulama simgesi, 192×192 PNG |
+   | `cover` | Kart görseli; `kind: "wide"` (16:9) ya da `"phone"` (dikey ekran) |
+   | `gallery` | Detay sayfasındaki gerçek ekran görüntüleri (alt metin + kısa açıklama) |
+   | `purpose`, `problem`, `role`, `features` | Detay sayfası bölümleri |
+   | `techSummary`, `tech` | Teknik tercihler. Gerekçesi bilinen teknolojiye `note` yaz; bilinmeyene yazma (etiket olarak görünür) |
+   | `related` | İlgili projelerin `slug`'ları |
 
-Projeler bölümündeki altı kartın hepsi 16:9 bir görselle açılıyor
-(`assets/img/projects/`, 800×450 WebP, 13–36 KB):
+   Her metin `{ tr: "...", en: "..." }` biçimindedir. Olmayan bölüm (ör. `problem`)
+   silinirse o bölüm sayfada hiç görünmez.
+3. `node tools/serve.js` ile kontrol et, `node tools/check-site.js` çalıştır.
+4. CV'yi güncelle: `node tools/build-cv-pdf.js` (proje listesi CV'ye de girer).
 
-| Dosya | Kaynak |
-| --- | --- |
-| `tmgdasistani.webp` · `safecargo.webp` · `kuryevenakliyat.webp` · `hafizatutucum.webp` | Upwork portfolyo görsellerinin **orta bandı** kırpıldı |
-| `gidiniz.webp` | gidiniz.blog ana sayfasının canlı ekran görüntüsü |
-| `uygulamalar.webp` | üç uygulama simgesinden üretilen bileşik görsel |
+Üretici eksik alanı, 3'ten fazla etiketi, bulunamayan görseli ya da kayıttaki ölçüyle
+dosyanın gerçek ölçüsünün tutmamasını hata olarak bildirir.
 
-> Upwork görselleri olduğu gibi kullanılmadı: onlarda kendi başlığı, logosu ve
-> teknoloji etiketleri var; kartın **zaten** başlığı ve etiketleri olduğu için
-> kart içinde kart gibi görünüyorlardı. Yalnızca ortadaki ürün görüntüsü alındı.
+> **İçerik kuralı:** kullanıcı sayısı, indirme, gelir, performans kazanımı ya da müşteri
+> yorumu yazılmaz; doğrulanmamış ürünler "yayında / aktif" diye etiketlenmez.
+> Geliştirme ayrıntıları (ör. veritabanı göçü sayısı) başarı göstergesi gibi sunulmaz.
 
-Görseli değiştirmek istersen aynı ada, 16:9 oranında yaz. Yeniden üretmek için:
+### Görsel ölçüleri
+
+| Tür | Ölçü | Nerede |
+| --- | --- | --- |
+| Geniş ekran görüntüsü (web) | 800×450 WebP (16:9) | `assets/img/projects/` |
+| Telefon ekranı | 540×1110 WebP | `assets/img/apps/` |
+| Uygulama simgesi | 192×192 PNG | `assets/img/apps/icon-*.png` |
+
+Upwork/mağaza görsellerinden yalnızca ürün ekranını almak için kullanılan komutlar:
 
 ```bash
+# Geniş görselin orta bandını al
 ffmpeg -i kaynak.png -vf "crop=1440:810:80:170,scale=800:450" \
        -c:v libwebp -quality 82 assets/img/projects/ad.webp
-```
 
-> ⚠️ **Yazdırmada gizleniyor.** `assets/css/style.css` içindeki `@media print`
-> bloğu `.project__shot` öğesini `display: none` yapar. Bu kural kaldırılırsa
-> CV çıktısı 3 sayfadan taşar ve `build-cv-pdf.js` PDF'i yazmayı reddeder.
->
-> Aynı sebeple görsellere `loading="lazy"` **konulmadı**: yazdırma sırasında
-> gizli kalan tembel görseller hiç yüklenmez, `brokenImages` kontrolü de
-> takılırdı. Altı dosya toplam ~117 KB.
-
-### 4. Uygulama ekran görüntüleri  ✅ eklendi
-
-Telefon maketlerinin içinde artık **gerçek uygulama ekranları** var. Beş dosya da
-540×1110 WebP (21–32 KB), yani maketin `9 / 18.5` oranıyla birebir — `object-fit: cover`
-hiçbir şeyi kırpmıyor:
-
-| Dosya | Ekran | Kaynak |
-| --- | --- | --- |
-| `kuryevenakliyat.webp` | Ana sayfa | `tasiapp` → `mobile/store-assets/real-captures/phone/05-home.png` (ham çekim) |
-| `benimkasam.webp` | Kasa | `benim_kasam` → `store-assets/screenshots/1-kasa.png` |
-| `focuslife.webp` | Odak sayacı | `pomodoro-sayaci` → `store-assets/googleplay/play-01-focus-1080x2160.png` |
-| `hafizatutucum.webp` | Notlar | `Hafiza-tutucum` → `store-assets/01-notlar.png` |
-| `marketlistem.webp` | Listelerim | `market-listem` → `store-assets/google-play/play-screenshot-1.png` |
-
-Mağaza görselleri olduğu gibi kullanılamadı: `tasiapp` dışındakiler **çerçeveli pazarlama
-tasarımı** (üstte başlık metni, altta telefon gövdesi). Maketin içine konsaydı
-telefon-içinde-telefon görünürlerdi. Her birinden **bezel içindeki ekran** kırpıldı, sonra
-oran `9 / 18.5`'e tamamlandı:
-
-```bash
-# 1) bezel içindeki ekranı kırp  (koordinatlar görsele göre değişir)
+# Çerçeveli mağaza görselinden bezel içindeki ekranı kırp (koordinatlar görsele göre değişir)
 ffmpeg -i kaynak.png -vf "crop=606:1380:232:385" ekran.png
-
-# 2) kırpılan ekran maketten dar kalıyorsa kenarları kendi zeminiyle tamamla
-#    (gövde ve alt navigasyon farklı renkte olduğu için iki parça hâlinde)
-ffmpeg -i ekran.png -filter_complex \
-  "[0:v]crop=606:1258:0:0,pad=671:1258:32:0:0xf3f3f8[t];\
-   [0:v]crop=606:122:0:1258,pad=671:122:32:0:0xffffff[b];[t][b]vstack" tam.png
-
-# 3) siteye koy
-ffmpeg -i tam.png -vf "scale=540:-2" -c:v libwebp -quality 84 \
-  assets/img/apps/hafizatutucum.webp
+ffmpeg -i ekran.png -vf "scale=540:-2" -c:v libwebp -quality 84 assets/img/apps/ad.webp
 ```
 
-> **Neden tamamlandı, kırpılmadı?** Kaynak ekranlar 0,44 oranında, maket 0,486.
-> `cover` farkı üstten ve alttan kırpıyor ve alt navigasyon çubuğunun etiketleri
-> kesiliyordu. Kenarlara ekranın kendi zemin rengi eklenince hiçbir şey kaybolmuyor.
-
-Simgeler (`icon-*.png`, 192×192) yerinde duruyor ama artık görünmüyorlar: gerçek ekran
-görüntüsü maketin tamamını kaplıyor. `onerror="this.remove()"` de duruyor — dosya bir gün
-kaybolursa stilize önizleme yine devreye girer.
-
-
-### 5. Sosyal bağlantılar  ✅ eklendi
-
-Gerçek adresler yerine kondu (her iki dilde, hem hero hem iletişim bölümünde):
-
-| Platform     | Adres                                                              |
-| ------------ | ------------------------------------------------------------------ |
-| LinkedIn     | `https://www.linkedin.com/in/suphi-atilim-celikoz/`                  |
-| GitHub       | `https://github.com/suphiati`                                        |
-| Google Play  | `https://play.google.com/store/apps/developer?id=RiskManage+Studio`  |
-| Upwork       | `https://www.upwork.com/freelancers/~0182462aa45cf30710`             |
-
-Aynı dört adres `schema.org` verisine `sameAs` olarak da eklendi — Google’ın bu profilleri
-seninle aynı kişi olarak eşleştirmesini sağlar.
-
-### 6. Şirket adı  ⚠️ karar senin
-
-Google Play geliştirici hesabın **RiskManage Studio** adına kayıtlı. Sitede şirketin şu an
-“Kendi Yazılım Şirketim” diye geçiyor. Eğer RiskManage Studio kurduğun şirketin adıysa,
-adıyla anmak çok daha güçlü durur. Değiştirilecek yerler:
-
-- `index.html` → kariyer zaman çizelgesinde `<span class="tl-org">Kendi Yazılım Şirketim</span>`
-- `en.html` → `<span class="tl-org">My own software company</span>`
-
-### 7. Alan adı  ✅ suphicelikoz.com
-
-Alan adı alındı ve site zaten bu adrese göre yapılandırılmış durumda —
-değiştirilecek bir şey yok. Geçtiği yerler:
-
-- `index.html` ve `en.html` → `canonical`, `hreflang`, `og:url`, JSON-LD `url`/`image`
-- `sitemap.xml` (2 URL)
-- `robots.txt` (sitemap satırı)
-
-İleride alan adı değişirse tek komutla güncellenir:
-
-```bash
-grep -rl "suphicelikoz.com" index.html en.html sitemap.xml robots.txt | xargs sed -i "s/suphicelikoz\.com/YENI-ALAN-ADI/g"
-```
-
-### 8. Teknoloji etiketleri  ✅ projelerden doğrulandı
-
-Yetkinlikler bölümü, yedi proje klasörünün `package.json` dosyaları okunarak yeniden yazıldı.
-Artık listedeki her kalem gerçekten kullandığın bir teknoloji.
-
-**Kaldırılanlar** (hiçbir projede yok): Vue, Flutter, Dart, Express, MongoDB,
-Selenium, Appium, TestNG, JUnit, Cucumber, TensorFlow Lite, MediaPipe, NLP, Computer Vision.
-
-**Eklenenler** (projelerde fiilen var): TypeScript, Next.js, Tailwind CSS, Vite, Zustand,
-TanStack Query, Zod, React Hook Form, Supabase (Postgres/Auth/Realtime/Storage/Edge Functions),
-Firebase, React Native, Expo, Expo Router, Capacitor, EAS Build, Playwright, Vitest, Jest,
-Sentry, Resend, next-intl, Vercel, Anthropic Claude API, Google Gemini, OpenAI API,
-llama.rn (cihaz-üstü GGUF modeli), ML Kit OCR, konuşma tanıma.
-
-> Yeni bir teknolojiye geçtiğinde etiketi eklemek/çıkarmak tek satır:
-> `<li><span class="tag">Yeni Teknoloji</span></li>`
+Kaynak ekran telefon oranından darsa kenarları ekranın kendi zemin rengiyle tamamla
+(kırpma alt menüyü keser). Sahte ürün ekranı üretme; yalnızca gerçek ekran görüntüsü.
 
 ---
 
-## 🖼️ Sosyal paylaşım görseli
+## ✍️ Blog
 
-Siteyi LinkedIn'de, WhatsApp'ta, Slack'te ya da Upwork mesajında paylaştığında
-görünen 1200×630 kapak. İki dil için iki dosya var; `index.html` Türkçesini,
-`en.html` İngilizcesini gösteriyor.
+### Yeni yazı
 
-| Sayfa | Kapak |
-| --- | --- |
-| `index.html` | `assets/img/og-cover.jpg` |
-| `en.html` | `assets/img/og-cover-en.jpg` |
+`content/blog/tr/` altına bir `.md` dosyası oluştur. **Dosya adı adrestir:**
+`neden-supabase.md` → `/blog/neden-supabase/`. Küçük harf, rakam ve tire kullan.
 
-> ⚠️ Bu dosyalar **zorunlu**. `og:image` etiketi koşulsuz olarak onları gösteriyor;
-> dosya yoksa paylaşım önizlemesi "eksik" görünmez, hiç oluşmaz.
+````markdown
+---
+title: Yazının başlığı
+description: Listede ve arama sonuçlarında görünen bir iki cümlelik özet.
+status: draft
+date:
+category: Ürün geliştirme
+related: [tmgd-asistani]
+---
 
-Tasarım `tools/og-cover.html` dosyasında duruyor — sitenin kendi paletini kullanan
-tek sayfalık bir şablon. İkinci dil ayrı bir dosya değil: şablon `?lang=en` ile
-açıldığında metinleri İngilizceye çeviriyor, düzen ve renkler aynı kalıyor.
+Giriş paragrafı.
 
-```bash
-node tools/build-og-cover.js --check   # eskimiş mi? (çıkış kodu 1 = eskimiş)
-node tools/build-og-cover.js           # ikisini de yeniden üret
+## Ara başlık
+
+Metin, **kalın**, *italik*, `kod` ve [bağlantı](https://ornek.com).
+Proje sayfasına bağlantı: [TMGD Asistanı](proje:tmgd-asistani)
+
+![Görselin açıklaması](/assets/img/blog/ornek.webp "Görsel altı yazısı")
+
+```js
+const ornek = true;
 ```
 
-Betik, PDF üreticisiyle aynı düzeni izliyor: kendi mini sunucusunu açar, Chrome'u
-arka planda çalıştırır ve dosyayı yazmadan **önce** doğrular — gerçekten JPEG mi,
-tam 1200×630 mü, portre yüklendi mi, web fontları indi mi, tuval taştı mı. Biri
-tutmazsa dosya yazılmaz. `assets/img/.og-cover-stamp` kaynakların özetini tutar.
+<!-- ONAY: Yayından önce benim doğrulamam gereken bir bilgi. -->
+````
 
-> Şablondaki metinleri değiştirirsen sitedeki karşılıklarıyla (hero durum rozeti,
-> roller, istatistikler) aynı kalmasına dikkat et — dosyanın içinde bunu hatırlatan
-> bir not var.
+| Alan | Zorunlu | Açıklama |
+| --- | --- | --- |
+| `title`, `description`, `category` | evet | |
+| `status` | evet | `draft` (taslak) ya da `published` (yayımlanmış) |
+| `date` | yayımlarken | Yayın tarihi, `YYYY-AA-GG` |
+| `updated` | hayır | Güncelleme tarihi; yazıda ve site haritasında görünür |
+| `related` | hayır | İlgili projelerin slug'ları; yazının sonunda proje kartı çıkar |
+| `translation` | hayır | Diğer dildeki karşılığın dosya adı (iki yönlü yazılmalı) |
+
+- Başlıklar `##` ve `###` ile yazılır (`#` kullanılmaz; sayfa başlığı `title`'dan gelir).
+- 3 veya daha fazla `##` başlığı olan yazıda **içindekiler** kendiliğinden eklenir.
+- Okuma süresi kendiliğinden hesaplanır.
+- Yazı görsellerini `assets/img/blog/` altına koy; ölçüsü otomatik okunur.
+
+### Taslak → yayın
+
+Taslaklar (`status: draft`) canlı sitede **hiçbir yerde** görünmez: sayfaları
+üretilmez, blog listesinde, ana sayfada, site haritasında ve RSS'te yer almaz.
+
+1. Taslağı incele: `node tools/serve.js --drafts` → `http://localhost:4173/blog/`
+   sayfasının altında **Taslaklar** bölümü. Taslak sayfalarında sarı bir şerit ve
+   `<!-- ONAY: ... -->` notları görünür.
+2. Onay notlarındaki soruları yanıtla, metni düzelt, **notları sil.**
+3. `status: published` yap ve `date:` satırını doldur (ör. `date: 2026-10-01`).
+4. `node tools/check-site.js` → `git add -A && git commit -m "Yeni yazı" && git push`
+
+> Yayımlanmış bir yazıda `ONAY` notu kalırsa site **derlenmez** ve hangi dosyada kaç
+> not kaldığını söyler. Böylece onaylanmamış bir bilgi yanlışlıkla yayına çıkmaz.
+
+> ⚠️ Taslak `.md` dosyaları depoya girer. Depo herkese açıksa taslaklar GitHub'da
+> okunabilir (sitede görünmezler). Tamamen gizli tutmak istediğin notları `.gitignore`
+> kapsamındaki `taslak/` klasöründe tut.
+
+### İngilizce yazı / çeviri
+
+Yazıyı `content/blog/en/` altına koy. Bir Türkçe yazının çevirisiyse iki dosyaya da
+karşılıklı `translation:` yaz. Çevirisi olmayan yazılarda dil düğmesi diğer dilin blog
+listesine gider ve bunu açıklar; bozuk ya da yanıltıcı bir dil bağlantısı üretilmez.
+Blogda hiç yayımlanmış yazı yoksa sade bir boş durum mesajı görünür; ana sayfada
+"Son yazılar" bölümü ancak yayımlanmış yazı olunca çıkar.
 
 ---
 
 ## 📄 CV çıktısı
 
-Sağ üstteki **CV İndir** ve sayfa sonundaki **CV'mi İndir** butonları hazır bir PDF
-dosyasını doğrudan indirir — yazdırma penceresi açılmaz:
+Üst menüdeki **CV İndir** ve sayfalardaki **CV'mi indir** bağlantıları hazır PDF'i indirir:
 
-| Sayfa | İnen dosya |
+| Dil | Dosya |
 | --- | --- |
-| `index.html` | `assets/cv/Suphi-Atilim-Celikoz-CV.pdf` |
-| `en.html` | `assets/cv/Suphi-Atilim-Celikoz-CV-EN.pdf` |
+| Türkçe | `assets/cv/Suphi-Atilim-Celikoz-CV.pdf` |
+| İngilizce | `assets/cv/Suphi-Atilim-Celikoz-CV-EN.pdf` |
 
-PDF'ler sitenin kendi `@media print` stilinden üretiliyor: yani inen dosya, sayfayı
-**Ctrl+P** ile yazdırdığında çıkacak olanın birebir aynısı — **3 sayfalık** derli toplu
-bir CV. (Ekranda görünen site hiç değişmez; Ctrl+P de çalışmaya devam eder.)
-
-> **Dosyanın adını değiştirmek istersen** `assets/cv/` içindeki dosyayı yeniden
-> adlandır ve HTML'deki `href`'i güncelle. `<a download="başka-ad.pdf">` yazmak
-> yetmez: Vercel her statik dosyada `Content-Disposition: inline; filename="..."`
-> gönderiyor ve tarayıcı bunu öznitelikteki isme tercih ediyor. Yani yerelde
-> çalışır, yayında sessizce yok sayılır — indirilen adı yalnızca diskteki ad belirler.
-
-### Çıktıya giren / girmeyen
-
-| Girer | Girmez |
-| --- | --- |
-| Ad, unvanlar, özet, iletişim | Menü, butonlar, animasyonlar |
-| İstatistikler (10+ yıl, 5 uygulama…) | Bölüm giriş paragrafları (`.section-desc`) |
-| Hakkımda — ilk iki paragraf | Kalan anlatım + alıntı bloğu |
-| Kariyer zaman çizelgesi (tam) | “Uzmanlık Alanlarım” (zaman çizelgesiyle aynı bilgi) |
-| Projeler: ad, adres, tek satır tanım, teknolojiler | Projelerin Problem/Çözüm/Ölçek detayları |
-| Yetkinlikler (3 sütun), sertifikalar, eğitim | Telefon maketleri, kariyer akış görseli |
-
-> Bağlantıların yanına tam URL basılmıyor; proje adresleri zaten kartın üstünde
-> metin olarak yazılı, tekrarı sayfalarca yer kaplıyordu.
-
-**Daha kısa/uzun istersen** `assets/css/style.css` sonundaki `@media print` bloğunda:
-gizlenecekleri `display: none !important` listesine ekle/çıkar, genel boyut için
-`body { font-size: 8.6pt }` değerini oynat.
-
-### PDF'i yeniden üretmek
-
-**Sayfa içeriğini ya da `@media print` bloğunu her değiştirdiğinde** PDF'ler eskir.
-Kurulum yok; Node ve Chrome (veya Edge) yeterli:
+CV artık ana sayfanın yazdırma stilinden değil, **kendi A4 şablonundan**
+(`src/templates/cv.js` + `cv.css`) üretiliyor. Veriyi siteyle aynı dosyalardan alır:
+ana sayfa kısalsa da CV'de özet, deneyim, 8 projenin tamamı, eğitim, sertifikalar ve
+yetkinlikler yer alır (2 sayfa).
 
 ```bash
 node tools/build-cv-pdf.js --check   # eskimiş mi? (çıkış kodu 1 = eskimiş)
 node tools/build-cv-pdf.js           # yeniden üret
 ```
 
-Betik Chrome'u arka planda açar, iki sayfayı da yazdırma stiliyle basar ve
-`assets/cv/` altındaki dosyaların üzerine yazar. Çıktıyı **yazmadan önce**
-doğruluyor — geçerli PDF mi, 2–4 sayfa mı, portre yüklendi mi, istatistik
-rakamları HTML'deki değerlerle aynı mı, e-posta yerleşti mi, filtreyle gizli
-kalan proje var mı, yazdırma paleti (`--brand: #14497f`) gerçekten uygulandı mı.
-Biri tutmazsa dosya yazılmaz ve betik hata verir. İçerik değişmemişse dosyaya
-hiç dokunmaz, böylece `git status` boş yere kirlenmez.
+`content/profile.js` ya da `content/projects.js` değişince PDF'ler eskir. Betik Chrome'u
+arka planda açar ve dosyayı **yazmadan önce** doğrular: geçerli PDF mi, 1–3 sayfa mı,
+portre yüklendi mi, bütün proje/deneyim/eğitim/sertifika başlıkları CV'de var mı,
+e-posta yazıldı mı. Biri tutmazsa dosya yazılmaz. İçerik değişmemişse dosyaya dokunmaz.
 
-> ⚠️ İnternet bağlantısı gerekir: Google Fonts inmezse PDF sistem yazı tipiyle
-> üretilir ve bütün sayfa sonları kayar. Betik bu durumda uyarı basar.
+> ⚠️ İnternet gerekir: Google Fonts inmezse PDF sistem yazı tipiyle üretilir ve betik
+> uyarı basar. Kurumsal ağda `HTTPS_PROXY` tanımlıysa Chrome'a iletilir.
 
-> `assets/cv/.build-stamp` kaynakların özetini tutar; `--check` bunu karşılaştırır.
-> Dosya tarihine bakmıyor: `git clone` dosyaları alfabetik sırayla yazdığı için
-> PDF'ler her taze klonda `index.html`'den eski görünür ve tarih karşılaştırması
-> koşulsuz “eskimiş” derdi. Bu dosya da depoya girer.
-
-> `tools/` klasörü Vercel tarafından da yayınlanır (siteye bağlantısı yoktur ama
-> `suphicelikoz.com/tools/build-cv-pdf.js` adresinden erişilebilir). İçinde gizli
-> bilgi yok; gerçekten gizlemek istersen `.vercelignore` eklemek gerekir.
+> **Dosya adını değiştirme.** Vercel her statik dosyada `Content-Disposition: inline;
+> filename="..."` gönderiyor ve tarayıcı bunu `download="..."` özniteliğine tercih
+> ediyor: indirilen dosyanın adını yalnızca diskteki ad belirler. Adı değiştirirsen
+> `content/profile.js` → `cv` alanını da güncelle.
 
 ---
 
-## 🚀 Yayın  ✅ canlı
+## 🖼️ Sosyal paylaşım görseli
 
-Site yayında ve her `git push` ile otomatik güncelleniyor.
+LinkedIn, WhatsApp, Slack vb. paylaşımlarda görünen 1200×630 kapak:
+Türkçe sayfalarda `assets/img/og-cover.jpg`, İngilizce sayfalarda `og-cover-en.jpg`.
+Tasarım `tools/og-cover.html` içinde (`?lang=en` ile İngilizce metne geçer).
+
+```bash
+node tools/build-og-cover.js --check
+node tools/build-og-cover.js
+```
+
+Kapak metni ana sayfadaki tanıtımla, üzerindeki üç ürün adı ana sayfada öne çıkan
+projelerle uyumlu olmalı; birini değiştirirsen ötekini de güncelle.
+
+---
+
+## 🙂 Fotoğraf
+
+`assets/img/suphifoto.png` **215×265 px**. Bu yüzden büyütülmeden gösteriliyor:
+masaüstünde 220 px genişlik (ana sayfa), Hakkımda'da 215 px; mobilde ad yanında küçük
+yuvarlak avatar. Mobilde tanıtım ve "Projelerimi incele / İletişime geç" ilk ekranda kalır.
+
+Yüksek çözünürlüklü orijinali bulursan (en az 430×530, oran 0,81) aynı adla üzerine
+yaz ve `content/profile.js` → `photo.width / height` değerlerini güncelle; ardından
+`assets/css/style.css` içinde `.intro__photo img` (220px) ve `.about-head__photo img`
+(215px) genişliklerini büyütebilirsin. CV ve kapağı da yeniden üret.
+
+---
+
+## 🏅 Sertifikalar
+
+Sertifika belgelerinin görselleri sitede yok; bu yüzden "Görüntüle" düğmesi
+gösterilmiyor ve Hakkımda sayfasında "Belge kopyaları talep üzerine paylaşılır"
+yazıyor. Sertifika listesi `content/profile.js` → `certificates` alanında.
+
+---
+
+## 🚀 Yayın (Vercel)
 
 | | Adres |
 | --- | --- |
 | **Canlı site** | **https://suphicelikoz.com** |
-| İngilizce | https://suphicelikoz.com/en.html |
 | Kaynak kod | https://github.com/suphiati/suphicelikoz |
 | Vercel projesi | https://vercel.com/suphis-projects-f81baff7/suphicelikoz |
 
-### Nasıl güncellerim?
+Vercel `main` dalını izler. Her push'ta `vercel.json` gereği:
 
-Dosyalarda değişiklik yap, sonra:
-
-```bash
-git add -A && git commit -m "aciklama" && git push
+```json
+{
+  "buildCommand": "node tools/build-site.js",
+  "outputDirectory": "dist",
+  "trailingSlash": true,
+  "redirects": [{ "source": "/en.html", "destination": "/en/", "permanent": true }]
+}
 ```
 
-Vercel `main` dalını izliyor; push'tan ~30 saniye sonra site güncellenir.
-Başka bir dala push edersen otomatik olarak bir **önizleme (preview)** adresi oluşur —
-canlı siteye dokunmaz, önce orada denersin.
+- **Derleme:** Vercel `node tools/build-site.js` çalıştırır ve yalnızca `dist/`
+  klasörünü yayınlar. Paket kurulumu yoktur (`package.json` yok).
+- **`trailingSlash`:** `/projeler` → `/projeler/` (canonical adreslerle aynı). Uzantılı
+  dosyalar (`/assets/...`, `/sitemap.xml`) etkilenmez.
+- `tools/`, `content/`, `src/` artık yayınlanmıyor (eski düzende `tools/` herkese açıktı).
+- Başka bir dala push edersen Vercel canlı siteye dokunmayan bir **önizleme (preview)**
+  adresi oluşturur; yeni yapıyı yayına almadan önce orada denemek için en güvenli yol.
+
+### Bu değişiklikle Vercel panelinde kontrol edilecekler
+
+`vercel.json` panel ayarlarını ezdiği için normalde hiçbir şey değiştirmek gerekmez.
+Yine de ilk yayından önce **Settings → Build and Deployment** bölümüne bak:
+
+1. **Framework Preset:** `Other` kalabilir.
+2. **Build Command / Output Directory:** panelde elle bir değer girilmişse ve
+   "Override" açıksa `vercel.json` ile aynı olsun ya da override'ı kapat.
+3. **Node.js Version:** 18 veya üstü (varsayılan zaten öyle).
 
 ### Kurulum böyle yapıldı (bir daha gerekirse)
 
 **Vercel**
 - Proje `suphiati/suphicelikoz` deposundan **Import** edildi (Clone değil — Clone yeni bir depo oluşturur).
-- Application Preset: **Other** (statik site, build komutu yok).
-- Root Directory: `./`
-- Environment Variables: yok.
+- Application Preset: **Other**. Root Directory: `./`. Environment Variables: yok.
 
 **Alan adları** (Vercel → Settings → Domains)
 
@@ -357,8 +373,7 @@ canlı siteye dokunmaz, önce orada denersin.
 
 > Apex'i (www'suz) ana adres seçtim çünkü sayfalardaki `canonical` etiketleri
 > `https://suphicelikoz.com/` diyor. Vercel'in "Redirect apex domains to www"
-> önerisini bilerek **kapattım**; açık kalsaydı canonical ile yönlendirme
-> birbiriyle çelişirdi.
+> önerisini bilerek **kapattım**; açık kalsaydı canonical ile yönlendirme çelişirdi.
 
 **DNS** (Cloudflare — `suphicelikoz.com` zone'u)
 
@@ -368,58 +383,69 @@ canlı siteye dokunmaz, önce orada denersin.
 | CNAME | `www` | `c6640786ac790380.vercel-dns-017.com` | **DNS only** |
 
 > ⚠️ **Proxy'yi (turuncu bulut) açma.** Vercel kendi CDN'ini ve SSL sertifikasını
-> kullanıyor; Cloudflare proxy'si açık olursa sertifika üretimi ve yönlendirmeler
-> bozulabilir. Cloudflare panelinde "Proxying is required for most security
-> features" uyarısı çıkar — bu kurulumda görmezden gelinir.
+> kullanıyor; Cloudflare proxy'si açık olursa sertifika üretimi ve yönlendirmeler bozulabilir.
+
+**Alan adı değişirse:** `src/lib/routes.js` → `SITE_URL` tek yer (canonical, hreflang,
+site haritası, RSS, robots.txt, yapılandırılmış veri buradan üretilir). Kapak
+şablonundaki `suphicelikoz.com` yazısını ve `tools/og-cover.html`'i de güncelle.
 
 ### Doğrulama
 
 ```bash
 curl -sS -o /dev/null -w "%{http_code} %{redirect_url}\n" https://suphicelikoz.com/
 curl -sS -o /dev/null -w "%{http_code} %{redirect_url}\n" https://www.suphicelikoz.com/
+curl -sS -o /dev/null -w "%{http_code} %{redirect_url}\n" https://suphicelikoz.com/en.html
 ```
 
-Beklenen: apex `200`, www `308 https://suphicelikoz.com/`.
+Beklenen: apex `200`, www `308 https://suphicelikoz.com/`, en.html `308 …/en/`.
 
 ---
 
-## 🎨 Renkleri değiştirmek
+## ✅ Yayından önce kontrol
 
-Tüm renk paleti `assets/css/style.css` dosyasının en üstündeki `:root` bloğunda:
-
-```css
---brand: #2e7dff;   /* elektrik mavisi — ana vurgu */
---cyan:  #22d3ee;   /* ikincil vurgu */
---bg:    #060a15;   /* koyu lacivert zemin */
+```bash
+node tools/check-site.js
+node --test tools/test/markdown.test.js
+node tools/build-cv-pdf.js --check
+node tools/build-og-cover.js --check
 ```
 
-Açık tema renkleri hemen altındaki `html[data-theme="light"]` bloğunda.
+`check-site.js` siteyi geçici klasörlere üretir ve şunlara bakar: her sayfada tek `h1` ve
+atlanmayan başlık sırası, başlık/açıklama/canonical, görsellerde alt metin ve ölçü, kırık
+iç bağlantı ve bölüm hedefi, karşılıklı `hreflang`, geçerli JSON-LD, site haritasının
+dizine eklenebilir sayfalarla birebir tutması, eski adreslerin hedefleri, **taslak
+sızıntısı** (taslağın adresi, başlığı ya da onay notu yayın çıktısında olmamalı) ve
+geçici bir deneme yazısıyla yayımlama akışı (liste, ana sayfa, RSS, site haritası,
+çeviri bağlantısı, içindekiler, kod bloğu).
 
 ---
+
+## 🎨 Tasarım
+
+- Renkler `assets/css/style.css` başındaki `:root` (koyu) ve `html[data-theme="light"]`
+  (açık) bloklarında. Kimlik: elektrik mavisi `#2e7dff` → turkuaz `#22d3ee`.
+  Düğme zemini beyaz yazıyla yeterli kontrast için daha koyu mavi (`#1d5fe0`).
+- Dekoratif arka plan parlaması, ızgara, kayan rozet ve sayaç animasyonu yok.
+  Yumuşak kaydırma da yok; geçişler yalnızca renk değişimi ve azaltılmış hareket
+  tercihinde tamamen kapanıyor.
+- Yazı tipleri: başlıklarda Space Grotesk, metinde Inter (Google Fonts); kod
+  bloklarında sistem yazı tipi.
 
 ## 🔧 Teknik notlar
 
-- **Bağımlılık yok.** Sadece Google Fonts dışarıdan yükleniyor; internet olmasa da site çalışır
-  (sistem yazı tipine düşer).
-- **CV butonu düz bağlantı.** JavaScript çalıştırmaz; `assets/cv/` altındaki dosyaya
-  bağlı normal bir `<a download>` etiketidir — JavaScript kapalıyken, orta tıklamayla
-  ve “bağlantıyı farklı kaydet” ile de çalışır.
-- **Tema:** koyu/açık geçiş sağ üstteki butonla, tercih `localStorage`’a kaydedilir.
-  İlk açılışta işletim sistemi tercihine uyar.
-- **Erişilebilirlik:** klavyeyle tam gezinilebilir, `skip link`, `aria` etiketleri,
-  `prefers-reduced-motion` desteği var.
-- **SEO:** Open Graph, `hreflang`, `sitemap.xml` ve schema.org `Person` yapılandırılmış verisi eklendi.
-- **Spam koruması:** e-posta ve telefon HTML içinde düz metin olarak yazılmaz,
-  JavaScript ile birleştirilir. Basit botlar toplayamaz.
+- **Tema:** açık/koyu düğmesi; seçim `localStorage`'a (`sac-theme`) kaydedilir, ilk
+  açılışta işletim sistemi tercihine uyar. JavaScript kapalıyken de sistem tercihi uygulanır.
+- **Erişilebilirlik:** klavyeyle tam gezinme, "İçeriğe geç" bağlantısı, görünür odak
+  halkası, `aria-current` ile etkin menü, filtrelerde `aria-pressed` ve durum bildirimi,
+  yeni sekmede açılan bağlantılar için ekran okuyucu notu, `prefers-reduced-motion`.
+- **JavaScript kapalıyken** bütün içerik okunur; yalnızca filtre düğmeleri gizlenir ve
+  e-posta/telefon açık yazılmaz.
+- **Spam koruması:** e-posta ve telefon HTML'de düz metin değil, JavaScript ile
+  birleştirilir. Aynı sebeple yapılandırılmış veride (JSON-LD) de yer almazlar.
+- **SEO:** her sayfada başlık, açıklama, canonical, dil alternatifleri (yalnızca gerçek
+  karşılığı olan sayfalarda), Open Graph; `sitemap.xml`, `robots.txt`, RSS. Yapılandırılmış
+  veri yalnızca sayfada görünen bilgiyi taşır: ana sayfada `Person`/`WebSite`, Hakkımda'da
+  `ProfilePage`, proje ve yazılarda `BreadcrumbList`, yazılarda `BlogPosting`.
+- **Taslak önizlemesi** (`.preview/`) `robots.txt` ile dizinlemeyi tamamen kapatır ve
+  taslak sayfaları `noindex` taşır; yanlışlıkla yayınlansa bile arama motoruna girmez.
 - **Tarayıcı desteği:** Chrome, Edge, Firefox, Safari güncel sürümler.
-  `color-mix()` kullanıldığı için çok eski tarayıcılarda renkler sadeleşir, düzen bozulmaz.
-
----
-
-> `.claude/` klasoru yalnizca yerel onizleme icindir (bagimliliksiz kucuk bir
-> statik sunucu). Siteyi yayina alirken gerekmez; `.gitignore` icinde haric tutuldu.
->
-> `tools/` klasoru ise depoya **girer**. Icindeki betik, depoda duran iki CV PDF'ini
-> ureten tek dosyalik bir gelistirme aracidir; `.claude/` gibi haric tutulsaydi
-> PDF'leri baska bir bilgisayarda guncellemek mumkun olmazdi. Ayni sebeple
-> `.claude/serve.js`'i cagirmak yerine kendi mini sunucusunu iceriyor.
