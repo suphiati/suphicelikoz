@@ -199,6 +199,9 @@ function build(options) {
     });
   });
 
+  /* Duskpath bölümü: yalnızca İngilizce, hreflang çifti yok */
+  req("src/templates/duskpath.js").all().forEach(function (p) { out.push(p); });
+
   /* Yaz */
   fs.rmSync(outDir, { recursive: true, force: true });
   fs.mkdirSync(outDir, { recursive: true });

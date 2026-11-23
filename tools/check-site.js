@@ -84,7 +84,7 @@ function auditOutput(dir, label) {
     ok(/^<!DOCTYPE html>/i.test(html), where + ": DOCTYPE yok");
     const lang = (/<html lang="([a-z]{2})"/.exec(html) || [])[1];
     ok(lang === "tr" || lang === "en", where + ": <html lang> eksik");
-    ok(lang !== "en" || url.startsWith("/en/"), where + ": İngilizce sayfa /en/ altında değil");
+    ok(lang !== "en" || url.startsWith("/en/") || /^\/duskpath(-[a-z-]+)?\/$/.test(url), where + ": İngilizce sayfa /en/ altında değil");
     ok(/<title>[^<]{10,}<\/title>/.test(html), where + ": <title> eksik ya da çok kısa");
     ok(/<meta name="description" content="[^"]{30,}"/.test(html), where + ": meta description eksik");
     ok(/<meta name="viewport"/.test(html), where + ": viewport eksik");

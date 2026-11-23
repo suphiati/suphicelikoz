@@ -152,6 +152,7 @@ module.exports = {
     langGroup: "Language",
     langOther: "Türkçe",
     langNoTranslation: "This post has no Turkish version; goes to the Turkish blog page",
+    langNoTwin: "This page is English only; goes to the Turkish home page",
     theme: "Light / dark theme",
     themeToLight: "Switch to light theme",
     themeToDark: "Switch to dark theme",

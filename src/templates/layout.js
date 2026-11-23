@@ -100,8 +100,8 @@ function langSwitch(page) {
   let extra = "";
   if (!target) {
     target = (page.altFallback && page.altFallback[o]) || PATHS[o].home;
-    label = o.toUpperCase() + " — " + t.langNoTranslation;
-    extra = ' title="' + esc(t.langNoTranslation) + '"';
+    label = o.toUpperCase() + " — " + (page.noTwin && t.langNoTwin ? t.langNoTwin : t.langNoTranslation);
+    extra = ' title="' + esc((page.noTwin && t.langNoTwin ? t.langNoTwin : t.langNoTranslation)) + '"';
   }
   const otherLink = '<a href="' + esc(target) + '" hreflang="' + o + '" lang="' + o + '" aria-label="' + esc(label) + '"' + extra + ">" + o.toUpperCase() + "</a>";
   const links = page.lang === "tr" ? cur + otherLink : otherLink + cur;
