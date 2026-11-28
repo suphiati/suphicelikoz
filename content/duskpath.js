@@ -25,6 +25,7 @@ module.exports = {
   updated: UPDATED,
   operator: OPERATOR,
   navLabel: "Duskpath",
+  order: ["overview", "privacy", "terms", "support", "deleteAccount"],
   pages: {
     overview: {
       path: "/duskpath/",

@@ -199,8 +199,10 @@ function build(options) {
     });
   });
 
-  /* Duskpath bölümü: yalnızca İngilizce, hreflang çifti yok */
-  req("src/templates/duskpath.js").all().forEach(function (p) { out.push(p); });
+  /* Uygulama bölümleri (Duskpath, ScratchMiles): yalnızca İngilizce, hreflang çifti yok */
+  ["duskpath", "scratchmiles"].forEach(function (app) {
+    req("src/templates/app-section.js").all(req("content/" + app + ".js")).forEach(function (p) { out.push(p); });
+  });
 
   /* Yaz */
   fs.rmSync(outDir, { recursive: true, force: true });
