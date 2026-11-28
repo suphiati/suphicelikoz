@@ -1,17 +1,15 @@
 /* =============================================================================
-   Duskpath sayfaları (yalnızca İngilizce, Türkçe eşi yok). İçerik:
-   content/duskpath.js. Ana menüde değil; sayfalar alt menüyle birbirine bağlı.
+   Uygulama bölümleri (yalnızca İngilizce, Türkçe eşi yok): Duskpath, ScratchMiles.
+   İçerik: content/<uygulama>.js (order, navLabel, pages). Ana menüde değil;
+   sayfalar alt menüyle birbirine bağlı. Mağazalar bu adresleri ister.
    ========================================================================== */
 "use strict";
 
 const { esc } = require("../lib/util");
 const { PATHS } = require("../lib/routes");
-const D = require("../../content/duskpath");
 
-const ORDER = ["overview", "privacy", "terms", "support", "deleteAccount"];
-
-function subNav(current) {
-  return '<nav class="dp-nav" aria-label="Duskpath"><ul>' + ORDER.map(function (k) {
+function subNav(D, current) {
+  return '<nav class="dp-nav" aria-label="' + esc(D.navLabel) + '"><ul>' + D.order.map(function (k) {
     const p = D.pages[k];
     return '<li><a href="' + p.path + '"' + (k === current ? ' aria-current="page"' : "") + ">" + esc(p.nav) + "</a></li>";
   }).join("") + "</ul></nav>";
@@ -24,7 +22,7 @@ function mail(profile) {
     '<noscript> (Enable JavaScript to see the address, or use the <a href="' + PATHS.en.home + '#contact">contact section</a> on the home page.)</noscript>';
 }
 
-function build(key) {
+function build(D, key) {
   const profile = require("../../content/profile");
   const p = D.pages[key];
   const body = p.body.replace("{{mail}}", mail(profile)).replace(/\{\{mailref\}\}/g, '<a href="#contact">the address in the Contact section</a>');
@@ -38,7 +36,7 @@ function build(key) {
     description: p.description,
     body: [
       '<div class="wrap page dp">',
-      "  " + subNav(key),
+      "  " + subNav(D, key),
       '  <article class="prose dp-article">',
       '    <header class="page-head">',
       '      <p class="page-kicker">' + esc(p.kicker) + "</p>",
@@ -52,4 +50,4 @@ function build(key) {
   };
 }
 
-module.exports = { all: function () { return ORDER.map(build); } };
+module.exports = { all: function (D) { return D.order.map(function (k) { return build(D, k); }); } };
